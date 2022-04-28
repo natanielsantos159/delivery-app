@@ -45,7 +45,7 @@ export default function Login() {
           type="text"
           value={ email }
           onChange={ ({ target }) => setEmail(target.value) }
-          data-testid="common_login__input-email"
+          inputProps={ { 'data-testid': 'common_login__input-email' } }
           label="Digite o seu E-mail"
           sx={ { width: 400, mb: 5 } }
         />
@@ -53,7 +53,7 @@ export default function Login() {
           type="password"
           value={ password }
           onChange={ ({ target }) => setPassword(target.value) }
-          data-testid="common_login__input-password"
+          inputProps={ { 'data-testid': 'common_login__input-password' } }
           label="Digite a sua Senha"
           sx={ { width: 400, mb: 5 } }
         />
