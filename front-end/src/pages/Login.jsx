@@ -13,7 +13,8 @@ const RootStyle = styled('form')(({ theme }) => ({
 }));
 
 export default function Login() {
-  const [value, setValue] = useState('default')
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   return (
     <RootStyle>
@@ -37,11 +38,17 @@ export default function Login() {
           Bem Vindo ao App de Delivery
         </Typography>
         <TextField
+          type={'text'}
+          value={email}
+          onChange={({ target }) => setEmail(target.value)}
           data-testid="common_login__input-email"
           label="Digite o seu E-mail"
           sx={{ width: 400, mb: 5 }}
         />
         <TextField
+          type={'password'}
+          value={password}
+          onChange={({ target }) => setPassword(target.value)}
           data-testid="common_login__input-password"
           label="Digite a sua Senha"
           sx={{ width: 400, mb: 5 }}
