@@ -69,7 +69,7 @@ export default function Login() {
              && validateEmail().error && validateEmail().message }
           value={ email }
           onChange={ ({ target }) => setEmail(target.value) }
-          data-testid="common_login__input-email"
+          inputProps={ { 'data-testid': 'common_login__input-email' } }
           label="Digite o seu E-mail"
           sx={ { width: 400, mb: 5 } }
         />
@@ -80,7 +80,7 @@ export default function Login() {
             && validatePassword().error && validatePassword().message }
           value={ password }
           onChange={ ({ target }) => setPassword(target.value) }
-          data-testid="common_login__input-password"
+          inputProps={ { 'data-testid': 'common_login__input-password' } }
           label="Digite a sua Senha"
           sx={ { width: 400, mb: 5 } }
         />
