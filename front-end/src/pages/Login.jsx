@@ -7,6 +7,7 @@ import {
   Card } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import deliveryImage2 from '../assets/delivery-image2.jpg';
+import deliveryMan from '../assets/delivery-man.png';
 
 const RootStyle = styled('form')(() => ({
   height: '100%',
@@ -30,13 +31,13 @@ export default function Login() {
           alignItems: 'center',
           height: '100%',
           flexDirection: 'column',
-          justifyContent: 'center',
         } }
       >
+        <Box component="img" src={ deliveryMan } width="150px" />
         <Typography
           textAlign="center"
           fontWeight="bold"
-          variant="h3"
+          variant="h4"
           sx={ { mb: 5 } }
         >
           Bem Vindo ao App de Delivery
@@ -47,7 +48,7 @@ export default function Login() {
           onChange={ ({ target }) => setEmail(target.value) }
           inputProps={ { 'data-testid': 'common_login__input-email' } }
           label="Digite o seu E-mail"
-          sx={ { width: 400, mb: 5 } }
+          sx={ { width: 350, mb: 5 } }
         />
         <TextField
           type="password"
@@ -55,12 +56,12 @@ export default function Login() {
           onChange={ ({ target }) => setPassword(target.value) }
           inputProps={ { 'data-testid': 'common_login__input-password' } }
           label="Digite a sua Senha"
-          sx={ { width: 400, mb: 5 } }
+          sx={ { width: 350, mb: 5 } }
         />
         <Button
           data-testid="common_login__button-login"
           variant="contained"
-          sx={ { width: 400, mb: 3 } }
+          sx={ { width: 350, mb: 3 } }
         >
           Entrar
         </Button>
