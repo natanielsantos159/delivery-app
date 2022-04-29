@@ -34,7 +34,7 @@ export default function Login() {
   };
 
   const validatePassword = () => {
-    const isValidPassword = password.length > PASSWORD_MINIMUM_LENGTH;
+    const isValidPassword = password.length >= PASSWORD_MINIMUM_LENGTH;
     return {
       error: !isValidPassword,
       message: !isValidPassword && PASSWORD_ERROR_MESSAGE };
