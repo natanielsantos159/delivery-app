@@ -87,7 +87,7 @@ export default function Register() {
           variant="contained"
           sx={ { width: 350, mb: 3 } }
         >
-          Entrar
+          Cadastrar
         </Button>
       </Card>
     </RootStyle>
