@@ -8,7 +8,6 @@ import {
   Card,
   Alert,
 } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import LOGIN from '../services/user.service';
 import deliveryImage2 from '../assets/delivery-image2.jpg';
