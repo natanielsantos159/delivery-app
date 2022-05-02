@@ -6,6 +6,13 @@ const createUser = async (name, email, password, role ) => {
   return user;
 }
 
+const findUserByEmail = async (email) => {
+  const foundUser = await User.findOne({ where: { email }, attributes: { exclude: ['password'] } });
+  console.log(foundUser);
+  return foundUser;
+}
+
 module.exports = {
-  createUser
+  createUser,
+  findUserByEmail
 }
