@@ -7,7 +7,7 @@ const register = async (req, res, next) => {
   const userAlreadyExists = await findUserByEmail(email, name);
 
   if (userAlreadyExists) {
-    return res.status(404).json({ error: 'User already exists' });
+    return res.status(409).json({ error: 'User already exists' });
   }
 
   if (name.length < 12) {
