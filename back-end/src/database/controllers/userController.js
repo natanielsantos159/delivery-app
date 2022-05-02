@@ -8,11 +8,13 @@ const register = async (req, res) => {
   try {
     const { name, email, password, role } = req.body;
 
-    await user.createUser(name, email, password, role);
+    const userData = await user.createUser(name, email, password, role);
 
     const token = jwt.sign({ data: { email } }, secret);
 
-    return res.status(201).json({ token });
+    delete userData.dataValues.password;
+
+    return res.status(201).json({ user: userData, token });
 
   } catch (error) {
     return res.status(500).json({ error: error.message })
