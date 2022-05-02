@@ -10,8 +10,9 @@ import { styled } from '@mui/material/styles';
 import deliveryMan from '../assets/delivery-man.png';
 import deliveryImage2 from '../assets/delivery-image2.jpg';
 import { validateName, validateEmail, validatePassword } from '../helpers/validate';
+import REGISTER_USER from '../services/user.service';
 
-const RootStyle = styled('form')(() => ({
+const RootStyle = styled('div')(() => ({
   height: '100%',
   display: 'flex',
   justifyContent: 'center',
@@ -22,6 +23,11 @@ export default function Register() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const userRegistration = async () => {
+    const response = await REGISTER_USER({ name, email, password });
+    console.log(response);
+  };
 
   return (
     <RootStyle>
@@ -80,6 +86,7 @@ export default function Register() {
         />
         <Button
           type="submit"
+          onClick={ () => userRegistration() }
           disabled={ validateName(name).error
           || validateEmail(email).error
           || validatePassword(password).error }

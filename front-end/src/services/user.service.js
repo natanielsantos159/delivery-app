@@ -1,3 +1,5 @@
-/* import api from './api'; */
+import api from './api';
 
-/* const GET_ALL_PRODUCTS = () => api.get('/products'); */
+const REGISTER_USER = (body) => api.post('/register', body);
+
+export default REGISTER_USER;
