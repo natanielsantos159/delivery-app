@@ -21,6 +21,7 @@ const register = async (req, res, next) => {
   if (password.length < 6) {
     return res.status(400).json({ error: 'Invalid Password' });
   }
+  next();
 }
 
 module.exports = {
