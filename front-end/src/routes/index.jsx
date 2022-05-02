@@ -2,6 +2,7 @@ import React from 'react';
 import { useRoutes, Navigate } from 'react-router-dom';
 import CostumerProducts from '../pages/CostumerProducts';
 import Login from '../pages/Login';
+import Register from '../pages/Register';
 
 export default function Router() {
   return useRoutes([
@@ -12,7 +13,10 @@ export default function Router() {
       path: '/login', element: <Login />,
     },
     {
-      path: '/customer/products', element: <CostumerProducts />,
+      path: '/register', element: <Register />,
+    },
+    {
+      path: '/customer/products', element: <CostumerProducts />
     },
   ]);
 }
