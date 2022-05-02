@@ -8,10 +8,12 @@ import {
   Card,
   Alert,
 } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import LOGIN from '../services/user.service';
 import deliveryImage2 from '../assets/delivery-image2.jpg';
 import deliveryMan from '../assets/delivery-man.png';
+import { validateEmail, validatePassword } from '../helpers/validate';
 
 const RootStyle = styled('div')(() => ({
   height: '100%',
@@ -19,11 +21,6 @@ const RootStyle = styled('div')(() => ({
   justifyContent: 'center',
   alignItems: 'center',
 }));
-
-const EMAIL_ERROR_MESSAGE = 'Insira um e-mail válido';
-const PASSWORD_ERROR_MESSAGE = 'A senha deve ter mais de 6 caractéres';
-
-const PASSWORD_MINIMUM_LENGTH = 6;
 
 export default function Login() {
   const navigate = useNavigate();
@@ -83,9 +80,9 @@ export default function Login() {
         </Typography>
         <TextField
           type="text"
-          error={ email.length > 0 && validateEmail().error }
+          error={ email.length > 0 && validateEmail(email).error }
           helperText={ email.length > 0
-             && validateEmail().error && validateEmail().message }
+             && validateEmail(email).error && validateEmail(email).message }
           value={ email }
           onChange={ ({ target }) => setEmail(target.value) }
           inputProps={ { 'data-testid': 'common_login__input-email' } }
@@ -94,9 +91,9 @@ export default function Login() {
         />
         <TextField
           type="password"
-          error={ password.length > 0 && validatePassword().error }
+          error={ password.length > 0 && validatePassword(password).error }
           helperText={ password.length > 0
-            && validatePassword().error && validatePassword().message }
+            && validatePassword(password).error && validatePassword(password).message }
           value={ password }
           onChange={ ({ target }) => setPassword(target.value) }
           inputProps={ { 'data-testid': 'common_login__input-password' } }
@@ -105,7 +102,7 @@ export default function Login() {
         />
         <Button
           type="submit"
-          disabled={ validateEmail().error || validatePassword().error }
+          disabled={ validateEmail(email).error || validatePassword(password).error }
           data-testid="common_login__button-login"
           variant="contained"
           sx={ { width: 350, mb: 3 } }
@@ -118,6 +115,7 @@ export default function Login() {
           <Button
             sx={ { fontWeight: 'bold' } }
             data-testid="common_login__button-register"
+            onClick={ () => navigate('/register') }
           >
             Cadastrar
           </Button>
