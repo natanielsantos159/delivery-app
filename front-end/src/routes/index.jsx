@@ -16,7 +16,7 @@ export default function Router() {
       path: '/register', element: <Register />,
     },
     {
-      path: '/customer/products', element: <CostumerProducts />
+      path: '/customer/products', element: <CostumerProducts />,
     },
   ]);
 }
