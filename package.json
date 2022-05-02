@@ -54,9 +54,5 @@
       "__TESTDESC__": true,
       "__TESTFILE__": true
     }
-  },
-  "dependencies": {
-    "@mui/icons-material": "^5.6.2",
-    "react-hot-toast": "^2.2.0"
   }
 }
