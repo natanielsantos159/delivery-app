@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   Box,
   Typography,
   TextField,
   Button,
   Card,
+  Alert,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import LOGIN from '../services/user.service';
 import deliveryImage2 from '../assets/delivery-image2.jpg';
 import deliveryMan from '../assets/delivery-man.png';
 
-const RootStyle = styled('form')(() => ({
+const RootStyle = styled('div')(() => ({
   height: '100%',
   display: 'flex',
   justifyContent: 'center',
@@ -23,8 +26,11 @@ const PASSWORD_ERROR_MESSAGE = 'A senha deve ter mais de 6 caractéres';
 const PASSWORD_MINIMUM_LENGTH = 6;
 
 export default function Login() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const validateEmail = () => {
     const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
@@ -39,6 +45,18 @@ export default function Login() {
     return {
       error: !isValidPassword,
       message: !isValidPassword && PASSWORD_ERROR_MESSAGE };
+  };
+
+  const loginUser = async () => {
+    try {
+      const response = await LOGIN({ email, password });
+      const { token, user } = response.data;
+      localStorage.setItem('user', JSON.stringify({ token, user }));
+      navigate('/customer/products');
+    } catch (err) {
+      setErrorMessage(err.response.data.error);
+      setError(true);
+    }
   };
 
   return (
@@ -91,6 +109,7 @@ export default function Login() {
           data-testid="common_login__button-login"
           variant="contained"
           sx={ { width: 350, mb: 3 } }
+          onClick={ () => loginUser() }
         >
           Entrar
         </Button>
@@ -103,6 +122,13 @@ export default function Login() {
             Cadastrar
           </Button>
         </Box>
+        { error && (
+          <Alert
+            severity="error"
+            data-testid="common_login__element-invalid-email"
+          >
+            { errorMessage }
+          </Alert>) }
       </Card>
     </RootStyle>
   );
