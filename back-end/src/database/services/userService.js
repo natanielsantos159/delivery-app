@@ -1,4 +1,5 @@
 const { User } = require('../models');
+const { Op } = require('sequelize');
 const md5 = require('md5');
 
 const createUser = async (name, email, password, role ) => {
@@ -6,8 +7,8 @@ const createUser = async (name, email, password, role ) => {
   return user;
 }
 
-const findUserByEmail = async (email) => {
-  const foundUser = await User.findOne({ where: { email }, attributes: { exclude: ['password'] } });
+const findUserByEmail = async (email, name) => {
+  const foundUser = await User.findOne({ where: { [Op.or]: { email, name } } });
   return foundUser;
 }
 

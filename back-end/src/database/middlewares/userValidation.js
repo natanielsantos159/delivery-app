@@ -4,7 +4,7 @@ const register = async (req, res, next) => {
   const { email, password, name } = req.body;
   const regexEmail = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
-  const userAlreadyExists = await findUserByEmail(email);
+  const userAlreadyExists = await findUserByEmail(email, name);
 
   if (userAlreadyExists) {
     return res.status(404).json({ error: 'User already exists' });
