@@ -33,8 +33,8 @@ export default function Register() {
   const userRegistration = async () => {
     try {
       const response = await REGISTER_USER({ name, email, password });
-      const { token } = response.data;
-      localStorage.setItem('user', JSON.stringify(token));
+      const { user } = response.data;
+      localStorage.setItem('user', JSON.stringify(user));
       toast('Usuário criado com sucesso!', {
         position: 'top-right',
         icon: <CheckRounded />,
