@@ -80,10 +80,9 @@ export default function Register() {
         />
         <Button
           type="submit"
-          disabled={ 
-            validateName(name).error ||
-            validateEmail(email).error ||
-            validatePassword(password).error }
+          disabled={ validateName(name).error
+          || validateEmail(email).error
+          || validatePassword(password).error }
           data-testid="common_register__button-register"
           variant="contained"
           sx={ { width: 350, mb: 3 } }
