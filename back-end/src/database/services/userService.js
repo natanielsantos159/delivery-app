@@ -7,12 +7,18 @@ const createUser = async (name, email, password, role ) => {
   return user;
 }
 
-const findUserByEmail = async (email, name) => {
+const findUserByEmail = async (email) => {
+  const foundUser = await User.findOne({ where: { email } });
+  return foundUser;
+}
+
+const findUserByEmailOrName = async (email, name) => {
   const foundUser = await User.findOne({ where: { [Op.or]: { email, name } } });
   return foundUser;
 }
 
 module.exports = {
   createUser,
-  findUserByEmail
+  findUserByEmail,
+  findUserByEmailOrName
 }

@@ -5,13 +5,17 @@ import {
   TextField,
   Button,
   Card,
+  useTheme,
 } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
+import toast from 'react-hot-toast';
 import deliveryMan from '../assets/delivery-man.png';
 import deliveryImage2 from '../assets/delivery-image2.jpg';
 import { validateName, validateEmail, validatePassword } from '../helpers/validate';
+import { REGISTER_USER } from '../services/user.service';
 
-const RootStyle = styled('form')(() => ({
+const RootStyle = styled('div')(() => ({
   height: '100%',
   display: 'flex',
   justifyContent: 'center',
@@ -22,6 +26,42 @@ export default function Register() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+  const { palette } = useTheme();
+
+  const userRegistration = async () => {
+    try {
+      const response = await REGISTER_USER({ name, email, password });
+      const { user } = response.data;
+      localStorage.setItem('user', JSON.stringify(user));
+      toast.success(
+        <Typography>
+          Usuário criado com sucesso!
+        </Typography>, {
+          position: 'top-right',
+          style: {
+            background: palette.success.main,
+            color: '#fff',
+          },
+        },
+      );
+      navigate('/customer/products');
+    } catch (error) {
+      console.log(error.message);
+      toast.error(
+        <Typography data-testid="common_register__element-invalid_register">
+          Erro ao registrar usuário
+        </Typography>,
+        {
+          position: 'top-right',
+          style: {
+            background: palette.error.main,
+            color: '#fff',
+          },
+        },
+      );
+    }
+  };
 
   return (
     <RootStyle>
@@ -49,7 +89,7 @@ export default function Register() {
           type="text"
           error={ name.length > 0 && validateName(name).error }
           helperText={ name.length > 0
-             && validateName(name).error && validateName(name).message }
+            && validateName(name).error && validateName(name).message }
           value={ name }
           onChange={ ({ target }) => setName(target.value) }
           inputProps={ { 'data-testid': 'common_register__input-name' } }
@@ -60,7 +100,7 @@ export default function Register() {
           type="text"
           error={ email.length > 0 && validateEmail(email).error }
           helperText={ email.length > 0
-             && validateEmail(email).error && validateEmail(email).message }
+            && validateEmail(email).error && validateEmail(email).message }
           value={ email }
           onChange={ ({ target }) => setEmail(target.value) }
           inputProps={ { 'data-testid': 'common_register__input-email' } }
@@ -80,14 +120,15 @@ export default function Register() {
         />
         <Button
           type="submit"
+          onClick={ () => userRegistration() }
           disabled={ validateName(name).error
-          || validateEmail(email).error
-          || validatePassword(password).error }
+            || validateEmail(email).error
+            || validatePassword(password).error }
           data-testid="common_register__button-register"
           variant="contained"
           sx={ { width: 350, mb: 3 } }
         >
-          Entrar
+          Cadastrar
         </Button>
       </Card>
     </RootStyle>

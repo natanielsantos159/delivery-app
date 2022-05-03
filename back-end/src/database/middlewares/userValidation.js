@@ -1,10 +1,10 @@
-const { findUserByEmail } = require('../services/userService');
+const { findUserByEmailOrName } = require('../services/userService');
 
 const register = async (req, res, next) => {
   const { email, password, name } = req.body;
   const regexEmail = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
-  const userAlreadyExists = await findUserByEmail(email, name);
+  const userAlreadyExists = await findUserByEmailOrName(email, name);
 
   if (userAlreadyExists) {
     return res.status(409).json({ error: 'User already exists' });
