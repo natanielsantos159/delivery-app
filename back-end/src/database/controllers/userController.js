@@ -34,11 +34,7 @@ const register = async (req, res) => {
   try {
     const { name, email, password, role } = req.body;
 
-<<<<<<< HEAD
-    const userData = await user.createUser(name, email, password, role);
-=======
-    await userService.createUser(name, email, password, role);
->>>>>>> cfdf424976e47c50f5d01b9a7deed41cd71330cc
+    const userData = await userService.createUser(name, email, password, role);
 
     const token = jwt.sign({ data: { email } }, secret);
 
