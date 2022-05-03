@@ -20,14 +20,14 @@ export default function NavBar() {
           <Button
             sx={ { my: 2, color: 'white', display: 'block' } }
             data-testid="customer_products__element-navbar-link-products"
-            onClick={() => navigate('/customer/products')}
+            onClick={ () => navigate('/customer/products') }
           >
             Produtos
           </Button>
           <Button
             sx={ { my: 2, color: 'white', display: 'block' } }
             data-testid="customer_products__element-navbar-link-orders"
-            onClick={() => navigate('/customer/orders')}
+            onClick={ () => navigate('/customer/orders') }
           >
             Meus Pedidos
           </Button>
