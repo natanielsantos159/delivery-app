@@ -6,10 +6,11 @@ import {
   TextField,
   Button,
   Card,
-  Alert,
+  useTheme,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import LOGIN from '../services/user.service';
+import toast from 'react-hot-toast';
+import { LOGIN } from '../services/user.service';
 import deliveryImage2 from '../assets/delivery-image2.jpg';
 import deliveryMan from '../assets/delivery-man.png';
 import { validateEmail, validatePassword } from '../helpers/validate';
@@ -25,18 +26,39 @@ export default function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
+  const { palette } = useTheme();
 
   const loginUser = async () => {
     try {
       const response = await LOGIN({ email, password });
       const { token, user } = response.data;
       localStorage.setItem('user', JSON.stringify({ token, user }));
+      toast.success(
+        <Typography>
+          Login efetuado com sucesso!
+        </Typography>, {
+          position: 'top-right',
+          style: {
+            background: palette.success.main,
+            color: '#fff',
+          },
+        },
+      );
       navigate('/customer/products');
     } catch (err) {
-      setErrorMessage(err.response.data.error);
-      setError(true);
+      console.log(err.message);
+      toast.error(
+        <Typography data-testid="common_login__element-invalid-email">
+          Erro ao efetuar o login
+        </Typography>,
+        {
+          position: 'top-right',
+          style: {
+            background: palette.error.main,
+            color: '#fff',
+          },
+        },
+      );
     }
   };
 
@@ -104,13 +126,6 @@ export default function Login() {
             Cadastrar
           </Button>
         </Box>
-        { error && (
-          <Alert
-            severity="error"
-            data-testid="common_login__element-invalid-email"
-          >
-            { errorMessage }
-          </Alert>) }
       </Card>
     </RootStyle>
   );

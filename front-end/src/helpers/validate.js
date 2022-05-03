@@ -2,11 +2,11 @@ const NAME_ERROR_MESSAGE = 'O nome deve ter menos de 12 caractéres';
 const EMAIL_ERROR_MESSAGE = 'Insira um e-mail válido';
 const PASSWORD_ERROR_MESSAGE = 'A senha deve ter mais de 6 caractéres';
 
-const NAME_MAX_LENGTH = 11;
+const NAME_MIN_LENGTH = 12;
 const PASSWORD_MINIMUM_LENGTH = 6;
 
 const validateName = (name) => {
-  const isValidName = name.length <= NAME_MAX_LENGTH;
+  const isValidName = name.length >= NAME_MIN_LENGTH;
   return {
     error: !isValidName,
     message: !isValidName && NAME_ERROR_MESSAGE };
