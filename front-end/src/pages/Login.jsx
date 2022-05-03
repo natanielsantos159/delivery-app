@@ -6,14 +6,13 @@ import {
   TextField,
   Button,
   Card,
-  useTheme,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import toast from 'react-hot-toast';
 import { LOGIN } from '../services/user.service';
 import deliveryImage2 from '../assets/delivery-image2.jpg';
 import deliveryMan from '../assets/delivery-man.png';
 import { validateEmail, validatePassword } from '../helpers/validate';
+import useToastManager from '../hooks/useToast';
 
 const RootStyle = styled('div')(() => ({
   height: '100%',
@@ -26,39 +25,20 @@ export default function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { palette } = useTheme();
+  const { enqueueToast } = useToastManager();
 
   const loginUser = async () => {
     try {
       const response = await LOGIN({ email, password });
       const { token, user } = response.data;
       localStorage.setItem('user', JSON.stringify({ token, user }));
-      toast.success(
-        <Typography>
-          Login efetuado com sucesso!
-        </Typography>, {
-          position: 'top-right',
-          style: {
-            background: palette.success.main,
-            color: '#fff',
-          },
-        },
-      );
+      enqueueToast('success', 'Login efetuado com sucesso!', 'login');
       navigate('/customer/products');
     } catch (err) {
       console.log(err.message);
-      toast.error(
-        <Typography data-testid="common_login__element-invalid-email">
-          Erro ao efetuar o login
-        </Typography>,
-        {
-          position: 'top-right',
-          style: {
-            background: palette.error.main,
-            color: '#fff',
-          },
-        },
-      );
+      enqueueToast('error',
+        'Erro ao efetuar login',
+        'common_login__element-invalid-email');
     }
   };
 
@@ -88,7 +68,7 @@ export default function Login() {
           type="text"
           error={ email.length > 0 && validateEmail(email).error }
           helperText={ email.length > 0
-             && validateEmail(email).error && validateEmail(email).message }
+            && validateEmail(email).error && validateEmail(email).message }
           value={ email }
           onChange={ ({ target }) => setEmail(target.value) }
           inputProps={ { 'data-testid': 'common_login__input-email' } }
