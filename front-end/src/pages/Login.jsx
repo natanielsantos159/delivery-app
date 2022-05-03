@@ -1,18 +1,20 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   Box,
   Typography,
   TextField,
   Button,
   Card,
+  Alert,
 } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
+import LOGIN from '../services/user.service';
 import deliveryImage2 from '../assets/delivery-image2.jpg';
 import deliveryMan from '../assets/delivery-man.png';
 import { validateEmail, validatePassword } from '../helpers/validate';
 
-const RootStyle = styled('form')(() => ({
+const RootStyle = styled('div')(() => ({
   height: '100%',
   display: 'flex',
   justifyContent: 'center',
@@ -20,9 +22,23 @@ const RootStyle = styled('form')(() => ({
 }));
 
 export default function Login() {
-  const navigate = useNavigate('/register');
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const loginUser = async () => {
+    try {
+      const response = await LOGIN({ email, password });
+      const { token, user } = response.data;
+      localStorage.setItem('user', JSON.stringify({ token, user }));
+      navigate('/customer/products');
+    } catch (err) {
+      setErrorMessage(err.response.data.error);
+      setError(true);
+    }
+  };
 
   return (
     <RootStyle>
@@ -74,6 +90,7 @@ export default function Login() {
           data-testid="common_login__button-login"
           variant="contained"
           sx={ { width: 350, mb: 3 } }
+          onClick={ () => loginUser() }
         >
           Entrar
         </Button>
@@ -87,6 +104,13 @@ export default function Login() {
             Cadastrar
           </Button>
         </Box>
+        { error && (
+          <Alert
+            severity="error"
+            data-testid="common_login__element-invalid-email"
+          >
+            { errorMessage }
+          </Alert>) }
       </Card>
     </RootStyle>
   );
