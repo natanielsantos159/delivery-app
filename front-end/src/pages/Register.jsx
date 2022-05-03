@@ -13,7 +13,7 @@ import { BlockRounded, CheckRounded } from '@mui/icons-material';
 import deliveryMan from '../assets/delivery-man.png';
 import deliveryImage2 from '../assets/delivery-image2.jpg';
 import { validateName, validateEmail, validatePassword } from '../helpers/validate';
-import REGISTER_USER from '../services/user.service';
+import { REGISTER_USER } from '../services/user.service';
 
 const RootStyle = styled('div')(() => ({
   height: '100%',
