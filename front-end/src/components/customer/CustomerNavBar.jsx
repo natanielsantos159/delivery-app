@@ -10,6 +10,8 @@ import {
 export default function NavBar() {
   const navigate = useNavigate();
 
+  const { name } = JSON.parse(localStorage.getItem('user'));
+
   return (
     <AppBar position="static" sx={ { height: '4rem', marginBottom: '2rem' } }>
       <Toolbar
@@ -34,14 +36,25 @@ export default function NavBar() {
         </Box>
         <Box sx={ { display: 'flex', flexDirection: 'inline' } }>
           <Button
-            sx={ { my: 2, color: 'white', display: 'block', cursor: 'inherit' } }
+            sx={ {
+              my: 2,
+              color: 'white',
+              display: 'block',
+              cursor: 'inherit',
+              textTransform: 'none',
+            } }
             data-testid="customer_products__element-navbar-user-full-name"
           >
-            {JSON.parse(localStorage.getItem('user')).user.name }
+            { name }
           </Button>
           <Button
-            sx={ { my: 2, color: 'white', display: 'block' } }
+            sx={ {
+              my: 2,
+              color: 'white',
+              display: 'block',
+            } }
             data-testid="customer_products__element-navbar-link-logout"
+            onClick={ () => navigate('/login') }
           >
             Sair
           </Button>

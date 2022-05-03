@@ -32,7 +32,7 @@ export default function Login() {
     try {
       const response = await LOGIN({ email, password });
       const { token, user } = response.data;
-      localStorage.setItem('user', JSON.stringify({ token, user }));
+      localStorage.setItem('user', JSON.stringify({ ...user, token }));
       toast.success(
         <Typography>
           Login efetuado com sucesso!

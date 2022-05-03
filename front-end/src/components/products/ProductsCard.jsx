@@ -23,7 +23,7 @@ export default function ProductCard() {
         <Typography
           variant="subtitle1"
           component="text"
-          data-testid="customer_products__element-card-price-"
+          data-testid="customer_products__element-card-price-1"
           sx={ {
             fontSize: '1.2rem',
             margin: '4px',
@@ -40,7 +40,7 @@ export default function ProductCard() {
           height="190"
           image={ deliveryImage2 }
           alt="Card Image"
-          data-testid="customer_products__img-card-bg-image-"
+          data-testid="customer_products__img-card-bg-image-1"
           sx={ { zIndex: 1 } }
         />
       </Box>
@@ -54,7 +54,7 @@ export default function ProductCard() {
           variant="subtitle1"
           color="text.primary"
           textAlign="center"
-          data-testid="customer_products__element-card-title-"
+          data-testid="customer_products__element-card-title-1"
         >
           Nome do Produto
         </Typography>
@@ -66,7 +66,7 @@ export default function ProductCard() {
         >
           <Button
             variant="contained"
-            data-testid="customer_products__button-card-rm-item-"
+            data-testid="customer_products__button-card-rm-item-1"
             sx={ {
               alignSelf: 'center',
             } }
@@ -76,13 +76,13 @@ export default function ProductCard() {
           </Button>
           <TextField
             id="outlined-read-only-input"
-            inputProps={ { 'data-testid': 'customer_products__input-card-quantity-' } }
+            inputProps={ { 'data-testid': 'customer_products__input-card-quantity-1' } }
             value={ quantity }
             size="small"
           />
           <Button
             variant="contained"
-            data-testid="customer_products__button-card-add-item-"
+            data-testid="customer_products__button-card-add-item-1"
             sx={ {
               alignSelf: 'center',
             } }

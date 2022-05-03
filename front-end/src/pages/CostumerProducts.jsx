@@ -15,7 +15,7 @@ export default function CostumerProducts() {
           justifyContent: 'space-around',
         } }
       >
-        {Array.from({ length: 4 }).map((_item, index) => <ProductCard key={ index } />) }
+        { Array.from({ length: 4 }).map((_item, index) => <ProductCard key={ index } />) }
       </Box>
       <CustomerCart />
     </Box>
