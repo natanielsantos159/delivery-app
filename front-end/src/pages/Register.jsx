@@ -5,15 +5,14 @@ import {
   TextField,
   Button,
   Card,
-  useTheme,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
-import toast from 'react-hot-toast';
 import deliveryMan from '../assets/delivery-man.png';
 import deliveryImage2 from '../assets/delivery-image2.jpg';
 import { validateName, validateEmail, validatePassword } from '../helpers/validate';
 import { REGISTER_USER } from '../services/user.service';
+import useToastManager from '../hooks/useToast';
 
 const RootStyle = styled('div')(() => ({
   height: '100%',
@@ -27,39 +26,20 @@ export default function Register() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
-  const { palette } = useTheme();
+  const { enqueueToast } = useToastManager();
 
   const userRegistration = async () => {
     try {
       const response = await REGISTER_USER({ name, email, password });
       const { user } = response.data;
       localStorage.setItem('user', JSON.stringify(user));
-      toast.success(
-        <Typography>
-          Usuário criado com sucesso!
-        </Typography>, {
-          position: 'top-right',
-          style: {
-            background: palette.success.main,
-            color: '#fff',
-          },
-        },
-      );
+      enqueueToast('success', 'Usuário criado com sucesso!', 'register');
       navigate('/customer/products');
     } catch (error) {
       console.log(error.message);
-      toast.error(
-        <Typography data-testid="common_register__element-invalid_register">
-          Erro ao registrar usuário
-        </Typography>,
-        {
-          position: 'top-right',
-          style: {
-            background: palette.error.main,
-            color: '#fff',
-          },
-        },
-      );
+      enqueueToast('error',
+        'Erro ao criar usuário',
+        'common_register__element-invalid_register');
     }
   };
 
