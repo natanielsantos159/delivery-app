@@ -18,6 +18,7 @@ export default function CustomerCart() {
         color: 'white',
       } }
       color="primary"
+      data-testid="customer_products__checkout-bottom-value"
     >
       Ver Carrinho: R$ 99999999,98
     </Fab>
