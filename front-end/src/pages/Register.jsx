@@ -7,6 +7,7 @@ import {
   Card,
   useTheme,
 } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import toast from 'react-hot-toast';
 import { BlockRounded, CheckRounded } from '@mui/icons-material';
@@ -28,6 +29,7 @@ export default function Register() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
   const { palette } = useTheme();
 
   const userRegistration = async () => {
@@ -44,8 +46,9 @@ export default function Register() {
           color: '#fff',
         },
       });
+      navigate('/costumer/products')
     } catch (error) {
-      console.log(error.response.status);
+      console.log(error.message);
       toast(error.response.status === CONFLICT_STATUS_CODE
         ? 'O usuário já existe'
         : 'Erro ao cadastrar usuário', {
