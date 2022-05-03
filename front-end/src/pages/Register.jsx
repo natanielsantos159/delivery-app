@@ -10,7 +10,6 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import toast from 'react-hot-toast';
-import { BlockRounded, CheckRounded } from '@mui/icons-material';
 import deliveryMan from '../assets/delivery-man.png';
 import deliveryImage2 from '../assets/delivery-image2.jpg';
 import { validateName, validateEmail, validatePassword } from '../helpers/validate';
@@ -22,8 +21,6 @@ const RootStyle = styled('div')(() => ({
   justifyContent: 'center',
   alignItems: 'center',
 }));
-
-const CONFLICT_STATUS_CODE = 409;
 
 export default function Register() {
   const [name, setName] = useState('');
@@ -37,29 +34,32 @@ export default function Register() {
       const response = await REGISTER_USER({ name, email, password });
       const { user } = response.data;
       localStorage.setItem('user', JSON.stringify(user));
-      toast('Usuário criado com sucesso!', {
-        position: 'top-right',
-        icon: <CheckRounded />,
-        style: {
-          padding: 10,
-          background: palette.success.main,
-          color: '#fff',
+      toast.success(
+        <Typography>
+          Usuário criado com sucesso!
+        </Typography>, {
+          position: 'top-right',
+          style: {
+            background: palette.success.main,
+            color: '#fff',
+          },
         },
-      });
-      navigate('/costumer/products')
+      );
+      navigate('/customer/products');
     } catch (error) {
       console.log(error.message);
-      toast(error.response.status === CONFLICT_STATUS_CODE
-        ? 'O usuário já existe'
-        : 'Erro ao cadastrar usuário', {
-        position: 'top-right',
-        icon: <BlockRounded />,
-        style: {
-          padding: 10,
-          backgroundColor: palette.error.main,
-          color: '#fff',
+      toast.error(
+        <Typography data-testid="common_register__element-invalid_register">
+          Erro ao registrar usuário
+        </Typography>,
+        {
+          position: 'top-right',
+          style: {
+            background: palette.error.main,
+            color: '#fff',
+          },
         },
-      });
+      );
     }
   };
 

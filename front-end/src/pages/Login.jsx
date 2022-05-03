@@ -6,16 +6,14 @@ import {
   TextField,
   Button,
   Card,
-  Alert,
-  useTheme
+  useTheme,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import toast from 'react-hot-toast';
 import { LOGIN } from '../services/user.service';
 import deliveryImage2 from '../assets/delivery-image2.jpg';
 import deliveryMan from '../assets/delivery-man.png';
 import { validateEmail, validatePassword } from '../helpers/validate';
-import toast from 'react-hot-toast';
-import { BlockRounded, CheckRounded } from '@mui/icons-material';
 
 const RootStyle = styled('div')(() => ({
   height: '100%',
@@ -35,23 +33,32 @@ export default function Login() {
       const response = await LOGIN({ email, password });
       const { token, user } = response.data;
       localStorage.setItem('user', JSON.stringify({ token, user }));
-      toast('Login efetuado com sucesso!', {
-        position: 'top-right',
-        icon: <CheckRounded />,
-        style: {
-          background: palette.success.main
-        }
-      })
+      toast.success(
+        <Typography>
+          Login efetuado com sucesso!
+        </Typography>, {
+          position: 'top-right',
+          style: {
+            background: palette.success.main,
+            color: '#fff',
+          },
+        },
+      );
       navigate('/customer/products');
     } catch (err) {
       console.log(err.message);
-      toast('Erro ao efetuar o login', {
-        position: 'top-right',
-        icon: <BlockRounded />,
-        style: {
-          background: palette.error.main
-        }
-      })
+      toast.error(
+        <Typography data-testid="common_login__element-invalid-email">
+          Erro ao efetuar o login
+        </Typography>,
+        {
+          position: 'top-right',
+          style: {
+            background: palette.error.main,
+            color: '#fff',
+          },
+        },
+      );
     }
   };
 
@@ -119,13 +126,6 @@ export default function Login() {
             Cadastrar
           </Button>
         </Box>
-        { error && (
-          <Alert
-            severity="error"
-            data-testid="common_login__element-invalid-email"
-          >
-            { errorMessage }
-          </Alert>) }
       </Card>
     </RootStyle>
   );
