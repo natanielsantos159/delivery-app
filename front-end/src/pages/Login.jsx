@@ -28,21 +28,6 @@ export default function Login() {
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
-  const validateEmail = () => {
-    const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
-    const isValidEmail = emailRegex.test(email);
-    return {
-      error: !isValidEmail,
-      message: !isValidEmail && EMAIL_ERROR_MESSAGE };
-  };
-
-  const validatePassword = () => {
-    const isValidPassword = password.length >= PASSWORD_MINIMUM_LENGTH;
-    return {
-      error: !isValidPassword,
-      message: !isValidPassword && PASSWORD_ERROR_MESSAGE };
-  };
-
   const loginUser = async () => {
     try {
       const response = await LOGIN({ email, password });
