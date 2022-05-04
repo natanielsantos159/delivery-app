@@ -6,13 +6,16 @@ import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import GlobalStyles from './styles/global';
 import { Toaster } from 'react-hot-toast';
+import { AuthProvider } from './contexts/AuthContext';
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <GlobalStyles />
       <Toaster />
-      <App />
+      <AuthProvider>
+        <App />
+      </AuthProvider>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root'),
