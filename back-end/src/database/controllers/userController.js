@@ -20,6 +20,7 @@ const login = async (req, res) => {
     }
 
     delete user.dataValues.password;
+    delete user.dataValues.id;
 
     const token = jwt.sign({ data: { email } }, secret);
 
