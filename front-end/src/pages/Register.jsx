@@ -6,13 +6,12 @@ import {
   Button,
   Card,
 } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import deliveryMan from '../assets/delivery-man.png';
 import deliveryImage2 from '../assets/delivery-image2.jpg';
 import { validateName, validateEmail, validatePassword } from '../helpers/validate';
-import { REGISTER_USER } from '../services/user.service';
 import useToastManager from '../hooks/useToast';
+import useAuth from '../hooks/useAuth';
 
 const RootStyle = styled('div')(() => ({
   height: '100%',
@@ -25,16 +24,13 @@ export default function Register() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate();
+  const { signUp } = useAuth();
   const { enqueueToast } = useToastManager();
 
   const userRegistration = async () => {
     try {
-      const response = await REGISTER_USER({ name, email, password });
-      const { user } = response.data;
-      localStorage.setItem('user', JSON.stringify(user));
+      await signUp({ name, email, password });
       enqueueToast('success', 'Usuário criado com sucesso!', 'register');
-      navigate('/customer/products');
     } catch (error) {
       console.log(error.message);
       enqueueToast('error',

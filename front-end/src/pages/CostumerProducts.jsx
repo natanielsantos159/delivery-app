@@ -9,9 +9,8 @@ export default function CostumerProducts() {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    const putProductsInState = async () => setProducts(await PRODUCTS());
+    const putProductsInState = async () => setProducts(await (await PRODUCTS()).data);
     putProductsInState();
-    console.log(products);
   }, []);
 
   return (
@@ -24,7 +23,8 @@ export default function CostumerProducts() {
           justifyContent: 'space-around',
         } }
       >
-        { Array.from({ length: 4 }).map((_item, index) => <ProductCard key={ index } />) }
+        { products
+          .map((product, index) => <ProductCard key={ index } item={ product } />) }
       </Box>
       <CustomerCart />
     </Box>

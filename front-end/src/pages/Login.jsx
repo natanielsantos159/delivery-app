@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Box,
@@ -8,11 +8,11 @@ import {
   Card,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { LOGIN } from '../services/user.service';
 import deliveryImage2 from '../assets/delivery-image2.jpg';
 import deliveryMan from '../assets/delivery-man.png';
 import { validateEmail, validatePassword } from '../helpers/validate';
 import useToastManager from '../hooks/useToast';
+import useAuth from '../hooks/useAuth';
 
 const RootStyle = styled('div')(() => ({
   height: '100%',
@@ -25,15 +25,23 @@ export default function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const { signIn, isAuthenticated } = useAuth();
   const { enqueueToast } = useToastManager();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/customer/products');
+    }
+  }, []);
 
   const loginUser = async () => {
     try {
-      const response = await LOGIN({ email, password });
-      const { token, user } = response.data;
-      localStorage.setItem('user', JSON.stringify({ ...user, token }));
-      enqueueToast('success', 'Login efetuado com sucesso!', 'login');
-      navigate('/customer/products');
+      await signIn({ email, password });
+
+      enqueueToast('success',
+        'Login efetuado com sucesso!',
+        'login');
     } catch (err) {
       console.log(err.message);
       enqueueToast('error',

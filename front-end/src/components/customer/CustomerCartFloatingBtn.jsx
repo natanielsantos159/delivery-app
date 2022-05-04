@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import {
   Fab,
 } from '@mui/material';
-// import { NavigationIcon } from '@mui/icons-material';
 
 export default function CustomerCart() {
   const navigate = useNavigate();

@@ -8,11 +8,10 @@ import {
   TextField,
 } from '@mui/material';
 
-import deliveryImage2 from '../../assets/delivery-image2.jpg';
-
-export default function ProductCard() {
+export default function ProductCard(item) {
   const [quantity, setQuantity] = useState(0);
-
+  const { item: { name, price, urlImage } } = item;
+  console.log(item);
   const handleMinQuantity = () => {
     setQuantity(quantity === 0 ? 0 : quantity - 1);
   };
@@ -33,12 +32,12 @@ export default function ProductCard() {
             borderRadius: '5px',
           } }
         >
-          R$ 3,00
+          { `RS ${price}` }
         </Typography>
         <CardMedia
           component="img"
           height="190"
-          image={ deliveryImage2 }
+          src={ urlImage }
           alt="Card Image"
           data-testid="customer_products__img-card-bg-image-1"
           sx={ { zIndex: 1 } }
@@ -56,7 +55,7 @@ export default function ProductCard() {
           textAlign="center"
           data-testid="customer_products__element-card-title-1"
         >
-          Nome do Produto
+          { name }
         </Typography>
         <Box
           sx={ {
