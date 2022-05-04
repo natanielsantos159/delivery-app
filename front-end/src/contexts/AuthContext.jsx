@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { createContext, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { LOGIN } from '../services/user.service';
 
@@ -8,8 +8,23 @@ export const AuthContext = createContext({});
 export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
   const [userInfo, setUser] = useState(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  const isAuthenticated = !!userInfo;
+  const getUserFromStorage = () => {
+    const user = localStorage.getItem('user');
+
+    if (user) {
+      const ParsedUser = JSON.parse(user);
+      return ParsedUser;
+    }
+    return null;
+  };
+
+  useEffect(() => {
+    const validUser = getUserFromStorage();
+
+    setIsAuthenticated(!!validUser);
+  }, []);
 
   const signIn = async ({ email, password }) => {
     const { data } = await LOGIN({
