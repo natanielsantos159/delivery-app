@@ -18,17 +18,6 @@ export default function ProductCard(item, index) {
   };
 
   useEffect(() => {
-    const storageCart = JSON.parse(localStorage.getItem('cart'));
-    if (!storageCart) {
-      setQuantity(0);
-    }
-    const newCart = storageCart.find((eachProduct) => eachProduct.id === id);
-    if (newCart) {
-      setQuantity(newCart.quantity);
-    }
-  }, []);
-
-  useEffect(() => {
     const addToCart = { id, name, price, quantity };
     const storageCart = JSON.parse(localStorage.getItem('cart'));
     if (!storageCart) {
@@ -45,6 +34,17 @@ export default function ProductCard(item, index) {
     }
     setClicked(true);
   }, [quantity]);
+
+  useEffect(() => {
+    const storageCart = JSON.parse(localStorage.getItem('cart'));
+    if (!storageCart) {
+      setQuantity(0);
+    }
+    const newCart = storageCart.find((eachProduct) => eachProduct.id === id);
+    if (newCart) {
+      setQuantity(newCart.quantity);
+    }
+  }, []);
 
   return (
     <Card sx={ { maxWidth: 230, borderRadius: 0, marginBottom: 5 } }>
