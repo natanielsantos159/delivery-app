@@ -1,8 +1,21 @@
+import React, { useEffect, useState } from 'react';
 import { Box } from '@mui/material';
-import React from 'react';
 import OrderCard from '../components/OrderCard';
+import GET_SALES_BY_USER_ID from '../services/sales.service';
 
 export default function CustomerOrders() {
+  const [orders, setOrders] = useState([]);
+
+  const fetchOrders = async () => {
+    const userId = 3;
+    const { data } = await GET_SALES_BY_USER_ID(userId);
+    setOrders(data);
+  };
+
+  useEffect(() => {
+    fetchOrders();
+  }, []);
+
   return (
     <Box
       sx={ {
@@ -11,9 +24,7 @@ export default function CustomerOrders() {
         justifyContent: 'space-around',
       } }
     >
-      <OrderCard status="pendente" />
-      <OrderCard status="entregue" />
-      <OrderCard status="preparando" />
+      { orders.map((order, i) => <OrderCard { ...order } key={ i } />) }
     </Box>
   );
 }
