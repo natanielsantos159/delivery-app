@@ -25,7 +25,11 @@ export default function CostumerProducts() {
         } }
       >
         { products
-          .map((product, index) => <ProductCard key={ index } item={ product } />) }
+          .map((product, index) => (<ProductCard
+            key={ index }
+            item={ product }
+            index={ index }
+          />)) }
       </Box>
       <CustomerCart />
     </Box>

@@ -13,4 +13,6 @@ app.use('/', user);
 
 app.use('/customer', customer);
 
+app.use('/images', express.static('public'));
+
 module.exports = app;
