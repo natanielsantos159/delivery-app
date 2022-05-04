@@ -10,6 +10,7 @@ import {
 
 export default function ProductCard(item, index) {
   const [quantity, setQuantity] = useState(0);
+  const [clicked, setClicked] = useState(false);
   const { item: { id, name, price, urlImage } } = item;
 
   const handleMinQuantity = () => {
@@ -17,17 +18,32 @@ export default function ProductCard(item, index) {
   };
 
   useEffect(() => {
-    const addToCart = { id, price, quantity };
-    const storage = JSON
-      .parse(localStorage
-        .getItem('cart')).cart ? JSON
-        .parse(localStorage.getItem('cart')).cart : { cart: [] };
-    if (storage.cart.length === 0) {
-      localStorage.setItem('cart', JSON.stringify([addToCart]));
+    const storageCart = JSON.parse(localStorage.getItem('cart'));
+    if (!storageCart) {
+      setQuantity(0);
+    }
+    const newCart = storageCart.find((eachProduct) => eachProduct.id === id);
+    if (newCart) {
+      setQuantity(newCart.quantity);
+    }
+  }, []);
+
+  useEffect(() => {
+    const addToCart = { id, name, price, quantity };
+    const storageCart = JSON.parse(localStorage.getItem('cart'));
+    if (!storageCart) {
+      localStorage.setItem('cart', JSON.stringify([]));
       return;
     }
-    const newCart = storage.map((eachProduct) => eachProduct.id !== id);
-    localStorage.setItem('cart', JSON.stringify([...newCart, addToCart]));
+    if (quantity === 0 && clicked) {
+      const newCart = storageCart.filter((eachProduct) => eachProduct.id !== id);
+      return localStorage.setItem('cart', JSON.stringify(newCart));
+    }
+    if (quantity) {
+      const newCart = storageCart.filter((eachProduct) => eachProduct.id !== id);
+      localStorage.setItem('cart', JSON.stringify([...newCart, addToCart]));
+    }
+    setClicked(true);
   }, [quantity]);
 
   return (
