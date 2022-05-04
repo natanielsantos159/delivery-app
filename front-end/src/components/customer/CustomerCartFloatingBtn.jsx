@@ -11,7 +11,7 @@ export default function CustomerCart() {
       variant="extended"
       onClick={ () => navigate('/customer/checkout') }
       sx={ {
-        position: 'absolute',
+        position: 'fixed',
         bottom: 16,
         right: 16,
         color: 'white',

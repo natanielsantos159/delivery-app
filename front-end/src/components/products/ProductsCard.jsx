@@ -17,7 +17,7 @@ export default function ProductCard(item) {
   };
 
   return (
-    <Card sx={ { maxWidth: 220, borderRadius: 0 } }>
+    <Card sx={ { maxWidth: 280, borderRadius: 0, marginBottom: 5 } }>
       <Box>
         <Typography
           variant="subtitle1"

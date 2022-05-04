@@ -21,6 +21,7 @@ export default function CostumerProducts() {
           backgroundColor: 'white',
           display: 'flex',
           justifyContent: 'space-around',
+          flexWrap: 'wrap',
         } }
       >
         { products
