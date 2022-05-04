@@ -7,9 +7,9 @@ export const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
+  const [userInfo, setUser] = useState(null);
 
-  const isAuthenticated = false;
-  const [userInfo, setUser] = useState();
+  const isAuthenticated = !!userInfo;
 
   const signIn = async ({ email, password }) => {
     const { data } = await LOGIN({
