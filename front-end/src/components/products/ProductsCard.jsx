@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import {
   Box,
   Typography,
@@ -8,10 +9,10 @@ import {
   TextField,
 } from '@mui/material';
 
-export default function ProductCard(item, index) {
+export default function ProductCard({ item }) {
   const [quantity, setQuantity] = useState(0);
   const [clicked, setClicked] = useState(false);
-  const { item: { id, name, price, urlImage } } = item;
+  const { id, name, price, urlImage } = item;
 
   const handleMinQuantity = () => {
     setQuantity(quantity === 0 ? 0 : quantity - 1);
@@ -52,7 +53,7 @@ export default function ProductCard(item, index) {
         <Typography
           variant="subtitle1"
           component="text"
-          data-testid={ `customer_products__element-card-price-${index}` }
+          data-testid={ `customer_products__element-card-price-${id}` }
           sx={ {
             fontSize: '1.2rem',
             margin: '4px',
@@ -62,14 +63,14 @@ export default function ProductCard(item, index) {
             borderRadius: '5px',
           } }
         >
-          { `RS ${price}` }
+          { price.toString().replace('.', ',') }
         </Typography>
         <CardMedia
           component="img"
           height="190"
           src={ urlImage }
           alt="Card Image"
-          data-testid={ `customer_products__img-card-bg-image-${index}` }
+          data-testid={ `customer_products__img-card-bg-image-${id}` }
           sx={ { zIndex: 1, objectFit: 'contain' } }
         />
       </Box>
@@ -83,7 +84,7 @@ export default function ProductCard(item, index) {
           variant="subtitle1"
           color="text.primary"
           textAlign="center"
-          data-testid={ `customer_products__element-card-title-${index}` }
+          data-testid={ `customer_products__element-card-title-${id}` }
         >
           { name }
         </Typography>
@@ -95,7 +96,7 @@ export default function ProductCard(item, index) {
         >
           <Button
             variant="contained"
-            data-testid={ `customer_products__button-card-rm-item-${index}` }
+            data-testid={ `customer_products__button-card-rm-item-${id}` }
             sx={ {
               alignSelf: 'center',
             } }
@@ -106,14 +107,14 @@ export default function ProductCard(item, index) {
           <TextField
             id="outlined-read-only-input"
             inputProps={ {
-              'data-testid': `customer_products__input-card-quantity-${index}`,
+              'data-testid': `customer_products__input-card-quantity-${id}`,
             } }
             value={ quantity }
             size="small"
           />
           <Button
             variant="contained"
-            data-testid={ `customer_products__button-card-add-item-${index}` }
+            data-testid={ `customer_products__button-card-add-item-${id}` }
             sx={ {
               alignSelf: 'center',
             } }
@@ -126,3 +127,12 @@ export default function ProductCard(item, index) {
     </Card>
   );
 }
+
+ProductCard.propTypes = {
+  item: {
+    id: PropTypes.number,
+    name: PropTypes.string,
+    price: PropTypes.number,
+    urlImage: PropTypes.string,
+  },
+}.isRequired;
