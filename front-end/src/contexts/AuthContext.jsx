@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { createContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import validToken from '../helpers/jwt';
 import { LOGIN, REGISTER_USER } from '../services/user.service';
 
 export const AuthContext = createContext({});
@@ -21,10 +22,25 @@ export const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    const validUser = getUserFromStorage();
+    const initialization = async () => {
+      try {
+        const user = getUserFromStorage();
 
-    setUser(validUser);
-    setIsAuthenticated(!!validUser);
+        if (user.token && validToken(user.token)) {
+          if (!user) {
+            setIsAuthenticated(false);
+            setUser(null);
+          }
+          setIsAuthenticated(true);
+          setUser(user);
+        }
+        setIsAuthenticated(false);
+        setUser(null);
+      } catch (error) {
+        console.log(err.message);
+      }
+    };
+    initialization();
   }, []);
 
   const signUp = async ({ name, email, password }) => {
