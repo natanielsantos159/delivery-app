@@ -8,8 +8,11 @@ import {
   CardMedia,
   TextField,
 } from '@mui/material';
+import useCart from '../../hooks/useCart';
 
 export default function ProductCard({ item }) {
+  const { getTotalValue } = useCart();
+
   const [quantity, setQuantity] = useState(0);
   const [clicked, setClicked] = useState(false);
   const { id, name, price, urlImage } = item;
@@ -34,7 +37,7 @@ export default function ProductCard({ item }) {
       localStorage.setItem('cart', JSON.stringify([...newCart, addToCart]));
     }
     setClicked(true);
-  }, [quantity]);
+  }, [clicked, id, name, price, quantity]);
 
   useEffect(() => {
     const storageCart = JSON.parse(localStorage.getItem('cart'));
@@ -45,25 +48,33 @@ export default function ProductCard({ item }) {
     if (newCart) {
       setQuantity(newCart.quantity);
     }
-  }, []);
+  }, [id]);
+
+  useEffect(() => {
+    const storageCart = JSON.parse(localStorage.getItem('cart'));
+    getTotalValue(storageCart);
+  }, [getTotalValue, quantity]);
 
   return (
-    <Card sx={ { maxWidth: 230, borderRadius: 0, marginBottom: 5 } }>
+    <Card
+      sx={ { maxWidth: 230,
+        marginBottom: 5,
+        boxShadow: 6,
+        borderRadius: 2 } }
+    >
       <Box>
         <Typography
-          variant="subtitle1"
-          component="text"
           data-testid={ `customer_products__element-card-price-${id}` }
           sx={ {
-            fontSize: '1.2rem',
+            p: 0.5,
             margin: '4px',
             zIndex: 3,
             position: 'absolute',
-            backgroundColor: 'rgba(10, 0, 0, 0.3)',
+            backgroundColor: 'rgba(122, 120, 120, 0.3)',
             borderRadius: '5px',
           } }
         >
-          { price.toString().replace('.', ',') }
+          { `R$ ${price.toString().replace('.', ',')}` }
         </Typography>
         <CardMedia
           component="img"
@@ -82,6 +93,7 @@ export default function ProductCard({ item }) {
       >
         <Typography
           variant="subtitle1"
+          fontWeight="bold"
           color="text.primary"
           textAlign="center"
           data-testid={ `customer_products__element-card-title-${id}` }
@@ -108,6 +120,7 @@ export default function ProductCard({ item }) {
             id="outlined-read-only-input"
             inputProps={ {
               'data-testid': `customer_products__input-card-quantity-${id}`,
+              style: { textAlign: 'center' },
             } }
             value={ quantity }
             size="small"
