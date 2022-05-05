@@ -56,8 +56,15 @@ export const AuthProvider = ({ children }) => {
     navigate('/customer/products');
   };
 
+  const logout = () => {
+    setUser(null);
+    localStorage.removeItem('user');
+
+    navigate('/login');
+  };
+
   return (
-    <AuthContext.Provider value={ { isAuthenticated, userInfo, signIn, signUp } }>
+    <AuthContext.Provider value={ { isAuthenticated, userInfo, signIn, signUp, logout } }>
       {children}
     </AuthContext.Provider>
   );
