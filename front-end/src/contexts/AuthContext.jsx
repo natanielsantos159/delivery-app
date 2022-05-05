@@ -58,12 +58,12 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = () => {
+    navigate('/login');
+
     setUser(null);
     setIsAuthenticated(false);
     localStorage.removeItem('user');
     localStorage.removeItem('cart');
-
-    navigate('/login');
   };
 
   return (
