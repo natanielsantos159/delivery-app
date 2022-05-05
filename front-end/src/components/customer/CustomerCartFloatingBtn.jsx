@@ -3,8 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import {
   Fab,
 } from '@mui/material';
+import useCart from '../../hooks/useCart';
 
 export default function CustomerCart() {
+  const { totalPrice } = useCart();
   const navigate = useNavigate();
 
   return (
@@ -20,7 +22,9 @@ export default function CustomerCart() {
       color="primary"
       data-testid="customer_products__checkout-bottom-value"
     >
-      Ver Carrinho: R$ 0
+      Ver Carrinho: R$
+      {' '}
+      {totalPrice}
     </Fab>
   );
 }
