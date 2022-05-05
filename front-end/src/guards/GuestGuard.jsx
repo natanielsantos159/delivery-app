@@ -11,7 +11,7 @@ export default function GuestGuard({ children }) {
     return <Navigate to="/customer/products" />;
   }
 
-  return { children };
+  return children;
 }
 
 GuestGuard.propTypes = {

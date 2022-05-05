@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Box,
@@ -26,14 +26,8 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const { signIn, isAuthenticated } = useAuth();
+  const { signIn } = useAuth();
   const { enqueueToast } = useToastManager();
-
-  useEffect(() => {
-    if (isAuthenticated) {
-      navigate('/customer/products');
-    }
-  }, [isAuthenticated]);
 
   const loginUser = async () => {
     try {
