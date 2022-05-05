@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { createContext, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import validToken from '../helpers/jwt';
 import { LOGIN, REGISTER_USER } from '../services/user.service';
 
@@ -35,6 +35,8 @@ export const AuthProvider = ({ children }) => {
         setUser(null);
       } catch (error) {
         console.log(err.message);
+        setIsAuthenticated(false);
+        setUser(null);
       }
     };
     initialization();
@@ -72,12 +74,12 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = () => {
-    navigate('/login');
-
     setUser(null);
     setIsAuthenticated(false);
     localStorage.removeItem('user');
     localStorage.removeItem('cart');
+
+    return <Navigate to="/login" replace />;
   };
 
   return (

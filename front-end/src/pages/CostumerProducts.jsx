@@ -22,13 +22,15 @@ export default function CostumerProducts() {
 
   useEffect(() => {
     const getProducts = async () => {
-      try {
-        const response = await PRODUCTS();
-        const { data } = response;
-        setProducts(data);
-      } catch (error) {
-        console.log(error.message);
-        enqueueToast('error', 'Erro ao listar produtos', 'error');
+      if (isAuthenticated) {
+        try {
+          const response = await PRODUCTS();
+          const { data } = response;
+          setProducts(data);
+        } catch (error) {
+          console.log(error.message);
+          enqueueToast('error', 'Erro ao listar produtos', 'error');
+        }
       }
     };
     getProducts();
