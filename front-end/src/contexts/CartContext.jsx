@@ -10,7 +10,7 @@ export const CartProvider = ({ children }) => {
     if (cart) {
       const total = cart
         .reduce((acc, product) => acc + (product.quantity * product.price), 0);
-      setTotalPrice(total);
+      setTotalPrice(total.toFixed(2));
     }
   };
 
