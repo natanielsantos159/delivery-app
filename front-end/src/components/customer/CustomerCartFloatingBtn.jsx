@@ -22,8 +22,6 @@ export default function CustomerCart() {
       color="primary"
       data-testid="customer_products__checkout-bottom-value"
     >
-      Ver Carrinho: R$
-      {' '}
       {totalPrice}
     </Fab>
   );
