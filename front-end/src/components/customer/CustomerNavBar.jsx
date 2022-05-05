@@ -12,6 +12,12 @@ export default function NavBar() {
 
   const { name } = JSON.parse(localStorage.getItem('user'));
 
+  const logOut = () => {
+    localStorage.removeItem('user');
+    localStorage.removeItem('cart');
+    navigate('/');
+  };
+
   return (
     <AppBar position="static" sx={ { height: '4rem', marginBottom: '2rem' } }>
       <Toolbar
@@ -54,7 +60,7 @@ export default function NavBar() {
               display: 'block',
             } }
             data-testid="customer_products__element-navbar-link-logout"
-            onClick={ () => navigate('/login') }
+            onClick={ () => logOut() }
           >
             Sair
           </Button>

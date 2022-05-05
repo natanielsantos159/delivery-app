@@ -6,6 +6,7 @@ import {
 
 export default function CustomerCart() {
   const navigate = useNavigate();
+
   return (
     <Fab
       variant="extended"
@@ -19,7 +20,7 @@ export default function CustomerCart() {
       color="primary"
       data-testid="customer_products__checkout-bottom-value"
     >
-      Ver Carrinho: R$ 99999999,98
+      Ver Carrinho: R$ 0
     </Fab>
   );
 }
