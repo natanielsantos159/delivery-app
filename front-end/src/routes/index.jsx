@@ -3,7 +3,6 @@ import { useRoutes, Navigate } from 'react-router-dom';
 import CostumerProducts from '../pages/CostumerProducts';
 import Login from '../pages/Login';
 import CustomerOrders from '../pages/CustomerOrders';
-import Products from '../pages/Products';
 import Register from '../pages/Register';
 
 export default function Router() {
