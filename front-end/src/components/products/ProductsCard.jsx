@@ -11,7 +11,7 @@ import {
 import useCart from '../../hooks/useCart';
 
 export default function ProductCard({ item }) {
-  const { getTotalValue, totalPrice } = useCart();
+  const { getTotalValue } = useCart();
 
   const [quantity, setQuantity] = useState(0);
   const [clicked, setClicked] = useState(false);
@@ -53,7 +53,6 @@ export default function ProductCard({ item }) {
   useEffect(() => {
     const storageCart = JSON.parse(localStorage.getItem('cart'));
     getTotalValue(storageCart);
-    console.log(totalPrice);
   }, [quantity]);
 
   return (
