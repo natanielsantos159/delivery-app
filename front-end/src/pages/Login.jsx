@@ -33,7 +33,7 @@ export default function Login() {
     if (isAuthenticated) {
       navigate('/customer/products');
     }
-  }, []);
+  }, [isAuthenticated]);
 
   const loginUser = async () => {
     try {

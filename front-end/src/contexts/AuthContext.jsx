@@ -26,13 +26,10 @@ export const AuthProvider = ({ children }) => {
       try {
         const user = getUserFromStorage();
 
-        if (user.token && validToken(user.token)) {
-          if (!user) {
-            setIsAuthenticated(false);
-            setUser(null);
-          }
+        if (user && user.token && validToken(user.token)) {
           setIsAuthenticated(true);
           setUser(user);
+          return;
         }
         setIsAuthenticated(false);
         setUser(null);
@@ -54,6 +51,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.setItem('user', JSON.stringify({ ...user, token }));
 
     setUser(user);
+    setIsAuthenticated(true);
 
     navigate('/customer/products');
   };
@@ -68,6 +66,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.setItem('user', JSON.stringify({ token, ...user }));
 
     setUser(user);
+    setIsAuthenticated(true);
 
     navigate('/customer/products');
   };
