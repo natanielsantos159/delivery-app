@@ -8,8 +8,11 @@ import {
   CardMedia,
   TextField,
 } from '@mui/material';
+import useCart from '../../hooks/useCart';
 
 export default function ProductCard({ item }) {
+  const { getTotalValue, totalPrice } = useCart();
+
   const [quantity, setQuantity] = useState(0);
   const [clicked, setClicked] = useState(false);
   const { id, name, price, urlImage } = item;
@@ -34,7 +37,7 @@ export default function ProductCard({ item }) {
       localStorage.setItem('cart', JSON.stringify([...newCart, addToCart]));
     }
     setClicked(true);
-  }, [quantity]);
+  }, [clicked, id, name, price, quantity]);
 
   useEffect(() => {
     const storageCart = JSON.parse(localStorage.getItem('cart'));
@@ -45,7 +48,13 @@ export default function ProductCard({ item }) {
     if (newCart) {
       setQuantity(newCart.quantity);
     }
-  }, []);
+  }, [id]);
+
+  useEffect(() => {
+    const storageCart = JSON.parse(localStorage.getItem('cart'));
+    getTotalValue(storageCart);
+    console.log(totalPrice);
+  }, [quantity]);
 
   return (
     <Card sx={ { maxWidth: 230, borderRadius: 0, marginBottom: 5 } }>
