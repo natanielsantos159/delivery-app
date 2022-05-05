@@ -19,7 +19,12 @@ export default function Router() {
       ),
     },
     {
-      path: '/register', element: <Register />,
+      path: '/register',
+      element: (
+        <GuestGuard>
+          <Register />
+        </GuestGuard>
+      ),
     },
     {
       path: '/customer/products', element: <CostumerProducts />,
