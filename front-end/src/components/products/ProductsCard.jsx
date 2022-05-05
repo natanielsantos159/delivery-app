@@ -8,7 +8,6 @@ import {
   CardMedia,
   TextField,
 } from '@mui/material';
-import { CartContext } from '../../contexts/CartContext';
 
 export default function ProductCard({ item }) {
   const [quantity, setQuantity] = useState(0);

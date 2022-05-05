@@ -4,23 +4,32 @@ import React, { createContext, useEffect, useState } from 'react';
 export const CartContext = createContext({});
 
 export const CartProvider = ({ children }) => {
-  const [cartProducts, setCartProducts] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
 
-  const addProducts = (productItem) => {
-    setCartProducts((prevProducts) => [...prevProducts, productItem]);
-  };
-
-  const getTotalPrice = () => {
-    const totalPrice = cartProducts.reduce((acc, current) => acc.price + current.price);
-    return totalPrice;
+  const getCartFromStorage = () => {
+    const cart = localStorage.getItem('cart');
+    if (cart) {
+      const parsedCart = JSON.parse(cart);
+      return parsedCart;
+    }
+    return null;
   };
 
   useEffect(() => {
-    console.log(cartProducts);
-  }, [cartProducts]);
+    const cart = getCartFromStorage();
+
+    const getTotalPrice = () => {
+      const totalPrices = cart
+        .reduce((acc, current) => (
+          acc.price * acc.quantity) + (current.price * current.quantity));
+      setTotalPrice(totalPrices);
+      return totalPrices;
+    };
+    getTotalPrice();
+  }, [cart]);
 
   return (
-    <CartContext.Provider value={ { addProducts, cartProducts, getTotalPrice } }>
+    <CartContext.Provider value={ { addProducts, cartProducts, totalPrice } }>
       {children}
     </CartContext.Provider>
   );
