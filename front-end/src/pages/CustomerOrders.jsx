@@ -9,8 +9,12 @@ export default function CustomerOrders() {
 
   const fetchOrders = async () => {
     const userId = 3;
-    const { data } = await GET_USER_ORDERS(userId);
-    setOrders(data);
+    try {
+      const { data } = await GET_USER_ORDERS(userId);
+      setOrders(data);
+    } catch (err) {
+      console.log(error.message);
+    }
   };
 
   useEffect(() => {
