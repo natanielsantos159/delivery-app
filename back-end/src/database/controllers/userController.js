@@ -22,7 +22,7 @@ const login = async (req, res) => {
     delete user.dataValues.password;
     delete user.dataValues.id;
 
-    const token = jwt.sign({ data: { email } }, secret);
+    const token = jwt.sign({ data: { email } }, secret, { expiresIn: '1h' });
 
     return res.status(200).json({ token, user });
 
@@ -37,7 +37,7 @@ const register = async (req, res) => {
 
     const userData = await userService.createUser(name, email, password, role);
 
-    const token = jwt.sign({ data: { email } }, secret);
+    const token = jwt.sign({ data: { email } }, secret, { expiresIn: '1h' });
 
     delete userData.dataValues.password;
 
