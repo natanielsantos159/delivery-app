@@ -7,10 +7,17 @@ import {
   Button,
 } from '@mui/material';
 import useAuth from '../../hooks/useAuth';
+import useToastManager from '../../hooks/useToast';
 
 export default function NavBar() {
   const navigate = useNavigate();
+  const { enqueueToast } = useToastManager();
   const { logout, userInfo } = useAuth();
+
+  const endSession = () => {
+    logout();
+    enqueueToast('success', 'Sessão encerrada com sucesso!', 'success');
+  };
 
   return (
     <AppBar position="static" sx={ { height: '4rem', marginBottom: '2rem' } }>
@@ -55,7 +62,7 @@ export default function NavBar() {
               display: 'block',
             } }
             data-testid="customer_products__element-navbar-link-logout"
-            onClick={ () => logout() }
+            onClick={ () => endSession() }
           >
             Sair
           </Button>
