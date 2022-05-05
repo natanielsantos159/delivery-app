@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
   Box,
   Typography,
@@ -7,9 +7,11 @@ import {
   CardMedia,
   TextField,
 } from '@mui/material';
+import { CartContext } from '../../contexts/CartContext';
 
 export default function ProductCard(item, index) {
   const [quantity, setQuantity] = useState(0);
+  const { addProducts } = useContext(CartContext);
   const { item: { id, name, price, urlImage } } = item;
 
   const handleMinQuantity = () => {
@@ -17,6 +19,10 @@ export default function ProductCard(item, index) {
   };
 
   useEffect(() => {
+    addProducts({ id, name, price, quantity });
+  }, [quantity]);
+
+  /*  useEffect(() => {
     const addToCart = { id, price, quantity };
     const storage = JSON
       .parse(localStorage
@@ -28,7 +34,7 @@ export default function ProductCard(item, index) {
     }
     const newCart = storage.map((eachProduct) => eachProduct.id !== id);
     localStorage.setItem('cart', JSON.stringify([...newCart, addToCart]));
-  }, [quantity]);
+  }, [quantity]); */
 
   return (
     <Card sx={ { maxWidth: 230, borderRadius: 0, marginBottom: 5 } }>
