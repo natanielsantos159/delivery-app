@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
-  Fab,
+  Fab, Typography,
 } from '@mui/material';
 import useCart from '../../hooks/useCart';
 
@@ -13,6 +13,7 @@ export default function CustomerCart() {
     <Fab
       variant="extended"
       onClick={ () => navigate('/customer/checkout') }
+      disabled={ totalPrice <= 0 }
       sx={ {
         position: 'fixed',
         bottom: 16,
@@ -20,11 +21,11 @@ export default function CustomerCart() {
         color: 'white',
       } }
       color="primary"
-      data-testid="customer_products__checkout-bottom-value"
+      data-testid="customer_products__button-cart"
     >
-      Ver Carrinho: R$
-      {' '}
-      {totalPrice}
+      <Typography data-testid="customer_products__checkout-bottom-value">
+        {String(totalPrice).replace('.', ',')}
+      </Typography>
     </Fab>
   );
 }

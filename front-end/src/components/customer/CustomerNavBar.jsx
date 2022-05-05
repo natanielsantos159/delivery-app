@@ -6,16 +6,17 @@ import {
   Box,
   Button,
 } from '@mui/material';
+import useAuth from '../../hooks/useAuth';
+import useToastManager from '../../hooks/useToast';
 
 export default function NavBar() {
   const navigate = useNavigate();
+  const { enqueueToast } = useToastManager();
+  const { logout, userInfo } = useAuth();
 
-  const { name } = JSON.parse(localStorage.getItem('user'));
-
-  const logOut = () => {
-    localStorage.removeItem('user');
-    localStorage.removeItem('cart');
-    navigate('/');
+  const endSession = () => {
+    logout();
+    enqueueToast('success', 'Sessão encerrada com sucesso!', 'success');
   };
 
   return (
@@ -51,7 +52,8 @@ export default function NavBar() {
             } }
             data-testid="customer_products__element-navbar-user-full-name"
           >
-            { name }
+            {/* // Necessário o uso do '?' pois o objeto inicia como nulo} // */}
+            { userInfo?.name }
           </Button>
           <Button
             sx={ {
@@ -60,7 +62,7 @@ export default function NavBar() {
               display: 'block',
             } }
             data-testid="customer_products__element-navbar-link-logout"
-            onClick={ () => logOut() }
+            onClick={ () => endSession() }
           >
             Sair
           </Button>

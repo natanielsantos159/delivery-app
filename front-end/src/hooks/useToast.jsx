@@ -9,7 +9,7 @@ export default function useToastManager() {
       <Typography data-testid={ dataTestid }>
         {message}
       </Typography>,
-      { position: 'top-right',
+      { position: 'top-center',
         style: { background: palette[variant].main, color: '#fff' } },
     );
     return notification;

@@ -1,5 +1,6 @@
 import React from 'react';
 import { useRoutes, Navigate } from 'react-router-dom';
+import GuestGuard from '../guards/GuestGuard';
 import CostumerProducts from '../pages/CostumerProducts';
 import Login from '../pages/Login';
 import CustomerOrders from '../pages/CustomerOrders';
@@ -11,10 +12,20 @@ export default function Router() {
       path: '/', element: <Navigate to="/login" replace />,
     },
     {
-      path: '/login', element: <Login />,
+      path: '/login',
+      element: (
+        <GuestGuard>
+          <Login />
+        </GuestGuard>
+      ),
     },
     {
-      path: '/register', element: <Register />,
+      path: '/register',
+      element: (
+        <GuestGuard>
+          <Register />
+        </GuestGuard>
+      ),
     },
     {
       path: '/customer/orders', element: <CustomerOrders />,
