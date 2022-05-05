@@ -4,8 +4,10 @@ import React from 'react';
 import DoneIcon from '@mui/icons-material/Done';
 import PendingIcon from '@mui/icons-material/Pending';
 import LoopIcon from '@mui/icons-material/Loop';
+import { useNavigate } from 'react-router-dom';
 
 export default function OrderCard({ id, status, totalPrice, saleDate }) {
+  const navigate = useNavigate();
   const formatter = new Intl.NumberFormat('pt-BR', {
     style: 'currency',
     currency: 'BRL',
@@ -24,7 +26,10 @@ export default function OrderCard({ id, status, totalPrice, saleDate }) {
   };
 
   return (
-    <Card sx={ { maxWidth: '300px', padding: '30px' } }>
+    <Card
+      sx={ { maxWidth: '300px', padding: '30px' } }
+      onClick={ () => navigate(`${id}`) }
+    >
       <Box>
         <Typography
           variant="h5"

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Box } from '@mui/material';
-import OrderCard from '../components/OrderCard';
+import OrderCard from '../components/customer/OrderCard';
 import { GET_USER_ORDERS } from '../services/user.service';
 import NavBar from '../components/customer/CustomerNavBar';
 
