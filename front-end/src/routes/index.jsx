@@ -5,6 +5,7 @@ import CostumerProducts from '../pages/CostumerProducts';
 import Login from '../pages/Login';
 import CustomerOrders from '../pages/CustomerOrders';
 import Register from '../pages/Register';
+import SellerOrdersPage from '../pages/SellerOrdersPage';
 
 export default function Router() {
   return useRoutes([
@@ -32,6 +33,9 @@ export default function Router() {
     },
     {
       path: '/customer/products', element: <CostumerProducts />,
+    },
+    {
+      path: '/seller/orders', element: <SellerOrdersPage />,
     },
   ]);
 }
