@@ -34,7 +34,7 @@ export default function CostumerProducts() {
       }
     };
     getProducts();
-  }, [enqueueToast, isAuthenticated]);
+  }, [isAuthenticated]);
 
   return (
     <Box>

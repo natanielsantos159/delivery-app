@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { Box, Card, MenuItem, TextField } from '@mui/material';
+import React, { useCallback, useEffect, useState } from 'react';
+import { Box, Card, TextField } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
+import { useNavigate } from 'react-router-dom';
 import { GET_SELLERS } from '../services/user.service';
 import useToastManager from '../hooks/useToast';
 import CREATE_ORDER from '../services/sales.service';
@@ -8,6 +9,7 @@ import useCart from '../hooks/useCart';
 
 export default function ConfirmOrderForm() {
   const { cartItems, totalPrice } = useCart();
+  const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
   const [sellers, setSellers] = useState([]);
@@ -27,9 +29,11 @@ export default function ConfirmOrderForm() {
         products: cartItems,
       };
 
-      await CREATE_ORDER(body);
+      const { data: { orderId } } = await CREATE_ORDER(body);
 
       enqueueToast('success', 'Pedido enviado com sucesso!', 'success');
+
+      navigate(`/customer/orders/${orderId}`);
     } catch (error) {
       console.log(error.message);
       enqueueToast('error', 'Não foi possível realizar o pedido', 'error');
@@ -38,16 +42,17 @@ export default function ConfirmOrderForm() {
     }
   };
 
+  const getSellers = useCallback(async () => {
+    try {
+      const response = await GET_SELLERS();
+      setSellers(response.data);
+    } catch (error) {
+      console.log(error.message);
+      enqueueToast('error', 'Erro ao carregar os vendedores', 'erro');
+    }
+  }, [enqueueToast]);
+
   useEffect(() => {
-    const getSellers = async () => {
-      try {
-        const response = await GET_SELLERS();
-        setSellers(response.data);
-      } catch (error) {
-        console.log(error.message);
-        enqueueToast('error', 'Erro ao carregar os vendedores', 'erro');
-      }
-    };
     getSellers();
   }, []);
 
@@ -69,17 +74,24 @@ export default function ConfirmOrderForm() {
         justifyContent="space-evenly"
       >
         <TextField
-          label="P.Vendedor Responsável"
           select
-          sx={ { width: 200 } }
+          SelectProps={ { native: true } }
+          inputProps={ { 'data-testid': 'customer_checkout__select-seller' } }
           value={ selectedSeller }
           onChange={ ({ target }) => setSelectedSeller(target.value) }
-          inputProps={ { 'data-testid': 'customer_checkout__select-seller' } }
-          SelectProps={ { MenuProps:
-            { disableScrollLock: true, sx: { maxHeight: 300 } } } }
         >
           {sellers.map((seller) => (
-            <MenuItem value={ seller.name } key={ seller.id }>{seller.name}</MenuItem>
+            <>
+              <option
+                value={ seller.name }
+                key={ seller.id }
+              >
+                {seller.name}
+              </option>
+              <option selected disabled value="">
+                Escolha um vendedor
+              </option>
+            </>
           ))}
         </TextField>
         <TextField

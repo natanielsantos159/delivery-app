@@ -31,7 +31,7 @@ export default function Router() {
     {
       path: '/customer/orders',
       element: <CustomerOrders />,
-      children: [{ path: ':id', element: 'olá' }],
+      children: [{ path: ':id', element: <h1>olá</h1> }],
     },
     {
       path: '/customer/products', element: <CostumerProducts />,
