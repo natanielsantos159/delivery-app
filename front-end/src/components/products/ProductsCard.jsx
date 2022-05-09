@@ -117,11 +117,13 @@ export default function ProductCard({ item }) {
             -
           </Button>
           <TextField
+            type="number"
             id="outlined-read-only-input"
             inputProps={ {
               'data-testid': `customer_products__input-card-quantity-${id}`,
               style: { textAlign: 'center' },
             } }
+            onChange={ ({ target }) => setQuantity(Number(target.value)) }
             value={ quantity }
             size="small"
           />

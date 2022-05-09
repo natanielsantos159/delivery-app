@@ -22,7 +22,7 @@ const login = async (req, res) => {
     delete user.dataValues.password;
     delete user.dataValues.id;
 
-    const token = jwt.sign({ data: { email } }, secret);
+    const token = jwt.sign({ data: { email } }, secret, { expiresIn: '1h' });
 
     return res.status(200).json({ token, user });
 
@@ -37,30 +37,18 @@ const register = async (req, res) => {
 
     const userData = await userService.createUser(name, email, password, role);
 
-    const token = jwt.sign({ data: { email } }, secret);
+    const token = jwt.sign({ data: { email } }, secret, { expiresIn: '1h' });
 
     delete userData.dataValues.password;
 
     return res.status(201).json({ user: userData, token });
 
   } catch (error) {
-    return res.status(500).json({ error: error.message })
+    return res.status(500).json({ error: 'Invalid or expired token' });
   }
 }
-
-const getUserOrders = async (req, res) => {
-  const { id } = req.params;
-
-  try {
-    const orders = await userService.getUserOrders(id);
-    return res.status(200).json(orders);
-  } catch (error) {
-    return res.status(500).json({ error: 'Internal Server Error' });
-  }
-};
 
 module.exports = {
   login,
   register,
-  getUserOrders,
 }

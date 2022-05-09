@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
 import React, { createContext, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
+import validToken from '../helpers/jwt';
 import { LOGIN, REGISTER_USER } from '../services/user.service';
 
 export const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
-  const navigate = useNavigate();
   const [userInfo, setUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -21,10 +21,24 @@ export const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    const validUser = getUserFromStorage();
+    const initialization = async () => {
+      try {
+        const user = getUserFromStorage();
 
-    setUser(validUser);
-    setIsAuthenticated(!!validUser);
+        if (user && user.token && validToken(user.token)) {
+          setIsAuthenticated(true);
+          setUser(user);
+          return;
+        }
+        setIsAuthenticated(false);
+        setUser(null);
+      } catch (error) {
+        console.log(err.message);
+        setIsAuthenticated(false);
+        setUser(null);
+      }
+    };
+    initialization();
   }, []);
 
   const signUp = async ({ name, email, password }) => {
@@ -38,8 +52,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.setItem('user', JSON.stringify({ ...user, token }));
 
     setUser(user);
-
-    navigate('/customer/products');
+    setIsAuthenticated(true);
   };
 
   const signIn = async ({ email, password }) => {
@@ -52,12 +65,20 @@ export const AuthProvider = ({ children }) => {
     localStorage.setItem('user', JSON.stringify({ token, ...user }));
 
     setUser(user);
+    setIsAuthenticated(true);
+  };
 
-    navigate('/customer/products');
+  const logout = () => {
+    setUser(null);
+    setIsAuthenticated(false);
+    localStorage.removeItem('user');
+    localStorage.removeItem('cart');
+
+    return <Navigate to="/login" replace />;
   };
 
   return (
-    <AuthContext.Provider value={ { isAuthenticated, userInfo, signIn, signUp } }>
+    <AuthContext.Provider value={ { isAuthenticated, userInfo, signIn, signUp, logout } }>
       {children}
     </AuthContext.Provider>
   );
