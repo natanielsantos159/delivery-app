@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Box } from '@mui/material';
 import OrderCard from '../components/customer/OrderCard';
 import { GET_USER_ORDERS } from '../services/user.service';
-import NavBar from '../components/customer/CustomerNavBar';
 
 export default function CustomerOrders() {
   const [orders, setOrders] = useState([]);
@@ -18,17 +17,14 @@ export default function CustomerOrders() {
   }, []);
 
   return (
-    <Box>
-      <NavBar />
-      <Box
-        sx={ {
-          backgroundColor: 'white',
-          display: 'flex',
-          justifyContent: 'space-around',
-        } }
-      >
-        { orders.map((order, i) => <OrderCard { ...order } key={ i } />) }
-      </Box>
+    <Box
+      sx={ {
+        backgroundColor: 'white',
+        display: 'flex',
+        justifyContent: 'space-around',
+      } }
+    >
+      { orders.map((order, i) => <OrderCard { ...order } key={ i } />) }
     </Box>
   );
 }

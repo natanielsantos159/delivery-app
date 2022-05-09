@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Box } from '@mui/material';
 import CustomerCart from '../components/customer/CustomerCartFloatingBtn';
-import NavBar from '../components/customer/CustomerNavBar';
 import ProductCard from '../components/products/ProductsCard';
 import { PRODUCTS } from '../services/user.service';
 import useToastManager from '../hooks/useToast';
@@ -25,8 +24,7 @@ export default function CostumerProducts() {
   }, []);
 
   return (
-    <Box>
-      <NavBar />
+    <>
       <Box
         sx={ {
           backgroundColor: 'white',
@@ -42,6 +40,6 @@ export default function CostumerProducts() {
           />)) }
       </Box>
       <CustomerCart />
-    </Box>
+    </>
   );
 }
