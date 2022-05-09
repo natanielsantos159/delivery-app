@@ -24,6 +24,7 @@ export default function ConfirmOrderForm() {
           label="P.Vendedor Responsável"
           select
           sx={ { width: 200 } }
+          inputProps={ { 'data-testid': 'customer_checkout__select-seller' } }
           SelectProps={ { MenuProps:
             { disableScrollLock: true, sx: { maxHeight: 300 } } } }
         >
@@ -31,10 +32,20 @@ export default function ConfirmOrderForm() {
           <MenuItem>fulana 2</MenuItem>
           <MenuItem>fulana 3</MenuItem>
         </TextField>
-        <TextField label="Endereço" />
-        <TextField label="Número" />
+        <TextField
+          inputProps={ { 'data-testid': 'customer_checkout__input-address' } }
+          label="Endereço"
+        />
+        <TextField
+          inputProps={ { 'data-testid':
+        'customer_checkout__input-addressNumber' } }
+          label="Número"
+        />
       </Box>
-      <LoadingButton variant="contained">
+      <LoadingButton
+        data-testid="customer_checkout__button-submit-order"
+        variant="contained"
+      >
         FINALIZAR PEDIDO
       </LoadingButton>
     </Card>

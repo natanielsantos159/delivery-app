@@ -35,10 +35,13 @@ export default function CheckoutTable({ columns, data }) {
           {data.map((row, index) => (
             <TableRow key={ row.id }>
               <TableCell
+                data-testid={
+                  `customer_checkout__element-order-table-item-number-${index}`
+                }
                 sx={ { fontWeight: 'bold' } }
                 align="center"
               >
-                {row.id}
+                {index + 1}
 
               </TableCell>
               <TableCell
@@ -64,7 +67,7 @@ export default function CheckoutTable({ columns, data }) {
                 sx={ { fontWeight: 'bold' } }
                 align="center"
               >
-                {row.price}
+                {String(row.price).replace('.', ',')}
 
               </TableCell>
               <TableCell
@@ -74,7 +77,7 @@ export default function CheckoutTable({ columns, data }) {
                 sx={ { fontWeight: 'bold' } }
                 align="center"
               >
-                {(row.price * row.quantity).toFixed(2)}
+                {String((row.price * row.quantity).toFixed(2)).replace('.', ',')}
               </TableCell>
               <TableCell
                 data-testid={ `customer_checkout__element-order-table-remove-${index}` }
@@ -105,7 +108,7 @@ export default function CheckoutTable({ columns, data }) {
             color: '#fff',
           } }
         >
-          {`TOTAL ${totalPrice}`}
+          {`TOTAL ${String(totalPrice).replace('.', ',')}`}
         </Typography>
       </Stack>
     </TableContainer>
