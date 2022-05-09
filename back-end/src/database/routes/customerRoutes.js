@@ -8,7 +8,9 @@ const customer = Router();
 
 customer.get('/products', JWTauth, productsController.getAllProducts);
 
-customer.get('/orders/:id', userController.getUserOrders);
+customer.get('/orders', userController.getUserOrders);
+
+customer.get('/orders/:id', saleController.getOrderDetails);
 
 customer.post('/orders', JWTauth, saleController.createOrder);
 

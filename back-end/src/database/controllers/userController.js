@@ -49,7 +49,7 @@ const register = async (req, res) => {
 }
 
 const getUserOrders = async (req, res) => {
-  const { id } = req.params;
+  const { id } = req.user;
 
   try {
     const orders = await userService.getUserOrders(id);
