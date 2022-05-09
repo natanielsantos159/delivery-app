@@ -31,7 +31,7 @@ const createOrder = async (userId, orderInfo) => {
 const getOrderDetails = async (id) => {
   const order = await Sale.findOne({
     where: { id },
-    include: [{ model: User, as: 'user'}]
+    include: [{ model: User, as: 'seller', attributes: ['name'] }]
   });
 
   return order;
