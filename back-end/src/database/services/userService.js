@@ -17,15 +17,8 @@ const findUserByEmailOrName = async (email, name) => {
   return foundUser;
 }
 
-const getUserOrders = async (userId) => {
-  const user = await User.findByPk(userId);
-  const orders = await user.getOrders();
-  return orders;
-};
-
 module.exports = {
   createUser,
   findUserByEmail,
   findUserByEmailOrName,
-  getUserOrders,
 }
