@@ -59,8 +59,19 @@ const getUserOrders = async (req, res) => {
   }
 };
 
+const getSellers = async (req, res) => {
+  try {
+    const response = await userService.getSellers();
+    return res.status(200).json(response);
+  } catch (error) {
+    console.log(error.message);
+    return res.status(500).json({ error: 'Internal Server Error' });
+  }
+}
+
 module.exports = {
   login,
   register,
   getUserOrders,
+  getSellers
 }

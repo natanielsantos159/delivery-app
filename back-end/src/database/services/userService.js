@@ -23,9 +23,15 @@ const getUserOrders = async (userId) => {
   return orders;
 };
 
+const getSellers = async () => {
+  const sellers = await User.findAll({ where: { role: 'seller' } });
+  return sellers;
+}
+
 module.exports = {
   createUser,
   findUserByEmail,
   findUserByEmailOrName,
   getUserOrders,
+  getSellers
 }
