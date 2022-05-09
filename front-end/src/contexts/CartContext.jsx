@@ -16,6 +16,14 @@ export const CartProvider = ({ children }) => {
     return null;
   };
 
+  const removeItem = (id) => {
+    const cart = getStoredCart();
+
+    const filterCart = cart.filter((cartItem) => cartItem.id !== id);
+    localStorage.setItem('cart', JSON.stringify(filterCart));
+    setCartItems(filterCart);
+  };
+
   useEffect(() => {
     const cart = getStoredCart();
 
@@ -36,7 +44,7 @@ export const CartProvider = ({ children }) => {
   return (
     <CartContext.Provider
       value={
-        { totalPrice, setCartItems, cartItems }
+        { totalPrice, setCartItems, cartItems, removeItem }
       }
     >
       {children}

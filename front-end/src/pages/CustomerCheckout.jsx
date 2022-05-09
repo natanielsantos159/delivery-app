@@ -2,9 +2,10 @@ import { Container } from '@mui/material';
 import React from 'react';
 import CheckoutTable from '../components/CheckoutTable';
 import NavBar from '../components/customer/CustomerNavBar';
+import useCart from '../hooks/useCart';
 
 export default function CustomerCheckout() {
-  const storedCart = JSON.parse(localStorage.getItem('cart'));
+  const { cartItems } = useCart();
 
   const COLUMNS = [
     'item',
@@ -19,7 +20,7 @@ export default function CustomerCheckout() {
     <>
       <NavBar />
       <Container>
-        <CheckoutTable columns={ COLUMNS } data={ storedCart } />
+        <CheckoutTable columns={ COLUMNS } data={ cartItems } />
       </Container>
     </>
   );

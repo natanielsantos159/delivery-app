@@ -3,8 +3,11 @@ import PropTypes from 'prop-types';
 import { Button,
   Table, Card,
   TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
+import useCart from '../hooks/useCart';
 
-export default function CheckoutTable({ columns, data, onClick }) {
+export default function CheckoutTable({ columns, data }) {
+  const { removeItem } = useCart();
+
   return (
     <TableContainer component={ Card } sx={ { boxShadow: 5 } }>
       <Table>
@@ -22,9 +25,15 @@ export default function CheckoutTable({ columns, data, onClick }) {
               <TableCell align="center">{row.name}</TableCell>
               <TableCell align="center">{row.quantity}</TableCell>
               <TableCell align="center">{row.price}</TableCell>
-              <TableCell align="center">{row.price * row.quantity}</TableCell>
               <TableCell align="center">
-                <Button variant="contained" color="error" onClick={ onClick }>
+                {(row.price * row.quantity).toFixed(2)}
+              </TableCell>
+              <TableCell align="center">
+                <Button
+                  variant="contained"
+                  color="error"
+                  onClick={ () => removeItem(row.id) }
+                >
                   Remover
                 </Button>
               </TableCell>
@@ -43,5 +52,4 @@ CheckoutTable.propTypes = {
     price: PropTypes.string,
     quantity: PropTypes.number,
   })).isRequired,
-  onClick: PropTypes.func.isRequired,
 };
