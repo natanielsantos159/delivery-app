@@ -33,5 +33,8 @@ export default function Router() {
     {
       path: '/customer/products', element: <CostumerProducts />,
     },
+    {
+      path: '/customer/checkout', element: '',
+    },
   ]);
 }
