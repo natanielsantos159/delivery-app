@@ -1,62 +1,80 @@
 import PropTypes from 'prop-types';
-import { Card, Typography, Box, Chip } from '@mui/material';
+import { Card, CardHeader, CardContent, Typography, Box, Chip } from '@mui/material';
 import React from 'react';
 import DoneIcon from '@mui/icons-material/Done';
-import PendingIcon from '@mui/icons-material/Pending';
+import AccessTime from '@mui/icons-material/AccessTime';
 import LoopIcon from '@mui/icons-material/Loop';
 import { useNavigate } from 'react-router-dom';
 
 export default function OrderCard({ id, status, totalPrice, saleDate }) {
   const navigate = useNavigate();
   const formatter = new Intl.NumberFormat('pt-BR', {
-    style: 'currency',
-    currency: 'BRL',
+    style: 'decimal',
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
   });
 
-  const getStatusIcon = () => {
+  const getStatusStyling = () => {
     switch (status) {
     case 'entregue':
-      return <DoneIcon />;
+      return { icon: <DoneIcon />, color: 'success' };
     case 'pendente':
-      return <PendingIcon />;
+      return { icon: <AccessTime />, color: 'warning' };
     case 'preparando':
-      return <LoopIcon />;
-    default: return null;
+      return { icon: <LoopIcon />, color: 'primary' };
+    default: return {};
     }
   };
 
   return (
     <Card
-      sx={ { maxWidth: '300px', padding: '30px' } }
+      sx={ {
+        minWidth: '200px',
+        cursor: 'pointer',
+        boxShadow: 6,
+        borderRadius: 2 } }
       onClick={ () => navigate(`${id}`) }
     >
-      <Box>
-        <Typography
-          variant="h5"
-          datatest-id="customer_orders__element-card-price"
-        >
-          { formatter.format(totalPrice) }
-        </Typography>
-        <Typography variant="h7">Pedido</Typography>
-        <Typography
-          variant="h6"
-          datatest-id="customer_orders__element-order-id"
-        >
-          { id }
-        </Typography>
-        <Typography
-          variant="h9"
-          datatest-id="customer_orders__element-order-date"
-        >
-          { new Date(saleDate).toLocaleDateString('pt-BR') }
-        </Typography>
-      </Box>
-      <Chip
-        label={ status }
-        color="primary"
-        datatest-id="customer_orders__element-delivery-status"
-        icon={ getStatusIcon() }
+      <CardHeader
+        title={
+          <>
+            <Typography variant="p">Pedido </Typography>
+            <Typography
+              variant="p"
+              datatest-id="customer_orders__element-order-id"
+            >
+              { id }
+            </Typography>
+          </>
+        }
+        sx={ {
+          backgroundColor: '#1976d2',
+          color: 'white',
+          display: 'flex',
+        } }
       />
+      <CardContent>
+        <Box>
+          <Typography
+            variant="h5"
+            datatest-id="customer_orders__element-card-price"
+          >
+            { formatter.format(totalPrice) }
+          </Typography>
+          <Typography
+            variant="h9"
+            datatest-id="customer_orders__element-order-date"
+          >
+            { new Date(saleDate).toLocaleDateString('pt-BR') }
+          </Typography>
+        </Box>
+        <Chip
+          sx={ { margin: '10px 0' } }
+          label={ status }
+          datatest-id="customer_orders__element-delivery-status"
+          { ...getStatusStyling() }
+        />
+      </CardContent>
     </Card>
   );
 }
