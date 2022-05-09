@@ -3,11 +3,40 @@ import { Box, Card, MenuItem, TextField } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import { GET_SELLERS } from '../services/user.service';
 import useToastManager from '../hooks/useToast';
+import CREATE_ORDER from '../services/sales.service';
+import useCart from '../hooks/useCart';
 
 export default function ConfirmOrderForm() {
+  const { cartItems, totalPrice } = useCart();
+
+  const [loading, setLoading] = useState(false);
   const [sellers, setSellers] = useState([]);
   const [selectedSeller, setSelectedSeller] = useState('');
+  const [address, setAddress] = useState('');
+  const [number, setNumber] = useState(null);
   const { enqueueToast } = useToastManager();
+
+  const createNewOrder = async () => {
+    setLoading(true);
+    try {
+      const body = {
+        seller: selectedSeller,
+        totalPrice,
+        deliveryAddress: address,
+        deliveryNumber: number,
+        products: cartItems,
+      };
+
+      await CREATE_ORDER(body);
+
+      enqueueToast('success', 'Pedido enviado com sucesso!', 'success');
+    } catch (error) {
+      console.log(error.message);
+      enqueueToast('error', 'Não foi possível realizar o pedido', 'error');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     const getSellers = async () => {
@@ -20,7 +49,7 @@ export default function ConfirmOrderForm() {
       }
     };
     getSellers();
-  }, [enqueueToast]);
+  }, []);
 
   return (
     <Card
@@ -50,20 +79,25 @@ export default function ConfirmOrderForm() {
             { disableScrollLock: true, sx: { maxHeight: 300 } } } }
         >
           {sellers.map((seller) => (
-            <MenuItem value={ seller.id } key={ seller.id }>{seller.name}</MenuItem>
+            <MenuItem value={ seller.name } key={ seller.id }>{seller.name}</MenuItem>
           ))}
         </TextField>
         <TextField
+          value={ address }
+          onChange={ ({ target }) => setAddress(target.value) }
           inputProps={ { 'data-testid': 'customer_checkout__input-address' } }
           label="Endereço"
         />
         <TextField
+          onChange={ ({ target }) => setNumber(target.value) }
           inputProps={ { 'data-testid':
         'customer_checkout__input-addressNumber' } }
           label="Número"
         />
       </Box>
       <LoadingButton
+        loading={ loading }
+        onClick={ () => createNewOrder() }
         data-testid="customer_checkout__button-submit-order"
         variant="contained"
       >
