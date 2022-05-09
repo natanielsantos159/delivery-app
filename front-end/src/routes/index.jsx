@@ -29,7 +29,9 @@ export default function Router() {
       ),
     },
     {
-      path: '/customer/orders', element: <CustomerOrders />,
+      path: '/customer/orders',
+      element: <CustomerOrders />,
+      children: [{ path: ':id', element: 'olá' }],
     },
     {
       path: '/customer/products', element: <CostumerProducts />,
