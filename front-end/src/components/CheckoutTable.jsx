@@ -32,16 +32,54 @@ export default function CheckoutTable({ columns, data }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.map((row) => (
+          {data.map((row, index) => (
             <TableRow key={ row.id }>
-              <TableCell align="center">{row.id}</TableCell>
-              <TableCell align="center">{row.name}</TableCell>
-              <TableCell align="center">{row.quantity}</TableCell>
-              <TableCell align="center">{row.price}</TableCell>
-              <TableCell align="center">
+              <TableCell
+                sx={ { fontWeight: 'bold' } }
+                align="center"
+              >
+                {row.id}
+
+              </TableCell>
+              <TableCell
+                data-testid={ `customer_checkout__element-order-table-name-${index}` }
+                sx={ { fontWeight: 'bold' } }
+                align="center"
+              >
+                {row.name}
+
+              </TableCell>
+              <TableCell
+                data-testid={ `customer_checkout__element-order-table-quantity-${index}` }
+                sx={ { fontWeight: 'bold' } }
+                align="center"
+              >
+                {row.quantity}
+
+              </TableCell>
+              <TableCell
+                data-testid={
+                  `customer_checkout__element-order-table-unit-price-${index}`
+                }
+                sx={ { fontWeight: 'bold' } }
+                align="center"
+              >
+                {row.price}
+
+              </TableCell>
+              <TableCell
+                data-testid={
+                  `customer_checkout__element-order-table-sub-total-${index}`
+                }
+                sx={ { fontWeight: 'bold' } }
+                align="center"
+              >
                 {(row.price * row.quantity).toFixed(2)}
               </TableCell>
-              <TableCell align="center">
+              <TableCell
+                data-testid={ `customer_checkout__element-order-table-remove-${index}` }
+                align="center"
+              >
                 <Button
                   variant="contained"
                   color="error"
@@ -57,6 +95,7 @@ export default function CheckoutTable({ columns, data }) {
       <Divider variant="middle" sx={ { mt: 5 } } />
       <Stack alignItems="flex-end" p={ 2 }>
         <Typography
+          data-testid="customer_checkout__element-order-total-price"
           width="fit-content"
           fontWeight="bold"
           sx={ {
