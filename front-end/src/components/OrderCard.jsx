@@ -24,14 +24,16 @@ export default function OrderCard({ id, status, totalPrice, saleDate }) {
   };
 
   return (
-    <Card sx={ { maxWidth: '300px', padding: '30px' } }>
-      <Box>
-        <Typography
-          variant="h5"
-          datatest-id="customer_orders__element-card-price"
-        >
-          { formatter.format(totalPrice) }
-        </Typography>
+    <Card
+      sx={ {
+        maxWidth: '350px',
+        padding: '30px',
+        display: 'flex',
+        flexDirection: 'inline',
+        alignItems: 'center',
+      } }
+    >
+      <Box sx={ { padding: '10px' } }>
         <Typography variant="h7">Pedido</Typography>
         <Typography
           variant="h6"
@@ -39,19 +41,35 @@ export default function OrderCard({ id, status, totalPrice, saleDate }) {
         >
           { id }
         </Typography>
+      </Box>
+      <Box
+        sx={ {
+          padding: '10px',
+          marginRight: '5px',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        } }
+      >
+        <Typography
+          variant="h5"
+          datatest-id="customer_orders__element-card-price"
+        >
+          { formatter.format(totalPrice) }
+        </Typography>
         <Typography
           variant="h9"
           datatest-id="customer_orders__element-order-date"
         >
           { new Date(saleDate).toLocaleDateString('pt-BR') }
         </Typography>
+        <Chip
+          label={ status }
+          color="primary"
+          datatest-id="customer_orders__element-delivery-status"
+          icon={ getStatusIcon() }
+        />
       </Box>
-      <Chip
-        label={ status }
-        color="primary"
-        datatest-id="customer_orders__element-delivery-status"
-        icon={ getStatusIcon() }
-      />
     </Card>
   );
 }
