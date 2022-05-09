@@ -28,6 +28,24 @@ const createOrder = async (userId, orderInfo) => {
   return saleId;
 }
 
+const listSellerOrders = async (sellerId) => {
+  const orders = await Sale.findAll({
+    where: { sellerId },
+  });
+
+  return orders;
+}
+
+const listCustomerOrders = async (userId) => {
+  const orders = await Sale.findAll({
+    where: { userId },
+  });
+
+  return orders;
+}
+
 module.exports = {
   createOrder,
+  listSellerOrders,
+  listCustomerOrders,
 };
