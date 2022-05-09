@@ -18,7 +18,7 @@ export default function CostumerProducts() {
     if (!isAuthenticated) {
       navigate('/login');
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, navigate]);
 
   useEffect(() => {
     const getProducts = async () => {
@@ -34,7 +34,7 @@ export default function CostumerProducts() {
       }
     };
     getProducts();
-  }, []);
+  }, [enqueueToast, isAuthenticated]);
 
   return (
     <Box>
