@@ -1,17 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button,
-  Table, Card,
-  TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
+import {
+  Button,
+  Table,
+  Card,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Typography,
+  Divider,
+  Stack,
+  useTheme,
+} from '@mui/material';
 import useCart from '../hooks/useCart';
 
 export default function CheckoutTable({ columns, data }) {
-  const { removeItem } = useCart();
+  const { removeItem, totalPrice } = useCart();
+
+  const { palette } = useTheme();
 
   return (
     <TableContainer component={ Card } sx={ { boxShadow: 5 } }>
       <Table>
-        <TableHead>
+        <TableHead sx={ { background: 'grey' } }>
           <TableRow>
             {columns.map((column) => (
               <TableCell align="center" key={ column }>{ column }</TableCell>
@@ -41,6 +54,21 @@ export default function CheckoutTable({ columns, data }) {
           ))}
         </TableBody>
       </Table>
+      <Divider variant="middle" sx={ { mt: 5 } } />
+      <Stack alignItems="flex-end" p={ 2 }>
+        <Typography
+          width="fit-content"
+          fontWeight="bold"
+          sx={ {
+            p: 2,
+            background: palette.success.main,
+            borderRadius: 2,
+            color: '#fff',
+          } }
+        >
+          {`TOTAL ${totalPrice}`}
+        </Typography>
+      </Stack>
     </TableContainer>
   );
 }
