@@ -26,7 +26,16 @@ const createOrder = async (userId, orderInfo) => {
   await SaleProduct.bulkCreate(saleProducts);
 
   return saleId;
-}
+};
+
+const getOrderDetails = async (id) => {
+  const order = await Sale.findOne({
+    where: { id },
+    include: [{ model: User, as: 'seller', attributes: ['name'] }]
+  });
+
+  return order;
+};
 
 const listSellerOrders = async (sellerId) => {
   const orders = await Sale.findAll({
@@ -46,6 +55,7 @@ const listCustomerOrders = async (userId) => {
 
 module.exports = {
   createOrder,
+  getOrderDetails,
   listSellerOrders,
   listCustomerOrders,
 };
