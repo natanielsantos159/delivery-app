@@ -5,6 +5,7 @@ import CostumerProducts from '../pages/CostumerProducts';
 import Login from '../pages/Login';
 import CustomerOrders from '../pages/CustomerOrders';
 import Register from '../pages/Register';
+import CustomerCheckout from '../pages/CustomerCheckout';
 
 export default function Router() {
   return useRoutes([
@@ -34,7 +35,7 @@ export default function Router() {
       path: '/customer/products', element: <CostumerProducts />,
     },
     {
-      path: '/customer/checkout', element: '',
+      path: '/customer/checkout', element: <CustomerCheckout />,
     },
   ]);
 }

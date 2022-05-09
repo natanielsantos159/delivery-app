@@ -20,8 +20,8 @@ export default function CheckoutTable({ columns, data, onClick }) {
               <TableCell>{row.id}</TableCell>
               <TableCell>{row.name}</TableCell>
               <TableCell>{row.quantity}</TableCell>
-              <TableCell>{row.value}</TableCell>
-              <TableCell>{row.value * row.quantity}</TableCell>
+              <TableCell>{row.price}</TableCell>
+              <TableCell>{row.price * row.quantity}</TableCell>
               <TableCell>
                 <Button onClick={ onClick }>
                   Remover
@@ -35,13 +35,11 @@ export default function CheckoutTable({ columns, data, onClick }) {
   );
 }
 CheckoutTable.propTypes = {
-  columns: PropTypes.arrayOf(PropTypes.shape({
-    column: PropTypes.string,
-  })).isRequired,
+  columns: PropTypes.arrayOf(PropTypes.string).isRequired,
   data: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number,
     name: PropTypes.string,
-    value: PropTypes.number,
+    price: PropTypes.string,
     quantity: PropTypes.number,
   })).isRequired,
   onClick: PropTypes.func.isRequired,
