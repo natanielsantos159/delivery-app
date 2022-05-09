@@ -1,29 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Button,
-  Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
+  Table, Card,
+  TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 
 export default function CheckoutTable({ columns, data, onClick }) {
   return (
-    <TableContainer>
+    <TableContainer component={ Card } sx={ { boxShadow: 5 } }>
       <Table>
         <TableHead>
           <TableRow>
             {columns.map((column) => (
-              <TableCell key={ column }>{ column }</TableCell>
+              <TableCell align="center" key={ column }>{ column }</TableCell>
             ))}
           </TableRow>
         </TableHead>
         <TableBody>
           {data.map((row) => (
             <TableRow key={ row.id }>
-              <TableCell>{row.id}</TableCell>
-              <TableCell>{row.name}</TableCell>
-              <TableCell>{row.quantity}</TableCell>
-              <TableCell>{row.price}</TableCell>
-              <TableCell>{row.price * row.quantity}</TableCell>
-              <TableCell>
-                <Button onClick={ onClick }>
+              <TableCell align="center">{row.id}</TableCell>
+              <TableCell align="center">{row.name}</TableCell>
+              <TableCell align="center">{row.quantity}</TableCell>
+              <TableCell align="center">{row.price}</TableCell>
+              <TableCell align="center">{row.price * row.quantity}</TableCell>
+              <TableCell align="center">
+                <Button variant="contained" color="error" onClick={ onClick }>
                   Remover
                 </Button>
               </TableCell>
