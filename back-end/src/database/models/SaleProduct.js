@@ -3,7 +3,7 @@ module.exports = (sequelize, DataTypes) => {
     saleId: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      references: { model: 'users', key: 'id' },
+      references: { model: 'sales', key: 'id' },
     },
     productId: {
       type: DataTypes.INTEGER,

@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     totalPrice: {
       allowNull: false,
-      type: DataTypes.DECIMAL
+      type: DataTypes.DECIMAL(9, 2),
     },
     deliveryAddress: {
       allowNull: false,
@@ -41,5 +41,15 @@ module.exports = (sequelize, DataTypes) => {
     tableName: 'sales',
     underscored: true,
   });
+
+  Sale.associate = (models) => {
+    models.Sale.belongsTo(models.User, {
+      as: 'seller', foreignKey: 'sellerId',
+    });
+    models.Sale.belongsTo(models.User, {
+      as: 'user', foreignKey: 'userId',
+    });
+  }
+
   return Sale;
 };
