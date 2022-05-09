@@ -73,5 +73,5 @@ module.exports = {
   login,
   register,
   getUserOrders,
-  getSellers
+  getSellers,
 }
