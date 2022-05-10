@@ -94,7 +94,7 @@ export default function OrderDetails() {
           variant="contained"
           sx={ { height: 'min-content' } }
           data-testid="customer_order_details__button-delivery-check"
-          disabled={ orderInfo.status === 'Entregue' }
+          disabled={ orderInfo.status !== 'Em Trânsito' }
           onClick={ markAsDelivered }
         >
           Marcar como entregue
