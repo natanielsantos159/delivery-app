@@ -28,6 +28,7 @@ export default function CustomerOrders() {
         backgroundColor: 'white',
         display: 'flex',
         justifyContent: 'space-around',
+        flexWrap: 'wrap',
       } }
     >
       { orders.map((order, i) => <OrderCard { ...order } key={ i } />) }

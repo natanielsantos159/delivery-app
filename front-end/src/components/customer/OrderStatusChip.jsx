@@ -23,9 +23,8 @@ export default function OrderStatusChip({ status, sx, dataTestId }) {
 
   return (
     <Chip
-      label={ status }
+      label={ <span data-testid={ dataTestId }>{ status }</span> }
       sx={ sx }
-      datatest-id={ dataTestId }
       { ...getStatusStyling() }
     />
   );

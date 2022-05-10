@@ -26,7 +26,6 @@ export default function OrderDetails() {
     try {
       const { data } = await GET_ORDER_INFO(id);
       setOrderInfo(data);
-      console.log(data);
     } catch (err) {
       console.log(err.message);
     }
