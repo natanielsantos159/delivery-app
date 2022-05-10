@@ -22,7 +22,7 @@ export default function ConfirmOrderForm() {
     setLoading(true);
     try {
       const body = {
-        seller: selectedSeller,
+        sellerId: selectedSeller,
         totalPrice,
         deliveryAddress: address,
         deliveryNumber: number,
@@ -46,6 +46,7 @@ export default function ConfirmOrderForm() {
     try {
       const response = await GET_SELLERS();
       setSellers(response.data);
+      setSelectedSeller(response.data[0].id);
     } catch (error) {
       console.log(error.message);
       enqueueToast('error', 'Erro ao carregar os vendedores', 'erro');
@@ -81,17 +82,12 @@ export default function ConfirmOrderForm() {
           onChange={ ({ target }) => setSelectedSeller(target.value) }
         >
           {sellers.map((seller) => (
-            <>
-              <option
-                value={ seller.name }
-                key={ seller.id }
-              >
-                {seller.name}
-              </option>
-              <option selected disabled value="">
-                Escolha um vendedor
-              </option>
-            </>
+            <option
+              value={ seller.id }
+              key={ seller.id }
+            >
+              {seller.name}
+            </option>
           ))}
         </TextField>
         <TextField
