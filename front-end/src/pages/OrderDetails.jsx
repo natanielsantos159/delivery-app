@@ -13,7 +13,7 @@ import Sell from '@mui/icons-material/Sell';
 import OrderDetailsTable from '../components/customer/OrderDetailsTable';
 import OrderStatusChip from '../components/customer/OrderStatusChip';
 import OrderDetailsChip from '../components/customer/OrderDetailsChip';
-import GET_ORDER_INFO from '../services/sale.service';
+import { GET_ORDER_INFO, SET_AS_DELIVERED } from '../services/sale.service';
 
 const TEST_ID = 'customer_order_details__element-order-details-label-delivery-status';
 export default function OrderDetails() {
@@ -33,6 +33,15 @@ export default function OrderDetails() {
   useEffect(() => {
     fecthOrderInfo();
   }, []);
+
+  const markAsDelivered = async () => {
+    try {
+      const { data } = await SET_AS_DELIVERED(orderInfo.id);
+      if (data.success) setOrderInfo({ ...orderInfo, status: 'Entregue' });
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
 
   if (!orderInfo) return null;
   return (
@@ -80,6 +89,8 @@ export default function OrderDetails() {
           variant="contained"
           sx={ { height: 'min-content' } }
           data-testid="customer_order_details__button-delivery-check"
+          disabled={ orderInfo.status === 'Entregue' }
+          onClick={ markAsDelivered }
         >
           Marcar como entregue
         </Button>

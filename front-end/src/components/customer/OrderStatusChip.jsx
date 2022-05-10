@@ -8,11 +8,11 @@ import { Chip } from '@mui/material';
 export default function OrderStatusChip({ status, sx, dataTestId }) {
   const getStatusStyling = () => {
     switch (status) {
-    case 'entregue':
+    case 'Entregue':
       return { icon: <DoneIcon />, color: 'success' };
-    case 'pendente':
+    case 'Pendente':
       return { icon: <AccessTime />, color: 'warning' };
-    case 'preparando':
+    case 'Preparando':
       return { icon: <LoopIcon />, color: 'primary' };
     default: return {};
     }
