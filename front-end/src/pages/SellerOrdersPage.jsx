@@ -3,9 +3,9 @@ import { Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import SellerNavBar from '../components/seller/SellerNavBar';
 import useAuth from '../hooks/useAuth';
-import OrderCard from '../components/OrderCard';
 import { GET_SELLER_ORDERS } from '../services/user.service';
 import useToastManager from '../hooks/useToast';
+import SellerOrderCard from '../components/seller/SellerOrderCard';
 
 export default function SellerOrdersPage() {
   const [orders, setOrders] = useState([]);
@@ -47,10 +47,14 @@ export default function SellerOrdersPage() {
         sx={ {
           display: 'flex',
           flexDirection: 'inline',
-          justifyContent: 'space-around',
+          justifyContent: 'space-evenly',
+          height: 'auto',
+          minHeight: '1.5rem',
+          width: 'auto',
+          flexWrap: 'wrap',
         } }
       >
-        { orders.map((order, index) => <OrderCard { ...order } key={ index } />) }
+        { orders.map((order, index) => <SellerOrderCard { ...order } key={ index } />) }
       </Box>
     </Box>
   );
