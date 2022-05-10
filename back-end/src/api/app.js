@@ -4,6 +4,7 @@ const user = require('../database/routes/userRoutes');
 const customer = require('../database/routes/customerRoutes');
 const errorHandler = require('../database/middlewares/errorHandler');
 const seller = require('../database/routes/sellerRoutes');
+const admin = require('../database/routes/adminRoutes');
 
 const app = express();
 
@@ -16,6 +17,8 @@ app.use('/', user);
 app.use('/customer', customer);
 
 app.use('/seller', seller);
+
+app.use('/admin', admin);
 
 app.use('/images', express.static('public'));
 
