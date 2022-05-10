@@ -5,7 +5,10 @@ import {
   TableHead,
   TableRow,
   TableBody,
+  TableFooter,
+  Chip,
 } from '@mui/material';
+import LocalAtmIcon from '@mui/icons-material/LocalAtm';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import { styled } from '@mui/material/styles';
 
@@ -36,6 +39,14 @@ export default function CustomerOrderTable({ orderInfo }) {
     },
   }));
 
+  const getTotalPrice = (products) => {
+    const totalPrice = products.reduce((
+      sum,
+      { price, SaleProduct: { quantity } },
+    ) => sum + (+quantity * +price), 0);
+    return totalPrice;
+  };
+
   return (
     <Table>
       <TableHead>
@@ -57,6 +68,20 @@ export default function CustomerOrderTable({ orderInfo }) {
             <StyledTableCell>{ formatter.format(+quantity * +price) }</StyledTableCell>
           </StyledTableRow>))}
       </TableBody>
+      <TableFooter>
+        <Chip
+          label={
+            <span>
+              Total:
+              {' '}
+              <span>{ formatter.format(getTotalPrice(orderInfo.products)) }</span>
+            </span>
+          }
+          sx={ { borderRadius: 1, fontSize: '18px', margin: '5px' } }
+          icon={ <LocalAtmIcon /> }
+          color="primary"
+        />
+      </TableFooter>
     </Table>
   );
 }
