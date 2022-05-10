@@ -3,10 +3,11 @@ import React from 'react';
 import {
   Table,
   TableHead,
-  TableCell,
   TableRow,
   TableBody,
 } from '@mui/material';
+import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+import { styled } from '@mui/material/styles';
 
 export default function CustomerOrderTable({ orderInfo }) {
   const formatter = new Intl.NumberFormat('pt-BR', {
@@ -15,26 +16,46 @@ export default function CustomerOrderTable({ orderInfo }) {
     maximumFractionDigits: 2,
   });
 
+  const StyledTableCell = styled(TableCell)(() => ({
+    [`&.${tableCellClasses.head}`]: {
+      backgroundColor: 'blue',
+      color: 'white',
+      fontWeight: 700,
+    },
+    [`&.${tableCellClasses.body}`]: {
+      fontSize: 14,
+    },
+  }));
+
+  const StyledTableRow = styled(TableRow)(() => ({
+    '&:nth-of-type(even)': {
+      backgroundColor: '#bababa3d',
+    },
+    '&': {
+      borderBottom: '1px solid rgb(215 215 215)',
+    },
+  }));
+
   return (
     <Table>
       <TableHead>
-        <TableRow>
-          <TableCell>Item</TableCell>
-          <TableCell>Descrição</TableCell>
-          <TableCell>Quantidade</TableCell>
-          <TableCell>Valor Unitário</TableCell>
-          <TableCell>Sub-total</TableCell>
-        </TableRow>
+        <StyledTableRow>
+          <StyledTableCell>Item</StyledTableCell>
+          <StyledTableCell>Descrição</StyledTableCell>
+          <StyledTableCell>Quantidade</StyledTableCell>
+          <StyledTableCell>Valor Unitário</StyledTableCell>
+          <StyledTableCell>Sub-total</StyledTableCell>
+        </StyledTableRow>
       </TableHead>
       <TableBody>
         { orderInfo.products.map(({ name, price, SaleProduct: { quantity } }, index) => (
-          <TableRow key={ index }>
-            <TableCell>{ index }</TableCell>
-            <TableCell>{ name }</TableCell>
-            <TableCell>{ quantity }</TableCell>
-            <TableCell>{ formatter.format(price) }</TableCell>
-            <TableCell>{ formatter.format(+quantity * +price) }</TableCell>
-          </TableRow>))}
+          <StyledTableRow key={ index }>
+            <StyledTableCell>{ index }</StyledTableCell>
+            <StyledTableCell>{ name }</StyledTableCell>
+            <StyledTableCell>{ quantity }</StyledTableCell>
+            <StyledTableCell>{ formatter.format(price) }</StyledTableCell>
+            <StyledTableCell>{ formatter.format(+quantity * +price) }</StyledTableCell>
+          </StyledTableRow>))}
       </TableBody>
     </Table>
   );
