@@ -14,11 +14,13 @@ import OrderDetailsTable from '../components/customer/OrderDetailsTable';
 import OrderStatusChip from '../components/customer/OrderStatusChip';
 import OrderDetailsChip from '../components/customer/OrderDetailsChip';
 import { GET_ORDER_INFO, SET_AS_DELIVERED } from '../services/sale.service';
+import useToast from '../hooks/useToast';
 
 const TEST_ID = 'customer_order_details__element-order-details-label-delivery-status';
 export default function OrderDetails() {
   const { id } = useParams();
   const [orderInfo, setOrderInfo] = useState();
+  const { enqueueToast } = useToast();
 
   const fecthOrderInfo = async () => {
     try {
@@ -37,8 +39,12 @@ export default function OrderDetails() {
   const markAsDelivered = async () => {
     try {
       const { data } = await SET_AS_DELIVERED(orderInfo.id);
-      if (data.success) setOrderInfo({ ...orderInfo, status: 'Entregue' });
+      if (data.success) {
+        setOrderInfo({ ...orderInfo, status: 'Entregue' });
+        enqueueToast('success', 'Pedido marcado como entregue com sucesso.');
+      }
     } catch (err) {
+      enqueueToast('error', 'Ocorreu um erro.');
       console.log(err.message);
     }
   };
