@@ -5,9 +5,16 @@ import {
   TableHead,
   TableCell,
   TableRow,
+  TableBody,
 } from '@mui/material';
 
 export default function CustomerOrderTable({ orderInfo }) {
+  const formatter = new Intl.NumberFormat('pt-BR', {
+    style: 'decimal',
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+
   return (
     <Table>
       <TableHead>
@@ -19,6 +26,16 @@ export default function CustomerOrderTable({ orderInfo }) {
           <TableCell>Sub-total</TableCell>
         </TableRow>
       </TableHead>
+      <TableBody>
+        { orderInfo.products.map(({ name, price, SaleProduct: { quantity } }, index) => (
+          <TableRow key={ index }>
+            <TableCell>{ index }</TableCell>
+            <TableCell>{ name }</TableCell>
+            <TableCell>{ quantity }</TableCell>
+            <TableCell>{ formatter.format(price) }</TableCell>
+            <TableCell>{ formatter.format(+quantity * +price) }</TableCell>
+          </TableRow>))}
+      </TableBody>
     </Table>
   );
 }
@@ -44,4 +61,4 @@ CustomerOrderTable.propTypes = {
     totalPrice: PropTypes.string.isRequired,
     userId: PropTypes.number.isRequired,
   }).isRequired,
-}
+};
