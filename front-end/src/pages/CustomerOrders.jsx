@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { Box } from '@mui/material';
 import OrderCard from '../components/customer/OrderCard';
 import { GET_USER_ORDERS } from '../services/user.service';
+import useToast from '../hooks/useToast';
 
 export default function CustomerOrders() {
   const [orders, setOrders] = useState([]);
+  const { enqueueToast } = useToast();
 
   const fetchOrders = async () => {
     try {
@@ -12,6 +14,7 @@ export default function CustomerOrders() {
       setOrders(data);
     } catch (err) {
       console.log(err.message);
+      enqueueToast('error', 'Erro ao listar pedidos', 'error');
     }
   };
 
