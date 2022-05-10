@@ -8,7 +8,7 @@ const orderSchema = joi.object({
     quantity: joi.number().required(),
   })).required(),
   totalPrice: joi.number().required(),
-  seller: joi.string().required(),
+  sellerId: joi.number().required(),
   deliveryAddress: joi.string().required(),
   deliveryNumber: joi.number().required(),
 });
