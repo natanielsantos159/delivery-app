@@ -30,7 +30,7 @@ export default function OrderCard({ id, status, totalPrice, saleDate }) {
             <Typography variant="p">Pedido </Typography>
             <Typography
               variant="p"
-              data-testid={ `${role}_orders__element-order-id` }
+              data-testid={ `${role}_orders__element-order-id-${id}` }
             >
               { id }
             </Typography>
@@ -46,13 +46,13 @@ export default function OrderCard({ id, status, totalPrice, saleDate }) {
         <Box>
           <Typography
             variant="h5"
-            data-testid={ `${role}_orders__element-card-price` }
+            data-testid={ `${role}_orders__element-card-price-${id}` }
           >
             { formatter.format(totalPrice) }
           </Typography>
           <Typography
             variant="h9"
-            data-testid={ `${role}_orders__element-order-date` }
+            data-testid={ `${role}_orders__element-order-date-${id}` }
           >
             { new Date(saleDate).toLocaleDateString('pt-BR') }
           </Typography>
@@ -60,7 +60,7 @@ export default function OrderCard({ id, status, totalPrice, saleDate }) {
         <OrderStatusChip
           sx={ { margin: '10px 0' } }
           status={ status }
-          dataTestId={ `${role}_orders__element-delivery-status` }
+          dataTestId={ `${role}_orders__element-delivery-status-${id}` }
         />
       </CardContent>
     </Card>
