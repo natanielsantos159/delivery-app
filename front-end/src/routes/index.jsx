@@ -8,7 +8,6 @@ import Register from '../pages/Register';
 import SellerOrdersPage from '../pages/SellerOrdersPage';
 import CustomerCheckout from '../pages/CustomerCheckout';
 
-
 export default function Router() {
   return useRoutes([
     {
