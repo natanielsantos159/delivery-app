@@ -1,10 +1,8 @@
 import PropTypes from 'prop-types';
-import { Card, CardHeader, CardContent, Typography, Box, Chip } from '@mui/material';
+import { Card, CardHeader, CardContent, Typography, Box } from '@mui/material';
 import React from 'react';
-import DoneIcon from '@mui/icons-material/Done';
-import AccessTime from '@mui/icons-material/AccessTime';
-import LoopIcon from '@mui/icons-material/Loop';
 import { useNavigate } from 'react-router-dom';
+import OrderStatusChip from './OrderStatusChip';
 
 export default function OrderCard({ id, status, totalPrice, saleDate }) {
   const navigate = useNavigate();
@@ -13,18 +11,6 @@ export default function OrderCard({ id, status, totalPrice, saleDate }) {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   });
-
-  const getStatusStyling = () => {
-    switch (status) {
-    case 'entregue':
-      return { icon: <DoneIcon />, color: 'success' };
-    case 'pendente':
-      return { icon: <AccessTime />, color: 'warning' };
-    case 'preparando':
-      return { icon: <LoopIcon />, color: 'primary' };
-    default: return {};
-    }
-  };
 
   return (
     <Card
@@ -68,11 +54,9 @@ export default function OrderCard({ id, status, totalPrice, saleDate }) {
             { new Date(saleDate).toLocaleDateString('pt-BR') }
           </Typography>
         </Box>
-        <Chip
+        <OrderStatusChip
           sx={ { margin: '10px 0' } }
-          label={ status }
-          datatest-id="customer_orders__element-delivery-status"
-          { ...getStatusStyling() }
+          status={ status }
         />
       </CardContent>
     </Card>
