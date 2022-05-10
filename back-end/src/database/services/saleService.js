@@ -56,9 +56,17 @@ const listCustomerOrders = async (userId) => {
   return orders;
 }
 
+const setAsDelivered = async (orderId) => {
+  await Sale.update(
+    { status: 'Entregue' }, 
+    { where: { id: orderId }},
+  );
+}
+
 module.exports = {
   createOrder,
   getOrderDetails,
   listSellerOrders,
   listCustomerOrders,
+  setAsDelivered,
 };
