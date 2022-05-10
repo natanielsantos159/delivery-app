@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import DoneIcon from '@mui/icons-material/Done';
 import AccessTime from '@mui/icons-material/AccessTime';
 import LoopIcon from '@mui/icons-material/Loop';
+import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import { Chip } from '@mui/material';
 
 export default function OrderStatusChip({ status, sx, dataTestId }) {
@@ -14,6 +15,8 @@ export default function OrderStatusChip({ status, sx, dataTestId }) {
       return { icon: <AccessTime />, color: 'warning' };
     case 'Preparando':
       return { icon: <LoopIcon />, color: 'primary' };
+    case 'Em Trânsito':
+      return { icon: <LocalShippingIcon />, color: 'secondary' };
     default: return {};
     }
   };
