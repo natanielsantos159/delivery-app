@@ -17,12 +17,6 @@ const findUserByEmailOrName = async (email, name) => {
   return foundUser;
 }
 
-const getUserOrders = async (userId) => {
-  const user = await User.findByPk(userId);
-  const orders = await user.getOrders();
-  return orders;
-};
-
 const getSellers = async () => {
   const sellers = await User.findAll({ where: { role: 'seller' } });
   return sellers;
@@ -32,6 +26,5 @@ module.exports = {
   createUser,
   findUserByEmail,
   findUserByEmailOrName,
-  getUserOrders,
   getSellers
 }
