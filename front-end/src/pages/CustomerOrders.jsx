@@ -7,12 +7,11 @@ export default function CustomerOrders() {
   const [orders, setOrders] = useState([]);
 
   const fetchOrders = async () => {
-    const userId = 3;
     try {
-      const { data } = await GET_USER_ORDERS(userId);
+      const { data } = await GET_USER_ORDERS();
       setOrders(data);
     } catch (err) {
-      console.log(error.message);
+      console.log(err.message);
     }
   };
 
