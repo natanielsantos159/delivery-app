@@ -1,8 +1,11 @@
 import { Chip } from '@mui/material';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useContext } from 'react';
+import { AuthContext } from '../../contexts/AuthContext';
 
 export default function OrderDetailsChip({ dataTestId, label, content, icon, color }) {
+  const { userInfo: { role } } = useContext(AuthContext);
+
   return (
     <Chip
       label={
@@ -10,7 +13,7 @@ export default function OrderDetailsChip({ dataTestId, label, content, icon, col
           { label && `${label} `}
           <span
             data-testid={
-              `customer_order_details__element-order-details-label-${dataTestId}`
+              `${role}_order_details__element-order-details-label-${dataTestId}`
             }
           >
             { content }

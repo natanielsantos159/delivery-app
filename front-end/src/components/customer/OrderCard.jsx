@@ -1,11 +1,14 @@
 import PropTypes from 'prop-types';
 import { Card, CardHeader, CardContent, Typography, Box } from '@mui/material';
-import React from 'react';
+import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import OrderStatusChip from './OrderStatusChip';
+import { AuthContext } from '../../contexts/AuthContext';
 
 export default function OrderCard({ id, status, totalPrice, saleDate }) {
   const navigate = useNavigate();
+  const { userInfo: { role } } = useContext(AuthContext);
+
   const formatter = new Intl.NumberFormat('pt-BR', {
     style: 'decimal',
     minimumFractionDigits: 2,
@@ -27,7 +30,7 @@ export default function OrderCard({ id, status, totalPrice, saleDate }) {
             <Typography variant="p">Pedido </Typography>
             <Typography
               variant="p"
-              datatest-id="customer_orders__element-order-id"
+              datatest-id={ `${role}_orders__element-order-id` }
             >
               { id }
             </Typography>
@@ -43,13 +46,13 @@ export default function OrderCard({ id, status, totalPrice, saleDate }) {
         <Box>
           <Typography
             variant="h5"
-            datatest-id="customer_orders__element-card-price"
+            datatest-id={ `${role}_orders__element-card-price` }
           >
             { formatter.format(totalPrice) }
           </Typography>
           <Typography
             variant="h9"
-            datatest-id="customer_orders__element-order-date"
+            datatest-id={ `${role}_orders__element-order-date` }
           >
             { new Date(saleDate).toLocaleDateString('pt-BR') }
           </Typography>
@@ -57,7 +60,7 @@ export default function OrderCard({ id, status, totalPrice, saleDate }) {
         <OrderStatusChip
           sx={ { margin: '10px 0' } }
           status={ status }
-          dataTestId="customer_orders__element-delivery-status"
+          dataTestId={ `${role}_orders__element-delivery-status` }
         />
       </CardContent>
     </Card>
