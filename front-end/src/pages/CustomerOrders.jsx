@@ -27,8 +27,10 @@ export default function CustomerOrders() {
       sx={ {
         backgroundColor: 'white',
         display: 'flex',
-        justifyContent: 'space-around',
+        justifyContent: 'center',
         flexWrap: 'wrap',
+        rowGap: '40px',
+        columnGap: '50px',
       } }
     >
       { orders.map((order, i) => <OrderCard { ...order } key={ i } />) }
