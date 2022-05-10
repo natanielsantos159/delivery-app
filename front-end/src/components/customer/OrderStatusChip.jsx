@@ -5,7 +5,7 @@ import AccessTime from '@mui/icons-material/AccessTime';
 import LoopIcon from '@mui/icons-material/Loop';
 import { Chip } from '@mui/material';
 
-export default function OrderStatusChip({ status, sx }) {
+export default function OrderStatusChip({ status, sx, dataTestId }) {
   const getStatusStyling = () => {
     switch (status) {
     case 'entregue':
@@ -22,7 +22,7 @@ export default function OrderStatusChip({ status, sx }) {
     <Chip
       label={ status }
       sx={ sx }
-      datatest-id="customer_orders__element-delivery-status"
+      datatest-id={ dataTestId }
       { ...getStatusStyling() }
     />
   );
@@ -33,4 +33,5 @@ OrderStatusChip.propTypes = {
   sx: PropTypes.objectOf(
     PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   ).isRequired,
+  dataTestId: PropTypes.string.isRequired,
 };

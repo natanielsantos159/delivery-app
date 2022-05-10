@@ -59,13 +59,43 @@ export default function CustomerOrderTable({ orderInfo }) {
         </StyledTableRow>
       </TableHead>
       <TableBody>
-        { orderInfo.products.map(({ name, price, SaleProduct: { quantity } }, index) => (
-          <StyledTableRow key={ index }>
-            <StyledTableCell>{ index }</StyledTableCell>
-            <StyledTableCell>{ name }</StyledTableCell>
-            <StyledTableCell>{ quantity }</StyledTableCell>
-            <StyledTableCell>{ formatter.format(price) }</StyledTableCell>
-            <StyledTableCell>{ formatter.format(+quantity * +price) }</StyledTableCell>
+        { orderInfo.products.map(({ name, price, SaleProduct: { quantity } }, i) => (
+          <StyledTableRow key={ i }>
+            <StyledTableCell
+              data-testid={
+                `customer_order_details__element-order-table-item-number-${i}`
+              }
+            >
+              { i }
+            </StyledTableCell>
+            <StyledTableCell
+              data-testid={
+                `customer_order_details__element-order-table-name-${i}`
+              }
+            >
+              { name }
+            </StyledTableCell>
+            <StyledTableCell
+              data-testid={
+                `customer_order_details__element-order-table-quantity-${i}`
+              }
+            >
+              { quantity }
+            </StyledTableCell>
+            <StyledTableCell
+              data-testid={
+                `customer_order_details__element-order-table-unit-price-${i}`
+              }
+            >
+              { formatter.format(price) }
+            </StyledTableCell>
+            <StyledTableCell
+              data-testid={
+                `customer_order_details__element-order-table-sub-total-${i}`
+              }
+            >
+              { formatter.format(+quantity * +price) }
+            </StyledTableCell>
           </StyledTableRow>))}
       </TableBody>
       <TableFooter>
@@ -74,7 +104,11 @@ export default function CustomerOrderTable({ orderInfo }) {
             <span>
               Total:
               {' '}
-              <span>{ formatter.format(getTotalPrice(orderInfo.products)) }</span>
+              <span
+                data-testid="customer_order_details__element-order-total-price"
+              >
+                { formatter.format(getTotalPrice(orderInfo.products)) }
+              </span>
             </span>
           }
           sx={ { borderRadius: 1, fontSize: '18px', margin: '5px' } }

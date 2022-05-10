@@ -3,8 +3,6 @@ import {
   Box,
   Paper,
   TableContainer,
-  // Card,
-  Chip,
   Button,
 } from '@mui/material';
 import React, { useState, useEffect } from 'react';
@@ -14,8 +12,10 @@ import AssignmentInd from '@mui/icons-material/AssignmentInd';
 import Sell from '@mui/icons-material/Sell';
 import OrderDetailsTable from '../components/customer/OrderDetailsTable';
 import OrderStatusChip from '../components/customer/OrderStatusChip';
+import OrderDetailsChip from '../components/customer/OrderDetailsChip';
 import GET_ORDER_INFO from '../services/sale.service';
 
+const TEST_ID = 'customer_order_details__element-order-details-label-delivery-status';
 export default function OrderDetails() {
   const { id } = useParams();
   const [orderInfo, setOrderInfo] = useState();
@@ -50,44 +50,36 @@ export default function OrderDetails() {
             padding: '5px',
           } }
         >
-          <Chip
-            label={
-              <span>
-                PEDIDO
-                {' '}
-                <span>{ orderInfo.id }</span>
-              </span>
-            }
-            sx={ { borderRadius: 1 } }
+          <OrderDetailsChip
+            label="PEDIDO"
             icon={ <Sell /> }
             color="success"
+            content={ orderInfo.id }
+            dataTestId="order-id"
           />
-          <Chip
-            label={
-              <span>
-                P. Vend:
-                {' '}
-                <span>{ orderInfo.seller.name }</span>
-              </span>
-            }
-            sx={ { borderRadius: 1 } }
+          <OrderDetailsChip
+            label="P. Vend:"
             icon={ <AssignmentInd /> }
             color="secondary"
+            content={ orderInfo.seller.name }
+            dataTestId="seller-name"
           />
-          <Chip
-            label={ new Date(orderInfo.saleDate.split('-')).toLocaleDateString() }
-            sx={ { borderRadius: 1 } }
+          <OrderDetailsChip
             icon={ <CalendarToday /> }
             color="primary"
+            content={ new Date(orderInfo.saleDate.split('-')).toLocaleDateString() }
+            dataTestId="order-date"
           />
           <OrderStatusChip
             status={ orderInfo.status }
             sx={ { borderRadius: 1 } }
+            dataTestId={ TEST_ID }
           />
         </Box>
         <Button
           variant="contained"
           sx={ { height: 'min-content' } }
+          data-testid="customer_order_details__button-delivery-check"
         >
           Marcar como entregue
         </Button>

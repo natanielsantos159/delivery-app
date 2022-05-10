@@ -57,6 +57,7 @@ export default function OrderCard({ id, status, totalPrice, saleDate }) {
         <OrderStatusChip
           sx={ { margin: '10px 0' } }
           status={ status }
+          dataTestId="customer_orders__element-delivery-status"
         />
       </CardContent>
     </Card>
