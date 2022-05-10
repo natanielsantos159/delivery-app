@@ -6,6 +6,8 @@ import Login from '../pages/Login';
 import CustomerOrders from '../pages/CustomerOrders';
 import Register from '../pages/Register';
 import SellerOrdersPage from '../pages/SellerOrdersPage';
+import CustomerCheckout from '../pages/CustomerCheckout';
+
 
 export default function Router() {
   return useRoutes([
@@ -29,13 +31,18 @@ export default function Router() {
       ),
     },
     {
-      path: '/customer/orders', element: <CustomerOrders />,
+      path: '/customer/orders',
+      element: <CustomerOrders />,
+      children: [{ path: ':id', element: <h1>olá</h1> }],
     },
     {
       path: '/customer/products', element: <CostumerProducts />,
     },
     {
       path: '/seller/orders', element: <SellerOrdersPage />,
+    },
+    {
+      path: '/customer/checkout', element: <CustomerCheckout />,
     },
   ]);
 }

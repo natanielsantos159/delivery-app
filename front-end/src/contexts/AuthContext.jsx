@@ -1,12 +1,14 @@
 import PropTypes from 'prop-types';
 import React, { createContext, useEffect, useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import validToken from '../helpers/jwt';
 import { LOGIN, REGISTER_USER } from '../services/user.service';
 
 export const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
+  const navigate = useNavigate();
+
   const [userInfo, setUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -74,7 +76,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem('user');
     localStorage.removeItem('cart');
 
-    return <Navigate to="/login" replace />;
+    navigate('/login');
   };
 
   return (
