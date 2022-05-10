@@ -12,7 +12,7 @@ const createOrder = async (userId, orderInfo) => {
     deliveryAddress,
     deliveryNumber,
     saleDate: new Date(),
-    status: 'pendente',
+    status: 'Pendente',
   });
 
   const saleId = result.id;
