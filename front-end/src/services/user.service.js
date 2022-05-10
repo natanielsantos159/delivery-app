@@ -7,3 +7,5 @@ export const LOGIN = (body) => api.post('/login', body);
 export const PRODUCTS = () => api.get('/customer/products');
 
 export const GET_USER_ORDERS = () => api.get('customer/orders');
+
+export const GET_SELLERS = () => api.get('/sellers');

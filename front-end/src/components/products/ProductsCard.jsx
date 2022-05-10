@@ -11,36 +11,38 @@ import {
 import useCart from '../../hooks/useCart';
 
 export default function ProductCard({ item }) {
-  const { getTotalValue } = useCart();
+  const { id, name, price, urlImage } = item;
+
+  const { setCartItems } = useCart();
 
   const [quantity, setQuantity] = useState(0);
   const [clicked, setClicked] = useState(false);
-  const { id, name, price, urlImage } = item;
+
+  const storageCart = JSON.parse(localStorage.getItem('cart')) || [];
 
   const handleMinQuantity = () => {
     setQuantity(quantity === 0 ? 0 : quantity - 1);
   };
 
   useEffect(() => {
-    const addToCart = { id, name, price, quantity };
-    const storageCart = JSON.parse(localStorage.getItem('cart'));
-    if (!storageCart) {
-      localStorage.setItem('cart', JSON.stringify([]));
+    const cartItem = { id, name, price, quantity };
+
+    setClicked(true);
+
+    if (quantity) {
+      const filterCart = storageCart.filter((product) => product.id !== id);
+      setCartItems([...filterCart, cartItem]);
+      localStorage.setItem('cart', JSON.stringify([...filterCart, cartItem]));
       return;
     }
     if (quantity === 0 && clicked) {
-      const newCart = storageCart.filter((eachProduct) => eachProduct.id !== id);
+      const newCart = storageCart.filter((product) => product.id !== id);
+      setCartItems(newCart);
       return localStorage.setItem('cart', JSON.stringify(newCart));
     }
-    if (quantity) {
-      const newCart = storageCart.filter((eachProduct) => eachProduct.id !== id);
-      localStorage.setItem('cart', JSON.stringify([...newCart, addToCart]));
-    }
-    setClicked(true);
-  }, [clicked, id, name, price, quantity]);
+  }, [quantity]);
 
   useEffect(() => {
-    const storageCart = JSON.parse(localStorage.getItem('cart'));
     if (!storageCart) {
       setQuantity(0);
     }
@@ -50,17 +52,14 @@ export default function ProductCard({ item }) {
     }
   }, [id]);
 
-  useEffect(() => {
-    const storageCart = JSON.parse(localStorage.getItem('cart'));
-    getTotalValue(storageCart);
-  }, [getTotalValue, quantity]);
-
   return (
     <Card
-      sx={ { maxWidth: 230,
+      sx={ {
+        maxWidth: 230,
         marginBottom: 5,
         boxShadow: 6,
-        borderRadius: 2 } }
+        borderRadius: 2,
+      } }
     >
       <Box>
         <Typography
@@ -74,7 +73,7 @@ export default function ProductCard({ item }) {
             borderRadius: '5px',
           } }
         >
-          { `R$ ${price.toString().replace('.', ',')}` }
+          {`R$ ${price.toString().replace('.', ',')}`}
         </Typography>
         <CardMedia
           component="img"
@@ -98,7 +97,7 @@ export default function ProductCard({ item }) {
           textAlign="center"
           data-testid={ `customer_products__element-card-title-${id}` }
         >
-          { name }
+          {name}
         </Typography>
         <Box
           sx={ {
@@ -128,6 +127,7 @@ export default function ProductCard({ item }) {
             size="small"
           />
           <Button
+            value={ id }
             variant="contained"
             data-testid={ `customer_products__button-card-add-item-${id}` }
             sx={ {

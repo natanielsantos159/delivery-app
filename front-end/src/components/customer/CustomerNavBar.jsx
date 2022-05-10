@@ -14,8 +14,8 @@ export default function NavBar() {
   const { enqueueToast } = useToastManager();
   const { logout, userInfo } = useAuth();
 
-  const endSession = () => {
-    logout();
+  const endSession = async () => {
+    await logout();
     enqueueToast('success', 'Sessão encerrada com sucesso!', 'success');
   };
 

@@ -1,13 +1,11 @@
 const { User, Sale, SaleProduct, Product } = require('../models');
 
 const createOrder = async (userId, orderInfo) => {
-  const { seller, products, totalPrice, deliveryAddress, deliveryNumber } = orderInfo;
-
-  const { id } = await User.findOne({ where: { name: seller } });
+  const { sellerId, products, totalPrice, deliveryAddress, deliveryNumber } = orderInfo;
 
   const result = await Sale.create({
     userId,
-    sellerId: id,
+    sellerId,
     totalPrice,
     deliveryAddress,
     deliveryNumber,
