@@ -28,7 +28,7 @@ export default function SellerNavBar() {
         <Box sx={ { display: 'flex', flexDirection: 'inline' } }>
           <Button
             sx={ { my: 2, color: 'white', display: 'block' } }
-            data-testid="customer_products__element-navbar-link-products"
+            data-testid="customer_products__element-navbar-link-orders"
             onClick={ () => navigate('/seller/orders') }
           >
             { userInfo?.role === 'seller' ? 'PEDIDOS' : 'GERENCIAR USUÁRIOS' }
