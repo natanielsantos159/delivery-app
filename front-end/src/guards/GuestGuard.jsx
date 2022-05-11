@@ -5,9 +5,12 @@ import { Navigate } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
 
 export default function GuestGuard({ children }) {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, userInfo } = useAuth();
 
   if (isAuthenticated) {
+    if (userInfo?.role === 'seller') {
+      return <Navigate to="/seller/orders" />;
+    }
     return <Navigate to="/customer/products" />;
   }
 
