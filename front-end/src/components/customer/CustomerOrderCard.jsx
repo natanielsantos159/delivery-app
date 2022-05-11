@@ -5,14 +5,13 @@ import { useNavigate } from 'react-router-dom';
 import OrderStatusChip from './OrderStatusChip';
 import { AuthContext } from '../../contexts/AuthContext';
 
-export default function OrderCard({ id, status, totalPrice, saleDate }) {
+export default function CustomerOrderCard({ id, status, totalPrice, saleDate }) {
   const navigate = useNavigate();
   const { userInfo: { role } } = useContext(AuthContext);
 
   const formatter = new Intl.NumberFormat('pt-BR', {
-    style: 'decimal',
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
+    style: 'currency',
+    currency: 'BRL',
   });
 
   return (
@@ -67,7 +66,7 @@ export default function OrderCard({ id, status, totalPrice, saleDate }) {
   );
 }
 
-OrderCard.propTypes = {
+CustomerOrderCard.propTypes = {
   status: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,
   totalPrice: PropTypes.string.isRequired,

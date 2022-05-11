@@ -7,18 +7,12 @@ import {
 } from '@mui/material';
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import CalendarToday from '@mui/icons-material/CalendarToday';
-import AssignmentInd from '@mui/icons-material/AssignmentInd';
-import Sell from '@mui/icons-material/Sell';
 import OrderDetailsTable from '../components/customer/OrderDetailsTable';
-import OrderStatusChip from '../components/customer/OrderStatusChip';
-import OrderDetailsChip from '../components/customer/OrderDetailsChip';
 import { GET_ORDER_INFO, SET_AS_DELIVERED } from '../services/sale.service';
 import useToast from '../hooks/useToast';
+import OrderDetailsInfo from '../components/OrderDetailsInfo';
 
-const TEST_ID = 'customer_order_details__element-order-details-label-delivery-status';
-
-export default function OrderDetails() {
+export default function CustomerOrderDetails() {
   const { id } = useParams();
   const [orderInfo, setOrderInfo] = useState();
   const { enqueueToast } = useToast();
@@ -56,41 +50,7 @@ export default function OrderDetails() {
         Detalhe do pedido
       </Typography>
       <Box sx={ { display: 'flex', margin: 'auto', width: '85vw' } }>
-        <Box
-          sx={ {
-            marginRight: 'auto',
-            width: 'auto',
-            display: 'flex',
-            columnGap: '10px',
-            padding: '5px',
-          } }
-        >
-          <OrderDetailsChip
-            label="PEDIDO"
-            icon={ <Sell /> }
-            color="success"
-            content={ orderInfo.id }
-            dataTestId="order-id"
-          />
-          <OrderDetailsChip
-            label="P. Vend:"
-            icon={ <AssignmentInd /> }
-            color="secondary"
-            content={ orderInfo.seller.name }
-            dataTestId="seller-name"
-          />
-          <OrderDetailsChip
-            icon={ <CalendarToday /> }
-            color="primary"
-            content={ new Date(orderInfo.saleDate).toLocaleDateString('pt-BR') }
-            dataTestId="order-date"
-          />
-          <OrderStatusChip
-            status={ orderInfo.status }
-            sx={ { borderRadius: 1 } }
-            dataTestId={ TEST_ID }
-          />
-        </Box>
+        <OrderDetailsInfo orderInfo={ orderInfo } />
         <Button
           variant="contained"
           sx={ { height: 'min-content' } }

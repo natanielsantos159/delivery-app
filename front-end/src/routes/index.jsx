@@ -7,9 +7,10 @@ import CustomerOrders from '../pages/CustomerOrders';
 import CustomerPage from '../pages/CustomerPage';
 import Register from '../pages/Register';
 import SellerOrdersPage from '../pages/SellerOrdersPage';
-import OrderDetails from '../pages/OrderDetails';
+import CustomerOrderDetails from '../pages/CustomerOrderDetails';
 import CustomerCheckout from '../pages/CustomerCheckout';
-import SellerDetailedOrder from '../pages/SellerDetailedOrder';
+import SellerOrderDetails from '../pages/SellerOrderDetails';
+import SellerPage from '../pages/SellerPage';
 
 export default function Router() {
   return useRoutes([
@@ -37,15 +38,18 @@ export default function Router() {
       element: <CustomerPage />,
       children: [
         { path: '/customer/orders/', element: <CustomerOrders /> },
-        { path: '/customer/orders/:id', element: <OrderDetails /> },
+        { path: '/customer/orders/:id', element: <CustomerOrderDetails /> },
         { path: '/customer/products/', element: <CustomerProducts /> },
         { path: '/customer/checkout', element: <CustomerCheckout /> },
       ],
     },
     {
-      path: '/seller/orders',
-      element: <SellerOrdersPage />,
+      path: '/seller/',
+      element: <SellerPage />,
+      children: [
+        { path: '/seller/orders', element: <SellerOrdersPage /> },
+        { path: '/seller/orders/:id', element: <SellerOrderDetails /> },
+      ],
     },
-    { path: '/seller/orders/:id', element: <SellerDetailedOrder /> },
   ]);
 }

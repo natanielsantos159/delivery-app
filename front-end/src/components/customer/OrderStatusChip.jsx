@@ -23,7 +23,13 @@ export default function OrderStatusChip({ status, sx, dataTestId }) {
 
   return (
     <Chip
-      label={ <span data-testid={ dataTestId }>{ status }</span> }
+      label={
+        <span
+          data-testid={ dataTestId }
+        >
+          { status }
+        </span>
+      }
       sx={ sx }
       { ...getStatusStyling() }
     />
@@ -32,8 +38,8 @@ export default function OrderStatusChip({ status, sx, dataTestId }) {
 
 OrderStatusChip.propTypes = {
   status: PropTypes.string.isRequired,
+  dataTestId: PropTypes.string.isRequired,
   sx: PropTypes.objectOf(
     PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   ).isRequired,
-  dataTestId: PropTypes.string.isRequired,
 };
