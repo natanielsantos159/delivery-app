@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Box } from '@mui/material';
-import OrderCard from '../components/customer/OrderCard';
+import CustomerOrderCard from '../components/customer/CustomerOrderCard';
 import { GET_USER_ORDERS } from '../services/user.service';
 import useToast from '../hooks/useToast';
 
@@ -33,7 +33,7 @@ export default function CustomerOrders() {
         columnGap: '50px',
       } }
     >
-      { orders.map((order, i) => <OrderCard { ...order } key={ i } />) }
+      { orders.map((order, i) => <CustomerOrderCard { ...order } key={ i } />) }
     </Box>
   );
 }

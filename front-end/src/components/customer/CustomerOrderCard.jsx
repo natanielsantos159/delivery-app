@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import OrderStatusChip from './OrderStatusChip';
 import { AuthContext } from '../../contexts/AuthContext';
 
-export default function OrderCard({ id, status, totalPrice, saleDate }) {
+export default function CustomerOrderCard({ id, status, totalPrice, saleDate }) {
   const navigate = useNavigate();
   const { userInfo: { role } } = useContext(AuthContext);
 
