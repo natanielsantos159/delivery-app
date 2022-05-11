@@ -1,15 +1,12 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import DoneIcon from '@mui/icons-material/Done';
 import AccessTime from '@mui/icons-material/AccessTime';
 import LoopIcon from '@mui/icons-material/Loop';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import { Chip } from '@mui/material';
-import { AuthContext } from '../../contexts/AuthContext';
 
-export default function OrderStatusChip({ status, sx }) {
-  const { userInfo: { role } } = useContext(AuthContext);
-
+export default function OrderStatusChip({ status, sx, dataTestId }) {
   const getStatusStyling = () => {
     switch (status) {
     case 'Entregue':
@@ -28,7 +25,7 @@ export default function OrderStatusChip({ status, sx }) {
     <Chip
       label={
         <span
-          data-testid={ `${role}_order_details__element-order-details-label` }
+          data-testid={ dataTestId }
         >
           { status }
         </span>
@@ -41,6 +38,7 @@ export default function OrderStatusChip({ status, sx }) {
 
 OrderStatusChip.propTypes = {
   status: PropTypes.string.isRequired,
+  dataTestId: PropTypes.string.isRequired,
   sx: PropTypes.objectOf(
     PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   ).isRequired,

@@ -45,6 +45,9 @@ export default function OrderDetailsInfo({ orderInfo }) {
       <OrderStatusChip
         status={ status }
         sx={ { borderRadius: 1 } }
+        dataTestId={
+          `${role}_order_details__element-order-details-label-delivery-status`
+        }
       />
     </Box>
   );
