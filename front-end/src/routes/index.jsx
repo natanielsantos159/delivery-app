@@ -7,9 +7,9 @@ import CustomerOrders from '../pages/CustomerOrders';
 import CustomerPage from '../pages/CustomerPage';
 import Register from '../pages/Register';
 import SellerOrdersPage from '../pages/SellerOrdersPage';
-import OrderDetails from '../pages/OrderDetails';
+import CustomerOrderDetails from '../pages/CustomerOrderDetails';
 import CustomerCheckout from '../pages/CustomerCheckout';
-import SellerDetailedOrder from '../pages/SellerDetailedOrder';
+import SellerOrderDetails from '../pages/SellerOrderDetails';
 
 export default function Router() {
   return useRoutes([
@@ -37,7 +37,7 @@ export default function Router() {
       element: <CustomerPage />,
       children: [
         { path: '/customer/orders/', element: <CustomerOrders /> },
-        { path: '/customer/orders/:id', element: <OrderDetails /> },
+        { path: '/customer/orders/:id', element: <CustomerOrderDetails /> },
         { path: '/customer/products/', element: <CostumerProducts /> },
         { path: '/customer/checkout', element: <CustomerCheckout /> },
       ],
@@ -46,6 +46,6 @@ export default function Router() {
       path: '/seller/orders',
       element: <SellerOrdersPage />,
     },
-    { path: '/seller/orders/:id', element: <SellerDetailedOrder /> },
+    { path: '/seller/orders/:id', element: <SellerOrderDetails /> },
   ]);
 }
