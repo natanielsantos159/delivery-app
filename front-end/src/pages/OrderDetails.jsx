@@ -81,7 +81,7 @@ export default function OrderDetails() {
           <OrderDetailsChip
             icon={ <CalendarToday /> }
             color="primary"
-            content={ new Date(orderInfo.saleDate).toLocaleDateString() }
+            content={ new Date(orderInfo.saleDate).toLocaleDateString('pt-BR') }
             dataTestId="order-date"
           />
           <OrderStatusChip
