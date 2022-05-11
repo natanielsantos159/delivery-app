@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
-import { GET_SELLER_ORDERS } from '../services/user.service';
+import { GET_SELLER_ORDERS } from '../services/sale.service';
 import useToastManager from '../hooks/useToast';
 import SellerOrderCard from '../components/seller/SellerOrderCard';
 
