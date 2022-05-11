@@ -7,7 +7,7 @@ import ProductCard from '../components/products/ProductsCard';
 import PRODUCTS from '../services/products.service';
 import useToastManager from '../hooks/useToast';
 
-export default function CostumerProducts() {
+export default function CustomerProducts() {
   const [products, setProducts] = useState([]);
   const { enqueueToast } = useToastManager();
   const navigate = useNavigate();

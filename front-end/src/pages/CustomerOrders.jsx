@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Box } from '@mui/material';
 import OrderCard from '../components/customer/OrderCard';
-import { GET_USER_ORDERS } from '../services/user.service';
+import { GET_USER_ORDERS } from '../services/sale.service';
 import useToast from '../hooks/useToast';
 
 export default function CustomerOrders() {

@@ -4,7 +4,7 @@ import { LoadingButton } from '@mui/lab';
 import { useNavigate } from 'react-router-dom';
 import { GET_SELLERS } from '../services/user.service';
 import useToastManager from '../hooks/useToast';
-import CREATE_ORDER from '../services/sales.service';
+import { CREATE_ORDER } from '../services/sale.service';
 import useCart from '../hooks/useCart';
 
 export default function ConfirmOrderForm() {

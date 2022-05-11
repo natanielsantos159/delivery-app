@@ -3,7 +3,7 @@ import { Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import SellerNavBar from '../components/seller/SellerNavBar';
 import useAuth from '../hooks/useAuth';
-import { GET_SELLER_ORDERS } from '../services/user.service';
+import { GET_SELLER_ORDERS } from '../services/sale.service';
 import useToastManager from '../hooks/useToast';
 import SellerOrderCard from '../components/seller/SellerOrderCard';
 
@@ -37,8 +37,6 @@ export default function SellerOrdersPage() {
       navigate('/login');
     }
   }, [isAuthenticated]);
-
-  console.log(orders);
 
   return (
     <Box>
