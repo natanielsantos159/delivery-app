@@ -17,9 +17,8 @@ export default function CustomerOrderTable({ orderInfo }) {
   const { userInfo: { role } } = useContext(AuthContext);
 
   const formatter = new Intl.NumberFormat('pt-BR', {
-    style: 'decimal',
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
+    style: 'currency',
+    currency: 'BRL',
   });
 
   const StyledTableCell = styled(TableCell)(() => ({

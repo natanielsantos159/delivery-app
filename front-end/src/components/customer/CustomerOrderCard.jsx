@@ -10,9 +10,8 @@ export default function CustomerOrderCard({ id, status, totalPrice, saleDate }) 
   const { userInfo: { role } } = useContext(AuthContext);
 
   const formatter = new Intl.NumberFormat('pt-BR', {
-    style: 'decimal',
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
+    style: 'currency',
+    currency: 'BRL',
   });
 
   return (
@@ -67,7 +66,7 @@ export default function CustomerOrderCard({ id, status, totalPrice, saleDate }) 
   );
 }
 
-OrderCard.propTypes = {
+CustomerOrderCard.propTypes = {
   status: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,
   totalPrice: PropTypes.string.isRequired,
