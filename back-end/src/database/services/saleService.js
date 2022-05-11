@@ -1,4 +1,4 @@
-const { User, Sale, SaleProduct } = require('../models');
+const { User, Sale, SaleProduct, Product } = require('../models');
 
 const createOrder = async (userId, orderInfo) => {
   const { sellerId, products, totalPrice, deliveryAddress, deliveryNumber } = orderInfo;
@@ -29,7 +29,10 @@ const createOrder = async (userId, orderInfo) => {
 const getOrderDetails = async (id) => {
   const order = await Sale.findOne({
     where: { id },
-    include: [{ model: User, as: 'seller', attributes: ['name'] }]
+    include: [
+      { model: User, as: 'seller', attributes: ['name'] },
+      { model: Product, as: 'products', attributes: ['name', 'price']}
+    ]
   });
 
   return order;
@@ -51,9 +54,17 @@ const listCustomerOrders = async (userId) => {
   return orders;
 }
 
+const setAsDelivered = async (orderId) => {
+  await Sale.update(
+    { status: 'Entregue' }, 
+    { where: { id: orderId }},
+  );
+}
+
 module.exports = {
   createOrder,
   getOrderDetails,
   listSellerOrders,
   listCustomerOrders,
+  setAsDelivered,
 };

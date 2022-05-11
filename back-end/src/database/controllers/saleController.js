@@ -45,15 +45,27 @@ const listCustomerOrders = async (req, res) => {
 
   try {
     const orders = await saleService.listCustomerOrders(id);
-    return res.status(200).json({ orders });
+    return res.status(200).json(orders);
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
 }
+
+const setAsDelivered = async (req, res) => {
+  const { orderId } = req.params;
+
+  try {
+    await saleService.setAsDelivered(orderId);
+    return res.status(200).json({ success: true });
+  } catch (error) {
+    return res.status(500).json({ error: error.message, success: false });
+  }
+};
 
 module.exports = {
   createOrder,
   getOrderDetails,
   listSellerOrders,
   listCustomerOrders,
+  setAsDelivered,
 };

@@ -4,7 +4,9 @@ import GuestGuard from '../guards/GuestGuard';
 import CostumerProducts from '../pages/CostumerProducts';
 import Login from '../pages/Login';
 import CustomerOrders from '../pages/CustomerOrders';
+import CustomerPage from '../pages/CustomerPage';
 import Register from '../pages/Register';
+import OrderDetails from '../pages/OrderDetails';
 import CustomerCheckout from '../pages/CustomerCheckout';
 
 export default function Router() {
@@ -29,15 +31,14 @@ export default function Router() {
       ),
     },
     {
-      path: '/customer/orders',
-      element: <CustomerOrders />,
-      children: [{ path: ':id', element: <h1>olá</h1> }],
-    },
-    {
-      path: '/customer/products', element: <CostumerProducts />,
-    },
-    {
-      path: '/customer/checkout', element: <CustomerCheckout />,
+      path: '/customer/',
+      element: <CustomerPage />,
+      children: [
+        { path: '/customer/orders/', element: <CustomerOrders /> },
+        { path: '/customer/orders/:id', element: <OrderDetails /> },
+        { path: '/customer/products/', element: <CostumerProducts /> },
+        { path: '/customer/checkout', element: <CustomerCheckout /> },
+      ],
     },
   ]);
 }
