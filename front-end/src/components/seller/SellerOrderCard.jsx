@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
-import { Card, Typography, Box, Chip } from '@mui/material';
-import React from 'react';
-import DoneIcon from '@mui/icons-material/Done';
-import PendingIcon from '@mui/icons-material/Pending';
-import LoopIcon from '@mui/icons-material/Loop';
+import { useNavigate } from 'react-router-dom';
+import { Card, Typography, Box, CardHeader, CardContent } from '@mui/material';
+import React, { useContext } from 'react';
+import OrderStatusChip from '../customer/OrderStatusChip';
+import { AuthContext } from '../../contexts/AuthContext';
 
 export default function SellerOrderCard({
   id,
@@ -13,77 +13,69 @@ export default function SellerOrderCard({
   deliveryAddress,
   deliveryNumber,
 }) {
+  const navigate = useNavigate();
+
   const formatter = new Intl.NumberFormat('pt-BR', {
     style: 'currency',
     currency: 'BRL',
   });
 
-  const getStatusIcon = () => {
-    switch (status) {
-    case 'entregue':
-      return <DoneIcon />;
-    case 'pendente':
-      return <PendingIcon />;
-    case 'preparando':
-      return <LoopIcon />;
-    default: return null;
-    }
-  };
+  const { userInfo: { role } } = useContext(AuthContext);
 
   return (
     <Card
       sx={ {
-        maxWidth: '500px',
-        display: 'flex',
-        flexDirection: 'inline',
-        alignItems: 'center',
-        height: 'auto',
-      } }
+        minWidth: '200px',
+        cursor: 'pointer',
+        boxShadow: 6,
+        borderRadius: 2 } }
+      onClick={ () => navigate(`/seller/orders/${id}`) }
     >
-      <Box sx={ { padding: '0px 30px 0px 30px' } }>
-        <Typography variant="h7">Pedido</Typography>
-        <Typography
-          variant="h6"
-          datatest-id={ `seller_orders__element-order-id-${id}` }
-        >
-          { id }
-        </Typography>
-      </Box>
-      <Box
+      <CardHeader
+        title={
+          <>
+            <Typography variant="p">Pedido </Typography>
+            <Typography
+              variant="p"
+              data-testid={ `${role}_orders__element-order-id-${id}` }
+            >
+              { id }
+            </Typography>
+          </>
+        }
         sx={ {
-          padding: '10px 30px 10px 30px',
-          height: 'auto',
+          backgroundColor: '#1976d2',
+          color: 'white',
           display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          backgroundColor: '#B9D9EB',
         } }
-      >
-        <Typography
-          variant="h5"
-          datatest-id={ `seller_orders__element-card-price-${id}` }
-          sx={ { margin: '5px' } }
-        >
-          { formatter.format(totalPrice) }
-        </Typography>
-        <Typography
-          variant="h9"
-          datatest-id={ `seller_orders__element-order-date-${id}` }
-          sx={ { margin: '5px' } }
-        >
-          { new Date(saleDate).toLocaleDateString('pt-BR') }
-        </Typography>
-        <Chip
-          label={ status }
-          color="primary"
-          datatest-id={ `seller_orders__element-delivery-status-${id}` }
-          icon={ getStatusIcon() }
-          sx={ { margin: '5px' } }
+      />
+      <CardContent>
+        <Box>
+          <Typography
+            variant="h5"
+            data-testid={ `${role}_orders__element-card-price-${id}` }
+          >
+            { formatter.format(totalPrice) }
+          </Typography>
+          <Typography
+            variant="h9"
+            data-testid={ `${role}_orders__element-order-date-${id}` }
+          >
+            { new Date(saleDate).toLocaleDateString('pt-BR') }
+          </Typography>
+        </Box>
+        <OrderStatusChip
+          sx={ { margin: '10px 0' } }
+          status={ status }
+          dataTestId={ `${role}_orders__element-delivery-status-${id}` }
         />
-        <Typography sx={ { margin: '5px' } }>
+        <Typography
+          sx={ { margin: '5px' } }
+          dataTestId={ `${role}_orders__element-card-address-${id}` }
+        >
           { `${deliveryAddress}, ${deliveryNumber}`}
         </Typography>
-      </Box>
+      </CardContent>
     </Card>
   );
 }

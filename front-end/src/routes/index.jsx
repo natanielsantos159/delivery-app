@@ -6,12 +6,10 @@ import Login from '../pages/Login';
 import CustomerOrders from '../pages/CustomerOrders';
 import CustomerPage from '../pages/CustomerPage';
 import Register from '../pages/Register';
-<<<<<<< HEAD
 import SellerOrdersPage from '../pages/SellerOrdersPage';
-=======
 import OrderDetails from '../pages/OrderDetails';
->>>>>>> ffd2fd256ee9549f63a411bf591740b5ef9330fd
 import CustomerCheckout from '../pages/CustomerCheckout';
+import SellerDetailedOrder from '../pages/SellerDetailedOrder';
 
 export default function Router() {
   return useRoutes([
@@ -35,20 +33,6 @@ export default function Router() {
       ),
     },
     {
-<<<<<<< HEAD
-      path: '/customer/orders',
-      element: <CustomerOrders />,
-      children: [{ path: ':id', element: <h1>olá</h1> }],
-    },
-    {
-      path: '/customer/products', element: <CostumerProducts />,
-    },
-    {
-      path: '/seller/orders', element: <SellerOrdersPage />,
-    },
-    {
-      path: '/customer/checkout', element: <CustomerCheckout />,
-=======
       path: '/customer/',
       element: <CustomerPage />,
       children: [
@@ -57,7 +41,11 @@ export default function Router() {
         { path: '/customer/products/', element: <CostumerProducts /> },
         { path: '/customer/checkout', element: <CustomerCheckout /> },
       ],
->>>>>>> ffd2fd256ee9549f63a411bf591740b5ef9330fd
     },
+    {
+      path: '/seller/orders',
+      element: <SellerOrdersPage />,
+    },
+    { path: '/seller/orders/:id', element: <SellerDetailedOrder /> },
   ]);
 }
