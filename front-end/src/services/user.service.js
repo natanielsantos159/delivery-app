@@ -8,4 +8,6 @@ export const PRODUCTS = () => api.get('/customer/products');
 
 export const GET_USER_ORDERS = () => api.get('customer/orders');
 
+export const GET_SELLER_ORDERS = () => api.get('/seller/orders');
+
 export const GET_SELLERS = () => api.get('/sellers');
