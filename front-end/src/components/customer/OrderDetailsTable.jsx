@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   Table,
   TableHead,
@@ -11,8 +11,11 @@ import {
 import LocalAtmIcon from '@mui/icons-material/LocalAtm';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import { styled } from '@mui/material/styles';
+import { AuthContext } from '../../contexts/AuthContext';
 
 export default function CustomerOrderTable({ orderInfo }) {
+  const { userInfo: { role } } = useContext(AuthContext);
+
   const formatter = new Intl.NumberFormat('pt-BR', {
     style: 'decimal',
     minimumFractionDigits: 2,
@@ -63,35 +66,35 @@ export default function CustomerOrderTable({ orderInfo }) {
           <StyledTableRow key={ i }>
             <StyledTableCell
               data-testid={
-                `customer_order_details__element-order-table-item-number-${i}`
+                `${role}_order_details__element-order-table-item-number-${i}`
               }
             >
               { i }
             </StyledTableCell>
             <StyledTableCell
               data-testid={
-                `customer_order_details__element-order-table-name-${i}`
+                `${role}_order_details__element-order-table-name-${i}`
               }
             >
               { name }
             </StyledTableCell>
             <StyledTableCell
               data-testid={
-                `customer_order_details__element-order-table-quantity-${i}`
+                `${role}_order_details__element-order-table-quantity-${i}`
               }
             >
               { quantity }
             </StyledTableCell>
             <StyledTableCell
               data-testid={
-                `customer_order_details__element-order-table-unit-price-${i}`
+                `${role}_order_details__element-order-table-unit-price-${i}`
               }
             >
               { formatter.format(price) }
             </StyledTableCell>
             <StyledTableCell
               data-testid={
-                `customer_order_details__element-order-table-sub-total-${i}`
+                `${role}_order_details__element-order-table-sub-total-${i}`
               }
             >
               { formatter.format(+quantity * +price) }
@@ -105,7 +108,7 @@ export default function CustomerOrderTable({ orderInfo }) {
               Total:
               {' '}
               <span
-                data-testid="customer_order_details__element-order-total-price"
+                data-testid={ `${role}_order_details__element-order-total-price` }
               >
                 { formatter.format(getTotalPrice(orderInfo.products)) }
               </span>
