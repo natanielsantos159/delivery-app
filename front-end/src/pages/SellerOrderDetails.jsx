@@ -38,7 +38,7 @@ export default function SellerOrderDetails() {
         <OrderDetailsInfo orderInfo={ orderInfo } />
         <Button
           variant="contained"
-          sx={ { height: 'min-content' } }
+          sx={ { height: 'min-content', margin: '0 5px' } }
           data-testid="seller_order_details__button-preparing-check"
           disabled={ orderInfo.status !== 'Pendente' }
         >
@@ -46,7 +46,7 @@ export default function SellerOrderDetails() {
         </Button>
         <Button
           variant="contained"
-          sx={ { height: 'min-content' } }
+          sx={ { height: 'min-content', margin: '0 5px' } }
           data-testid="seller_order_details__button-dispatch-check"
           disabled={ orderInfo.status !== 'Preparando' }
         >

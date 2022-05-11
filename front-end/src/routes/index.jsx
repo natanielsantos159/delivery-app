@@ -10,6 +10,7 @@ import SellerOrdersPage from '../pages/SellerOrdersPage';
 import CustomerOrderDetails from '../pages/CustomerOrderDetails';
 import CustomerCheckout from '../pages/CustomerCheckout';
 import SellerOrderDetails from '../pages/SellerOrderDetails';
+import SellerPage from '../pages/SellerPage';
 
 export default function Router() {
   return useRoutes([
@@ -43,9 +44,12 @@ export default function Router() {
       ],
     },
     {
-      path: '/seller/orders',
-      element: <SellerOrdersPage />,
+      path: '/seller/',
+      element: <SellerPage />,
+      children: [
+        { path: '/seller/orders', element: <SellerOrdersPage /> },
+        { path: '/seller/orders/:id', element: <SellerOrderDetails /> },
+      ],
     },
-    { path: '/seller/orders/:id', element: <SellerOrderDetails /> },
   ]);
 }
