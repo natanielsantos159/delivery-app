@@ -12,7 +12,7 @@ import { GET_ORDER_INFO, SET_AS_DELIVERED } from '../services/sale.service';
 import useToast from '../hooks/useToast';
 import OrderDetailsInfo from '../components/OrderDetailsInfo';
 
-export default function OrderDetails() {
+export default function CustomerOrderDetails() {
   const { id } = useParams();
   const [orderInfo, setOrderInfo] = useState();
   const { enqueueToast } = useToast();
