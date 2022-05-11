@@ -17,6 +17,7 @@ import { GET_ORDER_INFO, SET_AS_DELIVERED } from '../services/sale.service';
 import useToast from '../hooks/useToast';
 
 const TEST_ID = 'customer_order_details__element-order-details-label-delivery-status';
+
 export default function OrderDetails() {
   const { id } = useParams();
   const [orderInfo, setOrderInfo] = useState();
