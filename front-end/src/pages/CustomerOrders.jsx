@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { Box } from '@mui/material';
-import OrderCard from '../components/OrderCard';
+import OrderCard from '../components/customer/OrderCard';
 import { GET_USER_ORDERS } from '../services/user.service';
-import NavBar from '../components/customer/CustomerNavBar';
+import useToast from '../hooks/useToast';
 
 export default function CustomerOrders() {
   const [orders, setOrders] = useState([]);
+  const { enqueueToast } = useToast();
 
   const fetchOrders = async () => {
-    const userId = 3;
     try {
-      const { data } = await GET_USER_ORDERS(userId);
+      const { data } = await GET_USER_ORDERS();
       setOrders(data);
     } catch (err) {
-      console.log(error.message);
+      console.log(err.message);
+      enqueueToast('error', 'Erro ao listar pedidos', 'error');
     }
   };
 
@@ -22,17 +23,17 @@ export default function CustomerOrders() {
   }, []);
 
   return (
-    <Box>
-      <NavBar />
-      <Box
-        sx={ {
-          backgroundColor: 'white',
-          display: 'flex',
-          justifyContent: 'space-around',
-        } }
-      >
-        { orders.map((order, i) => <OrderCard { ...order } key={ i } />) }
-      </Box>
+    <Box
+      sx={ {
+        backgroundColor: 'white',
+        display: 'flex',
+        justifyContent: 'center',
+        flexWrap: 'wrap',
+        rowGap: '40px',
+        columnGap: '50px',
+      } }
+    >
+      { orders.map((order, i) => <OrderCard { ...order } key={ i } />) }
     </Box>
   );
 }

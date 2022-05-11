@@ -11,7 +11,7 @@ module.exports = {
         delivery_address: 'Rua da paz, N1',
         delivery_number: '2',
         sale_date: new Date(),
-        status: 'pendente',
+        status: 'Pendente',
       },
       {
         id: 2,
@@ -21,7 +21,7 @@ module.exports = {
         delivery_address: 'Rua da paz, N1',
         delivery_number: '2',
         sale_date: new Date(),
-        status: 'entregue',
+        status: 'Entregue',
       },
       {
         id: 3,
@@ -31,7 +31,7 @@ module.exports = {
         delivery_address: 'Rua da paz, N1',
         delivery_number: '2',
         sale_date: new Date(),
-        status: 'preparando',
+        status: 'Preparando',
       },
     ])
   },
