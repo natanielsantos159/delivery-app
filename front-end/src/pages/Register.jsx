@@ -11,6 +11,7 @@ import deliveryMan from '../assets/delivery-man.png';
 import deliveryImage2 from '../assets/delivery-image2.jpg';
 import { validateName, validateEmail, validatePassword } from '../helpers/validate';
 import useToastManager from '../hooks/useToast';
+import givingBox from '../assets/givinBox.webp';
 import useAuth from '../hooks/useAuth';
 
 const RootStyle = styled('div')(() => ({
@@ -53,6 +54,10 @@ export default function Register() {
       <Card
         sx={ {
           display: 'flex',
+          backgroundImage: { xs: `url(${givingBox})`, md: 'inherit' },
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
           flex: 1,
           boxShadow: 4,
           alignItems: 'center',
