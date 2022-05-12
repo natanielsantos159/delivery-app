@@ -11,6 +11,8 @@ import CustomerOrderDetails from '../pages/CustomerOrderDetails';
 import CustomerCheckout from '../pages/CustomerCheckout';
 import SellerOrderDetails from '../pages/SellerOrderDetails';
 import SellerPage from '../pages/SellerPage';
+import AdminPage from '../pages/AdminPage';
+import AdminManagement from '../pages/AdminManagement';
 
 export default function Router() {
   return useRoutes([
@@ -49,6 +51,13 @@ export default function Router() {
       children: [
         { path: 'orders', element: <SellerOrdersPage /> },
         { path: '/seller/orders/:id', element: <SellerOrderDetails /> },
+      ],
+    },
+    {
+      path: '/admin',
+      element: <AdminPage />,
+      children: [
+        { path: 'manage', element: <AdminManagement /> },
       ],
     },
   ]);
