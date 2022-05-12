@@ -61,10 +61,26 @@ const setAsDelivered = async (orderId) => {
   );
 }
 
+const setAsPreparing = async (orderId) => {
+  await Sale.update(
+    { status: 'Preparando' },
+    { where: { id: orderId }},
+  );
+}
+
+const setAsInTransit = async (orderId) => {
+  await Sale.update(
+    { status: 'Em Trânsito' },
+    { where: { id: orderId }},
+  );
+}
+
 module.exports = {
   createOrder,
   getOrderDetails,
   listSellerOrders,
   listCustomerOrders,
   setAsDelivered,
+  setAsPreparing,
+  setAsInTransit,
 };

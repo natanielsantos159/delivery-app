@@ -68,7 +68,7 @@ export default function CustomerOrderTable({ orderInfo }) {
                 `${role}_order_details__element-order-table-item-number-${i}`
               }
             >
-              { i }
+              { i + 1 }
             </StyledTableCell>
             <StyledTableCell
               data-testid={
