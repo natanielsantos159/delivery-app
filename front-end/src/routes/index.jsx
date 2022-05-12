@@ -39,5 +39,8 @@ export default function Router() {
     {
       path: '/customer/checkout', element: <CustomerCheckout />,
     },
+    {
+      path: '/admin/manage', element: <AdminManage/>,
+    }
   ]);
 }
