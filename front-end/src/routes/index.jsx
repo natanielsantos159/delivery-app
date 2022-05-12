@@ -34,20 +34,20 @@ export default function Router() {
       ),
     },
     {
-      path: '/customer/',
+      path: '/customer',
       element: <CustomerPage />,
       children: [
-        { path: '/customer/orders/', element: <CustomerOrders /> },
+        { path: 'products', element: <CustomerProducts /> },
+        { path: 'checkout', element: <CustomerCheckout /> },
+        { path: 'orders', element: <CustomerOrders /> },
         { path: '/customer/orders/:id', element: <CustomerOrderDetails /> },
-        { path: '/customer/products/', element: <CustomerProducts /> },
-        { path: '/customer/checkout', element: <CustomerCheckout /> },
       ],
     },
     {
-      path: '/seller/',
+      path: '/seller',
       element: <SellerPage />,
       children: [
-        { path: '/seller/orders', element: <SellerOrdersPage /> },
+        { path: 'orders', element: <SellerOrdersPage /> },
         { path: '/seller/orders/:id', element: <SellerOrderDetails /> },
       ],
     },
