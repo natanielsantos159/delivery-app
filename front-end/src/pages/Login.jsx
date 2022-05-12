@@ -46,7 +46,15 @@ export default function Login() {
 
   return (
     <RootStyle>
-      <Box component="img" src={ deliveryImage2 } width="60%" height="100%" />
+      <Box
+        display={
+          { xs: 'none', md: 'inherit' }
+        }
+        component="img"
+        src={ deliveryImage2 }
+        width="60%"
+        height="100%"
+      />
       <Card
         sx={ {
           display: 'flex',
