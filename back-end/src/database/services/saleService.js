@@ -31,7 +31,7 @@ const getOrderDetails = async (id) => {
     where: { id },
     include: [
       { model: User, as: 'seller', attributes: ['name'] },
-      { model: Product, as: 'products', attributes: ['name', 'price']}
+      { model: Product, as: 'products', attributes: ['name', 'price', 'urlImage']}
     ]
   });
 
