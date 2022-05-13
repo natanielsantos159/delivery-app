@@ -5,7 +5,6 @@ import {
   Table,
   Card,
   TableBody,
-  TableCell,
   TableContainer,
   TableHead,
   TableRow,
@@ -14,6 +13,8 @@ import {
   Stack,
   useTheme,
 } from '@mui/material';
+import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+import { styled } from '@mui/material/styles';
 import useCart from '../hooks/useCart';
 
 export default function CheckoutTable({ columns, data }) {
@@ -26,20 +27,40 @@ export default function CheckoutTable({ columns, data }) {
     currency: 'BRL',
   });
 
+  const StyledTableCell = styled(TableCell)(() => ({
+    [`&.${tableCellClasses.head}`]: {
+      backgroundColor: 'blue',
+      color: 'white',
+      fontWeight: 700,
+    },
+    [`&.${tableCellClasses.body}`]: {
+      fontSize: 14,
+    },
+  }));
+
+  const StyledTableRow = styled(TableRow)(() => ({
+    '&:nth-of-type(even)': {
+      backgroundColor: '#bababa3d',
+    },
+    '&': {
+      borderBottom: '1px solid rgb(215 215 215)',
+    },
+  }));
+
   return (
     <TableContainer component={ Card } sx={ { boxShadow: 5 } }>
       <Table>
         <TableHead sx={ { background: 'grey' } }>
-          <TableRow>
+          <StyledTableRow>
             {columns.map((column) => (
-              <TableCell align="center" key={ column }>{ column }</TableCell>
+              <StyledTableCell align="center" key={ column }>{ column }</StyledTableCell>
             ))}
-          </TableRow>
+          </StyledTableRow>
         </TableHead>
         <TableBody>
           {data.map((row, index) => (
-            <TableRow key={ row.id }>
-              <TableCell
+            <StyledTableRow key={ row.id }>
+              <StyledTableCell
                 data-testid={
                   `customer_checkout__element-order-table-item-number-${index}`
                 }
@@ -47,25 +68,25 @@ export default function CheckoutTable({ columns, data }) {
                 align="center"
               >
                 {index + 1}
-
-              </TableCell>
-              <TableCell
+              </StyledTableCell>
+              <StyledTableCell>
+                <img src={ row.urlImage } alt={ `${row.name} imagem` } height="50px" />
+              </StyledTableCell>
+              <StyledTableCell
                 data-testid={ `customer_checkout__element-order-table-name-${index}` }
                 sx={ { fontWeight: 'bold' } }
                 align="center"
               >
                 {row.name}
-
-              </TableCell>
-              <TableCell
+              </StyledTableCell>
+              <StyledTableCell
                 data-testid={ `customer_checkout__element-order-table-quantity-${index}` }
                 sx={ { fontWeight: 'bold' } }
                 align="center"
               >
                 {row.quantity}
-
-              </TableCell>
-              <TableCell
+              </StyledTableCell>
+              <StyledTableCell
                 data-testid={
                   `customer_checkout__element-order-table-unit-price-${index}`
                 }
@@ -73,9 +94,8 @@ export default function CheckoutTable({ columns, data }) {
                 align="center"
               >
                 {formatter.format(row.price)}
-
-              </TableCell>
-              <TableCell
+              </StyledTableCell>
+              <StyledTableCell
                 data-testid={
                   `customer_checkout__element-order-table-sub-total-${index}`
                 }
@@ -83,8 +103,8 @@ export default function CheckoutTable({ columns, data }) {
                 align="center"
               >
                 {formatter.format((row.price * row.quantity))}
-              </TableCell>
-              <TableCell
+              </StyledTableCell>
+              <StyledTableCell
                 data-testid={ `customer_checkout__element-order-table-remove-${index}` }
                 align="center"
               >
@@ -95,8 +115,8 @@ export default function CheckoutTable({ columns, data }) {
                 >
                   Remover
                 </Button>
-              </TableCell>
-            </TableRow>
+              </StyledTableCell>
+            </StyledTableRow>
           ))}
         </TableBody>
       </Table>
