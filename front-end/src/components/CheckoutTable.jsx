@@ -21,6 +21,11 @@ export default function CheckoutTable({ columns, data }) {
 
   const { palette } = useTheme();
 
+  const formatter = new Intl.NumberFormat('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
+  });
+
   return (
     <TableContainer component={ Card } sx={ { boxShadow: 5 } }>
       <Table>
@@ -67,7 +72,7 @@ export default function CheckoutTable({ columns, data }) {
                 sx={ { fontWeight: 'bold' } }
                 align="center"
               >
-                {String(row.price).replace('.', ',')}
+                {formatter.format(row.price)}
 
               </TableCell>
               <TableCell
@@ -77,7 +82,7 @@ export default function CheckoutTable({ columns, data }) {
                 sx={ { fontWeight: 'bold' } }
                 align="center"
               >
-                {String((row.price * row.quantity).toFixed(2)).replace('.', ',')}
+                {formatter.format((row.price * row.quantity))}
               </TableCell>
               <TableCell
                 data-testid={ `customer_checkout__element-order-table-remove-${index}` }
@@ -108,7 +113,7 @@ export default function CheckoutTable({ columns, data }) {
             color: '#fff',
           } }
         >
-          {`TOTAL ${String(totalPrice).replace('.', ',')}`}
+          {`TOTAL ${formatter.format(totalPrice)}`}
         </Typography>
       </Stack>
     </TableContainer>
