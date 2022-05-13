@@ -6,6 +6,7 @@ import Login from '../pages/Login';
 import CustomerOrders from '../pages/CustomerOrders';
 import Register from '../pages/Register';
 import CustomerCheckout from '../pages/CustomerCheckout';
+import AdminManage from '../pages/AdminManage';
 
 export default function Router() {
   return useRoutes([
@@ -40,7 +41,7 @@ export default function Router() {
       path: '/customer/checkout', element: <CustomerCheckout />,
     },
     {
-      path: '/admin/manage', element: <AdminManage/>,
-    }
+      path: '/admin/manage', element: <AdminManage />,
+    },
   ]);
 }

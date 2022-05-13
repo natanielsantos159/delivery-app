@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+/* import React, { useState, useEffect } from 'react';
 import { Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
@@ -26,11 +26,11 @@ export default function AdminManage() {
         try {
           const response = await USERS();
           const { data } = response;
-          setUser(data); 
+          setUser(data);
         } catch {
           enqueueToast('error', 'erro ao listar usuários', 'error')
         }
       }
     }
   })
-};
+}; */
