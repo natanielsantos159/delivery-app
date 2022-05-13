@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Button,
+  IconButton,
   Table,
   Card,
   TableBody,
@@ -15,6 +15,7 @@ import {
 } from '@mui/material';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import { styled } from '@mui/material/styles';
+import DeleteIcon from '@mui/icons-material/Delete';
 import useCart from '../hooks/useCart';
 
 export default function CheckoutTable({ columns, data }) {
@@ -29,7 +30,7 @@ export default function CheckoutTable({ columns, data }) {
 
   const StyledTableCell = styled(TableCell)(() => ({
     [`&.${tableCellClasses.head}`]: {
-      backgroundColor: 'blue',
+      backgroundColor: '#519d73',
       color: 'white',
       fontWeight: 700,
     },
@@ -108,13 +109,12 @@ export default function CheckoutTable({ columns, data }) {
                 data-testid={ `customer_checkout__element-order-table-remove-${index}` }
                 align="center"
               >
-                <Button
-                  variant="contained"
+                <IconButton
                   color="error"
                   onClick={ () => removeItem(row.id) }
                 >
-                  Remover
-                </Button>
+                  <DeleteIcon />
+                </IconButton>
               </StyledTableCell>
             </StyledTableRow>
           ))}
