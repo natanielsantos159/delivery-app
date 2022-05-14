@@ -3,8 +3,23 @@ import { Button, Table,
   TableBody,
   TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import React from 'react';
+import { REMOVE_USER } from '../../services/admin.service';
+import useToastManager from '../../hooks/useToast';
 
 export default function UsersTable({ users }) {
+  const { enqueueToast } = useToastManager();
+
+  const removeUser = async (id) => {
+    try {
+      const response = await REMOVE_USER(id);
+      enqueueToast('success', 'Usuario deletado com sucesso!', 'success');
+      console.log(response);
+    } catch (error) {
+      console.log(error.message);
+      enqueueToast('error', 'Erro ao tentar excluir usuário', 'erro');
+    }
+  };
+
   return (
     <TableContainer>
       <Table>
@@ -52,7 +67,7 @@ export default function UsersTable({ users }) {
                 data-testid={ `admin_manage__element-user-table-remove-${index}` }
                 align="center"
               >
-                <Button>Excluir</Button>
+                <Button onClick={ () => removeUser(user.id) }>Excluir</Button>
               </TableCell>
             </TableRow>
           ))}
