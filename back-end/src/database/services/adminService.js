@@ -13,7 +13,13 @@ const createUser = async (name, email, password, role) => {
   return newUser;
 };
 
+const removeUser = async (id) => {
+  const deletedUser = await User.destroy({ where: { id } });
+  return deletedUser;
+}
+
 module.exports = {
   getAdminManager,
   createUser,
+  removeUser
 };

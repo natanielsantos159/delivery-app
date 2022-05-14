@@ -16,8 +16,19 @@ const createUser = async (req, res) => {
   }
 };
 
+const removeUser = async (req, res) => {
+  const { id } = req.params;
+  const user = req.user;
+
+  if (user.role === 'administrator') {
+    await adminService.removeUser(id);
+    return res.status(204).json({ message: 'User deleted' });
+  }
+}
+
 
 module.exports = {
   getAdminManager,
   createUser,
+  removeUser
 };

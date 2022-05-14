@@ -7,5 +7,6 @@ const admin = Router();
 
 admin.get('/manage', JWTauth, adminController.getAdminManager);
 admin.post('/create', JWTauth, userValidation.register, adminController.createUser);
+admin.delete('/remove/:id', JWTauth, adminController.removeUser);
 
 module.exports = admin;
