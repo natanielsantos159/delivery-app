@@ -2,8 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { Card, Stack, Typography } from '@mui/material';
 import UsersTable from './UsersTable';
 import { USERS } from '../../services/admin.service';
+import useAdmin from '../../hooks/useAdmin';
 
 export default function UsersList() {
+  const { reloadUsers, setReloadUsers } = useAdmin();
+
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
@@ -11,12 +14,13 @@ export default function UsersList() {
       try {
         const response = await USERS();
         setUsers(response.data);
+        setReloadUsers(false);
       } catch (error) {
         console.log(error.message);
       }
     };
     getUsers();
-  }, []);
+  }, [reloadUsers]);
 
   return (
     <Card sx={ { p: 5, boxShadow: 5 } }>

@@ -4,9 +4,12 @@ import { LoadingButton } from '@mui/lab';
 import useToastManager from '../../hooks/useToast';
 import { validateName, validateEmail, validatePassword } from '../../helpers/validate';
 import { USERS, CREATE_USER } from '../../services/admin.service';
+import useAdmin from '../../hooks/useAdmin';
 
 export default function RegisterForm() {
   const { enqueueToast } = useToastManager();
+  const { reloadUserList } = useAdmin();
+
   const [form, setForm] = useState({
     name: '',
     email: '',
@@ -19,6 +22,7 @@ export default function RegisterForm() {
     try {
       await CREATE_USER(form);
       setForm({ name: '', email: '', password: '', role: '' });
+      reloadUserList();
     } catch (error) {
       console.log(error.message);
       enqueueToast('error',

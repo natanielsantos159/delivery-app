@@ -5,15 +5,17 @@ import { Button, Table,
 import React from 'react';
 import { REMOVE_USER } from '../../services/admin.service';
 import useToastManager from '../../hooks/useToast';
+import useAdmin from '../../hooks/useAdmin';
 
 export default function UsersTable({ users }) {
   const { enqueueToast } = useToastManager();
+  const { reloadUserList } = useAdmin();
 
   const removeUser = async (id) => {
     try {
-      const response = await REMOVE_USER(id);
+      await REMOVE_USER(id);
+      reloadUserList();
       enqueueToast('success', 'Usuario deletado com sucesso!', 'success');
-      console.log(response);
     } catch (error) {
       console.log(error.message);
       enqueueToast('error', 'Erro ao tentar excluir usuário', 'erro');
@@ -64,10 +66,17 @@ export default function UsersTable({ users }) {
 
               </TableCell>
               <TableCell
-                data-testid={ `admin_manage__element-user-table-remove-${index}` }
                 align="center"
+                data-testid={ `admin_manage__element-user-table-remove-${index}` }
               >
-                <Button onClick={ () => removeUser(user.id) }>Excluir</Button>
+                <Button
+                  variant="contained"
+                  color="error"
+                  onClick={ () => removeUser(user.id) }
+                >
+                  Excluir
+
+                </Button>
               </TableCell>
             </TableRow>
           ))}
