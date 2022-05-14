@@ -9,6 +9,7 @@ import Register from '../pages/Register';
 import SellerOrdersPage from '../pages/SellerOrdersPage';
 import CustomerOrderDetails from '../pages/CustomerOrderDetails';
 import CustomerCheckout from '../pages/CustomerCheckout';
+import AdminManage from '../pages/AdminManage';
 import SellerOrderDetails from '../pages/SellerOrderDetails';
 import SellerPage from '../pages/SellerPage';
 
@@ -50,6 +51,9 @@ export default function Router() {
         { path: '/seller/orders', element: <SellerOrdersPage /> },
         { path: '/seller/orders/:id', element: <SellerOrderDetails /> },
       ],
+    },
+    {
+      path: '/admin/manage', element: <AdminManage />,
     },
   ]);
 }
