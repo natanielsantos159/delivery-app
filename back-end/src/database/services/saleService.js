@@ -31,7 +31,7 @@ const getOrderDetails = async (id) => {
     where: { id },
     include: [
       { model: User, as: 'seller', attributes: ['name'] },
-      { model: Product, as: 'products', attributes: ['name', 'price']}
+      { model: Product, as: 'products', attributes: ['name', 'price', 'urlImage']}
     ]
   });
 
@@ -61,10 +61,26 @@ const setAsDelivered = async (orderId) => {
   );
 }
 
+const setAsPreparing = async (orderId) => {
+  await Sale.update(
+    { status: 'Preparando' },
+    { where: { id: orderId }},
+  );
+}
+
+const setAsInTransit = async (orderId) => {
+  await Sale.update(
+    { status: 'Em Trânsito' },
+    { where: { id: orderId }},
+  );
+}
+
 module.exports = {
   createOrder,
   getOrderDetails,
   listSellerOrders,
   listCustomerOrders,
   setAsDelivered,
+  setAsPreparing,
+  setAsInTransit,
 };

@@ -25,7 +25,7 @@ export default function ProductCard({ item }) {
   };
 
   useEffect(() => {
-    const cartItem = { id, name, price, quantity };
+    const cartItem = { id, name, price, quantity, urlImage };
 
     setClicked(true);
 

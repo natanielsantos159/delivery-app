@@ -9,3 +9,7 @@ export const GET_USER_ORDERS = () => api.get('/customer/orders');
 export const GET_SELLER_ORDERS = () => api.get('/seller/orders');
 
 export const SET_AS_DELIVERED = (id) => api.put(`/customer/orders/delivered/${id}`);
+
+export const SET_AS_PREPARING = (id) => api.put(`/seller/orders/preparing/${id}`);
+
+export const SET_AS_IN_TRANSIT = (id) => api.put(`/seller/orders/intransit/${id}`);

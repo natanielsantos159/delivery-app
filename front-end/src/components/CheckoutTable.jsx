@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Button,
+  IconButton,
   Table,
   Card,
   TableBody,
-  TableCell,
   TableContainer,
   TableHead,
   TableRow,
@@ -14,6 +13,9 @@ import {
   Stack,
   useTheme,
 } from '@mui/material';
+import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+import { styled } from '@mui/material/styles';
+import DeleteIcon from '@mui/icons-material/Delete';
 import useCart from '../hooks/useCart';
 
 export default function CheckoutTable({ columns, data }) {
@@ -21,20 +23,45 @@ export default function CheckoutTable({ columns, data }) {
 
   const { palette } = useTheme();
 
+  const formatter = new Intl.NumberFormat('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
+  });
+
+  const StyledTableCell = styled(TableCell)(() => ({
+    [`&.${tableCellClasses.head}`]: {
+      backgroundColor: '#519d73',
+      color: 'white',
+      fontWeight: 700,
+    },
+    [`&.${tableCellClasses.body}`]: {
+      fontSize: 14,
+    },
+  }));
+
+  const StyledTableRow = styled(TableRow)(() => ({
+    '&:nth-of-type(even)': {
+      backgroundColor: '#bababa3d',
+    },
+    '&': {
+      borderBottom: '1px solid rgb(215 215 215)',
+    },
+  }));
+
   return (
     <TableContainer component={ Card } sx={ { boxShadow: 5 } }>
       <Table>
         <TableHead sx={ { background: 'grey' } }>
-          <TableRow>
+          <StyledTableRow>
             {columns.map((column) => (
-              <TableCell align="center" key={ column }>{ column }</TableCell>
+              <StyledTableCell align="center" key={ column }>{ column }</StyledTableCell>
             ))}
-          </TableRow>
+          </StyledTableRow>
         </TableHead>
         <TableBody>
           {data.map((row, index) => (
-            <TableRow key={ row.id }>
-              <TableCell
+            <StyledTableRow key={ row.id }>
+              <StyledTableCell
                 data-testid={
                   `customer_checkout__element-order-table-item-number-${index}`
                 }
@@ -42,56 +69,54 @@ export default function CheckoutTable({ columns, data }) {
                 align="center"
               >
                 {index + 1}
-
-              </TableCell>
-              <TableCell
+              </StyledTableCell>
+              <StyledTableCell>
+                <img src={ row.urlImage } alt={ `${row.name} imagem` } height="50px" />
+              </StyledTableCell>
+              <StyledTableCell
                 data-testid={ `customer_checkout__element-order-table-name-${index}` }
                 sx={ { fontWeight: 'bold' } }
                 align="center"
               >
                 {row.name}
-
-              </TableCell>
-              <TableCell
+              </StyledTableCell>
+              <StyledTableCell
                 data-testid={ `customer_checkout__element-order-table-quantity-${index}` }
                 sx={ { fontWeight: 'bold' } }
                 align="center"
               >
                 {row.quantity}
-
-              </TableCell>
-              <TableCell
+              </StyledTableCell>
+              <StyledTableCell
                 data-testid={
                   `customer_checkout__element-order-table-unit-price-${index}`
                 }
                 sx={ { fontWeight: 'bold' } }
                 align="center"
               >
-                {String(row.price).replace('.', ',')}
-
-              </TableCell>
-              <TableCell
+                {formatter.format(row.price)}
+              </StyledTableCell>
+              <StyledTableCell
                 data-testid={
                   `customer_checkout__element-order-table-sub-total-${index}`
                 }
                 sx={ { fontWeight: 'bold' } }
                 align="center"
               >
-                {String((row.price * row.quantity).toFixed(2)).replace('.', ',')}
-              </TableCell>
-              <TableCell
+                {formatter.format((row.price * row.quantity))}
+              </StyledTableCell>
+              <StyledTableCell
                 data-testid={ `customer_checkout__element-order-table-remove-${index}` }
                 align="center"
               >
-                <Button
-                  variant="contained"
+                <IconButton
                   color="error"
                   onClick={ () => removeItem(row.id) }
                 >
-                  Remover
-                </Button>
-              </TableCell>
-            </TableRow>
+                  <DeleteIcon />
+                </IconButton>
+              </StyledTableCell>
+            </StyledTableRow>
           ))}
         </TableBody>
       </Table>
@@ -108,7 +133,7 @@ export default function CheckoutTable({ columns, data }) {
             color: '#fff',
           } }
         >
-          {`TOTAL ${String(totalPrice).replace('.', ',')}`}
+          {`TOTAL ${formatter.format(totalPrice)}`}
         </Typography>
       </Stack>
     </TableContainer>

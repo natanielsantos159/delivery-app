@@ -8,7 +8,8 @@ export default function CustomerCheckout() {
   const { cartItems } = useCart();
 
   const COLUMNS = [
-    'item',
+    'Item',
+    'Imagem',
     'Descrição',
     'Quantidade',
     'Preço Unitário',

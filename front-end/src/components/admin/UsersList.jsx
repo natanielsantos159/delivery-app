@@ -5,11 +5,11 @@ import UsersTable from './UsersTable';
 export default function UsersList() {
   return (
     <Card sx={ { p: 5, boxShadow: 5 } }>
-      <Stack>
+      <Stack spacing={ 3 }>
         <Typography textAlign="center" variant="h4">
           Lista de usuários
-          <UsersTable />
         </Typography>
+        <UsersTable />
       </Stack>
     </Card>
   );
