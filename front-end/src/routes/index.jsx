@@ -38,7 +38,10 @@ export default function Router() {
     },
     {
       path: '/customer',
-      element: <CustomerPage />,
+      element: (
+        <AuthGuard>
+          <CustomerPage />
+        </AuthGuard>),
       children: [
         { path: 'products', element: <CustomerProducts /> },
         { path: 'checkout', element: <CustomerCheckout /> },
@@ -48,7 +51,11 @@ export default function Router() {
     },
     {
       path: '/seller',
-      element: <SellerPage />,
+      element: (
+        <AuthGuard>
+          <SellerPage />
+        </AuthGuard>
+      ),
       children: [
         { path: 'orders', element: <SellerOrdersPage /> },
         { path: '/seller/orders/:id', element: <SellerOrderDetails /> },
