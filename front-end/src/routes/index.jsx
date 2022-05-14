@@ -1,6 +1,7 @@
 import React from 'react';
 import { useRoutes, Navigate } from 'react-router-dom';
 import GuestGuard from '../guards/GuestGuard';
+import AuthGuard from '../guards/AuthGuard';
 import CustomerProducts from '../pages/CustomerProducts';
 import Login from '../pages/Login';
 import CustomerOrders from '../pages/CustomerOrders';
@@ -55,7 +56,10 @@ export default function Router() {
     },
     {
       path: '/admin',
-      element: <AdminPage />,
+      element: (
+        <AuthGuard>
+          <AdminPage />
+        </AuthGuard>),
       children: [
         { path: 'manage', element: <AdminManagement /> },
       ],
