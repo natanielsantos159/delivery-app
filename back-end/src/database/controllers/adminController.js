@@ -7,11 +7,12 @@ const getAdminManager = async (req, res) => {
 };
 
 const createUser = async (req, res) => {
-  const userData = req.body;
+  const { name, email, password, role } = req.body;
+  const user = req.user;
 
-  const response = await adminService.createUser(userData);
-  console.log(response);
-  return res.status(201).json({ message: 'User created'});
+  await adminService.createUser(name, email, password, role);
+
+  return res.status(201).json({ message: 'User created' });
 };
 
 

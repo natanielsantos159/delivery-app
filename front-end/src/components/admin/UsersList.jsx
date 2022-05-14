@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Card, Stack, Typography } from '@mui/material';
 import UsersTable from './UsersTable';
-import USERS from '../../services/admin.service';
+import { USERS } from '../../services/admin.service';
 
 export default function UsersList() {
   const [users, setUsers] = useState([]);

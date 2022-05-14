@@ -1,5 +1,5 @@
 import api from './api';
 
-const USERS = () => api.get('/admin/manage');
+export const USERS = () => api.get('/admin/manage');
 
-export default USERS;
+export const CREATE_USER = (body) => api.post('/admin/create', body);

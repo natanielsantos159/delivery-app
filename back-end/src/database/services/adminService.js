@@ -7,9 +7,7 @@ const getAdminManager = async () => {
   return users;
 };
 
-const createUser = async (userData) => {
-  const { name, email, password, role } = userData;
-
+const createUser = async (name, email, password, role) => {
   const newUser = await User.create({ name, email, password: md5(password), role });
 
   return newUser;

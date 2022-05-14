@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Card, Stack, TextField, Typography } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import { validateName, validateEmail, validatePassword } from '../../helpers/validate';
-import USERS from '../../services/admin.service';
+import { USERS, CREATE_USER } from '../../services/admin.service';
 
 export default function RegisterForm() {
   const [form, setForm] = useState({
@@ -12,6 +12,15 @@ export default function RegisterForm() {
     role: '',
   });
   const [roles, setRoles] = useState([]);
+
+  const createUser = async () => {
+    try {
+      const response = await CREATE_USER(form);
+      console.log(response);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
   useEffect(() => {
     const getUsers = async () => {
@@ -73,6 +82,7 @@ export default function RegisterForm() {
           ))}
         </TextField>
         <LoadingButton
+          onClick={ () => createUser() }
           data-testid="admin_manage__button-register"
           disabled={ validateName(form.name).error
             || validateEmail(form.email).error
