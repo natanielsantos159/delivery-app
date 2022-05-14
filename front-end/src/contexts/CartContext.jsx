@@ -1,11 +1,13 @@
 import PropTypes from 'prop-types';
 import React, { createContext, useEffect, useState } from 'react';
+import useAuth from '../hooks/useAuth';
 
 export const CartContext = createContext({});
 
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
+  const { isAuthenticated } = useAuth();
 
   const getStoredCart = () => {
     const cart = localStorage.getItem('cart');
@@ -25,10 +27,13 @@ export const CartProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    const cart = getStoredCart();
+    if (isAuthenticated) {
+      const cart = getStoredCart();
 
-    setCartItems(cart);
-  }, []);
+      setCartItems(cart);
+    }
+    setCartItems([]);
+  }, [isAuthenticated]);
 
   useEffect(() => {
     const getTotalValue = () => {

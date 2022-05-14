@@ -3,12 +3,11 @@ import { Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
 import CustomerCart from '../components/customer/CustomerCartFloatingBtn';
-import NavBar from '../components/customer/CustomerNavBar';
 import ProductCard from '../components/products/ProductsCard';
 import PRODUCTS from '../services/products.service';
 import useToastManager from '../hooks/useToast';
 
-export default function CostumerProducts() {
+export default function CustomerProducts() {
   const [products, setProducts] = useState([]);
   const { enqueueToast } = useToastManager();
   const navigate = useNavigate();
@@ -37,8 +36,7 @@ export default function CostumerProducts() {
   }, [isAuthenticated]);
 
   return (
-    <Box>
-      <NavBar />
+    <>
       <Box
         sx={ {
           backgroundColor: 'white',
@@ -54,6 +52,6 @@ export default function CostumerProducts() {
           />)) }
       </Box>
       <CustomerCart />
-    </Box>
+    </>
   );
 }
