@@ -1,24 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import { Card, Stack, TextField, Typography } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
+import useToastManager from '../../hooks/useToast';
 import { validateName, validateEmail, validatePassword } from '../../helpers/validate';
 import { USERS, CREATE_USER } from '../../services/admin.service';
 
 export default function RegisterForm() {
+  const { enqueueToast } = useToastManager();
   const [form, setForm] = useState({
     name: '',
     email: '',
     password: '',
-    role: '',
+    role: 'seller',
   });
   const [roles, setRoles] = useState([]);
 
   const createUser = async () => {
     try {
-      const response = await CREATE_USER(form);
-      console.log(response);
+      await CREATE_USER(form);
+      setForm({ name: '', email: '', password: '', role: '' });
     } catch (error) {
       console.log(error.message);
+      enqueueToast('error',
+        'Erro ao cadastrar usuário', 'admin_manage__element-invalid-register');
     }
   };
 
@@ -28,9 +32,11 @@ export default function RegisterForm() {
         const arrRoles = [];
         const response = await USERS();
         response.data.forEach((user) => {
-          arrRoles.push(user.role);
+          if (user.role !== 'administrator') {
+            arrRoles.push(user.role);
+          }
         });
-        setRoles(arrRoles);
+        setRoles([...new Set(arrRoles)]);
       } catch (error) {
         console.log(error.message);
       }
@@ -73,9 +79,9 @@ export default function RegisterForm() {
         <TextField
           SelectProps={ { native: true } }
           inputProps={ { 'data-testid': 'admin_manage__select-role' } }
+          value={ form.role }
           onChange={ ({ target }) => setForm({ ...form, role: target.value }) }
           select
-          label="Tipo"
         >
           {roles.map((role) => (
             <option value={ role } key={ role }>{role}</option>

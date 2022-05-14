@@ -10,7 +10,6 @@ export default function UsersList() {
     const getUsers = async () => {
       try {
         const response = await USERS();
-        console.log(response);
         setUsers(response.data);
       } catch (error) {
         console.log(error.message);
