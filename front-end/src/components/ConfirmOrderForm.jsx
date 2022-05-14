@@ -21,6 +21,7 @@ export default function ConfirmOrderForm() {
   const createNewOrder = async () => {
     setLoading(true);
     try {
+      cartItems.forEach((prodObj) => delete prodObj.urlImage);
       const body = {
         sellerId: selectedSeller,
         totalPrice,

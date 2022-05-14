@@ -16,6 +16,8 @@ import { AuthContext } from '../../contexts/AuthContext';
 export default function CustomerOrderTable({ orderInfo }) {
   const { userInfo: { role } } = useContext(AuthContext);
 
+  const { products } = orderInfo;
+
   const formatter = new Intl.NumberFormat('pt-BR', {
     style: 'currency',
     currency: 'BRL',
@@ -41,8 +43,8 @@ export default function CustomerOrderTable({ orderInfo }) {
     },
   }));
 
-  const getTotalPrice = (products) => {
-    const totalPrice = products.reduce((
+  const getTotalPrice = (prods) => {
+    const totalPrice = prods.reduce((
       sum,
       { price, SaleProduct: { quantity } },
     ) => sum + (+quantity * +price), 0);
@@ -54,6 +56,7 @@ export default function CustomerOrderTable({ orderInfo }) {
       <TableHead>
         <StyledTableRow>
           <StyledTableCell>Item</StyledTableCell>
+          <StyledTableCell>Imagem</StyledTableCell>
           <StyledTableCell>Descrição</StyledTableCell>
           <StyledTableCell>Quantidade</StyledTableCell>
           <StyledTableCell>Valor Unitário</StyledTableCell>
@@ -61,7 +64,7 @@ export default function CustomerOrderTable({ orderInfo }) {
         </StyledTableRow>
       </TableHead>
       <TableBody>
-        { orderInfo.products.map(({ name, price, SaleProduct: { quantity } }, i) => (
+        { products.map(({ name, price, urlImage, SaleProduct: { quantity } }, i) => (
           <StyledTableRow key={ i }>
             <StyledTableCell
               data-testid={
@@ -69,6 +72,9 @@ export default function CustomerOrderTable({ orderInfo }) {
               }
             >
               { i + 1 }
+            </StyledTableCell>
+            <StyledTableCell>
+              <img src={ urlImage } alt={ `${name}` } height="50px" />
             </StyledTableCell>
             <StyledTableCell
               data-testid={
@@ -109,7 +115,7 @@ export default function CustomerOrderTable({ orderInfo }) {
               <span
                 data-testid={ `${role}_order_details__element-order-total-price` }
               >
-                { formatter.format(getTotalPrice(orderInfo.products)) }
+                { formatter.format(getTotalPrice(products)) }
               </span>
             </span>
           }
