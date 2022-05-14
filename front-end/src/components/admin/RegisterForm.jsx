@@ -21,7 +21,9 @@ export default function RegisterForm() {
   const createUser = async () => {
     try {
       await CREATE_USER(form);
-      setForm({ name: '', email: '', password: '', role: '' });
+      setForm({ name: '', email: '', password: '', role: 'seller' });
+      enqueueToast('success',
+        'Usuário cadastrado com sucesso!', 'success');
       reloadUserList();
     } catch (error) {
       console.log(error.message);
