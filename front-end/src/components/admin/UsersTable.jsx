@@ -1,9 +1,10 @@
+import PropTypes from 'prop-types';
 import { Button, Table,
   TableBody,
   TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import React from 'react';
 
-export default function UsersTable() {
+export default function UsersTable({ users }) {
   return (
     <TableContainer>
       <Table>
@@ -17,13 +18,15 @@ export default function UsersTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {Array.from({ length: 4 }).map((_item, index) => (
+          {users.map((user, index) => (
             <TableRow key={ index }>
-              <TableCell align="center">1</TableCell>
-              <TableCell align="center">Gustavo Inácio</TableCell>
-              <TableCell align="center">gus@hotmail.com</TableCell>
-              <TableCell align="center">Vendedor</TableCell>
-              <TableCell align="center"><Button>Excluir</Button></TableCell>
+              <TableCell align="center">{index}</TableCell>
+              <TableCell align="center">{user.name}</TableCell>
+              <TableCell align="center">{user.email}</TableCell>
+              <TableCell align="center">{ user.role }</TableCell>
+              <TableCell align="center">
+                <Button>Excluir</Button>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
@@ -31,3 +34,12 @@ export default function UsersTable() {
     </TableContainer>
   );
 }
+
+UsersTable.propTypes = {
+  users: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+    email: PropTypes.string,
+    role: PropTypes.string,
+  })).isRequired,
+};

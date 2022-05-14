@@ -7,10 +7,10 @@ export default function AdminManagement() {
   return (
     <Container>
       <Grid container spacing={ 5 }>
-        <Grid item xs={ 4 }>
+        <Grid item md={ 4 } xs={ 12 }>
           <RegisterForm />
         </Grid>
-        <Grid item xs={ 8 }>
+        <Grid item md={ 8 } xs={ 12 }>
           <UsersList />
         </Grid>
       </Grid>
