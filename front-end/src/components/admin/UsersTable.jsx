@@ -20,11 +20,38 @@ export default function UsersTable({ users }) {
         <TableBody>
           {users.map((user, index) => (
             <TableRow key={ index }>
-              <TableCell align="center">{index}</TableCell>
-              <TableCell align="center">{user.name}</TableCell>
-              <TableCell align="center">{user.email}</TableCell>
-              <TableCell align="center">{ user.role }</TableCell>
-              <TableCell align="center">
+              <TableCell
+                data-testid={ `admin_manage__element-user-table-item-number-${index}` }
+                align="center"
+              >
+                {index}
+
+              </TableCell>
+              <TableCell
+                data-testid={ `admin_manage__element-user-table-name-${index}` }
+                align="center"
+              >
+                {user.name}
+
+              </TableCell>
+              <TableCell
+                data-testid={ `admin_manage__element-user-table-email-${index}` }
+                align="center"
+              >
+                {user.email}
+
+              </TableCell>
+              <TableCell
+                data-testid={ `admin_manage__element-user-table-role-${index}` }
+                align="center"
+              >
+                { user.role }
+
+              </TableCell>
+              <TableCell
+                data-testid={ `admin_manage__element-user-table-remove-${index}` }
+                align="center"
+              >
                 <Button>Excluir</Button>
               </TableCell>
             </TableRow>

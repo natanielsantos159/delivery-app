@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Card, MenuItem, Stack, TextField, Typography } from '@mui/material';
+import { Card, Stack, TextField, Typography } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import { validateName, validateEmail, validatePassword } from '../../helpers/validate';
 import USERS from '../../services/admin.service';
@@ -33,6 +33,7 @@ export default function RegisterForm() {
       <Stack spacing={ 2 }>
         <Typography textAlign="center" variant="h4">Cadastrar novo usuário</Typography>
         <TextField
+          inputProps={ { 'data-testid': 'admin_manage__input-name' } }
           error={ form.name.length > 0 && validateName(form.name).error }
           helperText={ form.name.length > 0
             && validateName(form.name).error && validateName(form.name).message }
@@ -41,6 +42,7 @@ export default function RegisterForm() {
           label="Nome"
         />
         <TextField
+          inputProps={ { 'data-testid': 'admin_manage__input-email' } }
           error={ form.email.length > 0 && validateEmail(form.email).error }
           helperText={ form.email.length > 0
             && validateEmail(form.email).error && validateEmail(form.email).message }
@@ -49,6 +51,7 @@ export default function RegisterForm() {
           label="Email"
         />
         <TextField
+          inputProps={ { 'data-testid': 'admin_manage__input-password' } }
           type="password"
           value={ form.password }
           error={ form.password.length > 0 && validatePassword(form.password).error }
@@ -59,15 +62,18 @@ export default function RegisterForm() {
           label="Senha"
         />
         <TextField
+          SelectProps={ { native: true } }
+          inputProps={ { 'data-testid': 'admin_manage__select-role' } }
           onChange={ ({ target }) => setForm({ ...form, role: target.value }) }
           select
           label="Tipo"
         >
           {roles.map((role) => (
-            <MenuItem value={ role } key={ role }>{role}</MenuItem>
+            <option value={ role } key={ role }>{role}</option>
           ))}
         </TextField>
         <LoadingButton
+          data-testid="admin_manage__button-register"
           disabled={ validateName(form.name).error
             || validateEmail(form.email).error
             || validatePassword(form.password).error
@@ -75,7 +81,6 @@ export default function RegisterForm() {
           variant="contained"
         >
           Cadastrar
-
         </LoadingButton>
       </Stack>
     </Card>
