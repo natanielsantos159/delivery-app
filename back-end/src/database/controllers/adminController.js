@@ -7,15 +7,28 @@ const getAdminManager = async (req, res) => {
 };
 
 const createUser = async (req, res) => {
-  const userData = req.body;
+  const { name, email, password, role } = req.body;
+  const user = req.user;
 
-  const response = await adminService.createUser(userData);
-  console.log(response);
-  return res.status(201).json({ message: 'User created'});
+  if (user.role === 'administrator') {
+    await adminService.createUser(name, email, password, role);
+    return res.status(201).json({ message: 'User created' });
+  }
 };
+
+const removeUser = async (req, res) => {
+  const { id } = req.params;
+  const user = req.user;
+
+  if (user.role === 'administrator') {
+    await adminService.removeUser(id);
+    return res.status(204).json({ message: 'User deleted' });
+  }
+}
 
 
 module.exports = {
   getAdminManager,
   createUser,
+  removeUser
 };

@@ -11,6 +11,10 @@ export default function GuestGuard({ children }) {
     if (userInfo?.role === 'seller') {
       return <Navigate to="/seller/orders" />;
     }
+
+    if (userInfo?.role === 'administrator') {
+      return <Navigate to="/admin/manage" />;
+    }
     return <Navigate to="/customer/products" />;
   }
 

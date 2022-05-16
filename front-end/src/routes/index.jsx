@@ -1,6 +1,7 @@
 import React from 'react';
 import { useRoutes, Navigate } from 'react-router-dom';
 import GuestGuard from '../guards/GuestGuard';
+import AuthGuard from '../guards/AuthGuard';
 import CustomerProducts from '../pages/CustomerProducts';
 import Login from '../pages/Login';
 import CustomerOrders from '../pages/CustomerOrders';
@@ -9,9 +10,10 @@ import Register from '../pages/Register';
 import SellerOrdersPage from '../pages/SellerOrdersPage';
 import CustomerOrderDetails from '../pages/CustomerOrderDetails';
 import CustomerCheckout from '../pages/CustomerCheckout';
-import AdminManage from '../pages/AdminManage';
 import SellerOrderDetails from '../pages/SellerOrderDetails';
 import SellerPage from '../pages/SellerPage';
+import AdminPage from '../pages/AdminPage';
+import AdminManagement from '../pages/AdminManagement';
 
 export default function Router() {
   return useRoutes([
@@ -35,25 +37,39 @@ export default function Router() {
       ),
     },
     {
-      path: '/customer/',
-      element: <CustomerPage />,
+      path: '/customer',
+      element: (
+        <AuthGuard>
+          <CustomerPage />
+        </AuthGuard>),
       children: [
-        { path: '/customer/orders/', element: <CustomerOrders /> },
+        { path: 'products', element: <CustomerProducts /> },
+        { path: 'checkout', element: <CustomerCheckout /> },
+        { path: 'orders', element: <CustomerOrders /> },
         { path: '/customer/orders/:id', element: <CustomerOrderDetails /> },
-        { path: '/customer/products/', element: <CustomerProducts /> },
-        { path: '/customer/checkout', element: <CustomerCheckout /> },
       ],
     },
     {
-      path: '/seller/',
-      element: <SellerPage />,
+      path: '/seller',
+      element: (
+        <AuthGuard>
+          <SellerPage />
+        </AuthGuard>
+      ),
       children: [
-        { path: '/seller/orders', element: <SellerOrdersPage /> },
+        { path: 'orders', element: <SellerOrdersPage /> },
         { path: '/seller/orders/:id', element: <SellerOrderDetails /> },
       ],
     },
     {
-      path: '/admin/manage', element: <AdminManage />,
+      path: '/admin',
+      element: (
+        <AuthGuard>
+          <AdminPage />
+        </AuthGuard>),
+      children: [
+        { path: 'manage', element: <AdminManagement /> },
+      ],
     },
   ]);
 }

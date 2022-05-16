@@ -10,6 +10,7 @@ import {
 import { styled } from '@mui/material/styles';
 import deliveryImage2 from '../assets/delivery-image2.jpg';
 import deliveryMan from '../assets/delivery-man.png';
+import givingBox from '../assets/givinBox.webp';
 import { validateEmail, validatePassword } from '../helpers/validate';
 import useToastManager from '../hooks/useToast';
 import useAuth from '../hooks/useAuth';
@@ -46,10 +47,22 @@ export default function Login() {
 
   return (
     <RootStyle>
-      <Box component="img" src={ deliveryImage2 } width="60%" height="100%" />
+      <Box
+        display={
+          { xs: 'none', md: 'inherit' }
+        }
+        component="img"
+        src={ deliveryImage2 }
+        width="60%"
+        height="100%"
+      />
       <Card
         sx={ {
           display: 'flex',
+          backgroundImage: { xs: `url(${givingBox})`, md: 'inherit' },
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
           flex: 1,
           boxShadow: 4,
           alignItems: 'center',

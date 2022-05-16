@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Box } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
 import { GET_SELLER_ORDERS } from '../services/sale.service';
 import useToastManager from '../hooks/useToast';
@@ -12,8 +11,6 @@ export default function SellerOrdersPage() {
   const { enqueueToast } = useToastManager();
 
   const { isAuthenticated } = useAuth();
-
-  const navigate = useNavigate();
 
   useEffect(() => {
     const getOrders = async () => {
@@ -30,12 +27,6 @@ export default function SellerOrdersPage() {
     };
     getOrders();
   }, []);
-
-  useEffect(() => {
-    if (!isAuthenticated) {
-      navigate('/login');
-    }
-  }, [isAuthenticated]);
 
   return (
     <Box
